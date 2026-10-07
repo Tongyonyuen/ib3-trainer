@@ -1,0 +1,66 @@
+gems: 164
+Åä·½×åÊý: 13
+
+=== RecipeMatch = AttackGem ===
+  AttackGem [Restrict=-] MP=UberAttackGem Boost=- Dmg=1 Cost=250
+  AttackGemIn [Restrict=1] MP=UberAttackGem Boost=- Dmg=150 Cost=275000
+  AttackGemOut [Restrict=2] MP=UberAttackGem Boost=- Dmg=150 Cost=230000
+
+=== RecipeMatch = DarkGem ===
+  DarkGem [Restrict=-] MP=UberDarkGem Boost=- Dmg= Cost=300
+  DarkGemIn [Restrict=1] MP=UberDarkGem Boost=- Dmg= Cost=350000
+  DarkGemOut [Restrict=2] MP=UberDarkGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = ElecGem ===
+  ElecGem [Restrict=-] MP=UberElecGem Boost=- Dmg= Cost=300
+  ElecGemIn [Restrict=1] MP=UberElecGem Boost=- Dmg= Cost=350000
+  ElecGemOut [Restrict=2] MP=UberElecGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = FireGem ===
+  FireGem [Restrict=-] MP=UberFireGem Boost=- Dmg= Cost=300
+  FireGemIn [Restrict=1] MP=UberFireGem Boost=- Dmg= Cost=350000
+  FireGemOut [Restrict=2] MP=UberFireGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = HealthGem ===
+  HealthGem [Restrict=-] MP=UberHealthGem Boost=- Dmg= Cost=225
+  HealthGemIn [Restrict=1] MP=UberHealthGem Boost=- Dmg= Cost=295000
+  HealthGemOut [Restrict=2] MP=UberHealthGem Boost=- Dmg= Cost=215000
+
+=== RecipeMatch = IceGem ===
+  IceGem [Restrict=-] MP=UberIceGem Boost=- Dmg= Cost=300
+  IceGemIn [Restrict=1] MP=UberIceGem Boost=- Dmg= Cost=350000
+  IceGemOut [Restrict=2] MP=UberIceGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = LightGem ===
+  LightGem [Restrict=-] MP=UberLightGem Boost=- Dmg= Cost=300
+  LightGemIn [Restrict=1] MP=UberLightGem Boost=- Dmg= Cost=350000
+  LightGemOut [Restrict=2] MP=UberLightGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = MagicGem ===
+  MagicGem [Restrict=-] MP=UberMagicGem Boost=- Dmg= Cost=180
+  MagicGemIn [Restrict=1] MP=UberMagicGem Boost=- Dmg= Cost=240000
+  MagicGemOut [Restrict=2] MP=UberMagicGem Boost=- Dmg= Cost=140000
+
+=== RecipeMatch = PerfectParryGem_1 ===
+  PerfectParryGem_1 [Restrict=-] MP=GreatParryAllGem Boost=- Dmg= Cost=3000
+  PerfectParryGem_2 [Restrict=-] MP=GreatParryAllGem Boost=- Dmg= Cost=3000
+
+=== RecipeMatch = PoisonGem ===
+  PoisonGem [Restrict=-] MP=UberPoisonGem Boost=- Dmg= Cost=300
+  PoisonGemIn [Restrict=1] MP=UberPoisonGem Boost=- Dmg= Cost=350000
+  PoisonGemOut [Restrict=2] MP=UberPoisonGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = ShieldGem ===
+  ShieldGem [Restrict=-] MP=UberShieldGem Boost=- Dmg= Cost=200
+  ShieldGemIn [Restrict=1] MP=UberShieldGem Boost=- Dmg= Cost=280000
+  ShieldGemOut [Restrict=2] MP=UberShieldGem Boost=- Dmg= Cost=160000
+
+=== RecipeMatch = WaterGem ===
+  WaterGem [Restrict=-] MP=UberWaterGem Boost=- Dmg= Cost=300
+  WaterGemIn [Restrict=1] MP=UberWaterGem Boost=- Dmg= Cost=350000
+  WaterGemOut [Restrict=2] MP=UberWaterGem Boost=- Dmg= Cost=275000
+
+=== RecipeMatch = WindGem ===
+  WindGem [Restrict=-] MP=UberWindGem Boost=- Dmg= Cost=300
+  WindGemIn [Restrict=1] MP=UberWindGem Boost=- Dmg= Cost=350000
+  WindGemOut [Restrict=2] MP=UberWindGem Boost=- Dmg= Cost=275000

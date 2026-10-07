@@ -1,0 +1,941 @@
+﻿模板名,主分类,子分类,中文名,备注
+Armor_100,装备,盔甲,电镀盔甲,Cost=557000 稀有度=2
+Armor_102,装备,盔甲,角斗士盔甲,Cost=30000
+Armor_103,装备,盔甲,庇护盔甲,Cost=795000 稀有度=3
+Armor_105,装备,盔甲,圆盘盔甲,Cost=105000
+Armor_107,装备,盔甲,嵌鳞钢甲,Cost=70000
+Armor_108,装备,盔甲,钢板盔甲,Cost=5000
+Armor_109,装备,盔甲,男性猎人盔甲,Cost=180000 稀有度=1
+Armor_110,装备,盔甲,黑暗电镀盔甲,Cost=96000
+Armor_111,装备,盔甲,太阳电镀盔甲,Cost=700000 稀有度=200
+Armor_114,装备,盔甲,浑铁盔甲,Cost=500000 稀有度=1
+Armor_116,装备,盔甲,钢板,Cost=1000 稀有度=1
+Armor_117,装备,盔甲,铁板盔甲,Cost=1000
+Armor_118,装备,盔甲,黑钢,Cost=1000
+Armor_119,装备,盔甲,帝皇龙甲,Cost=1000 稀有度=3
+Armor_120,装备,盔甲,编织袈裟,Cost=1000 稀有度=200
+Armor_121,装备,盔甲,铁板,Cost=1000 稀有度=2
+Armor_122,装备,盔甲,伊乌钢甲,Cost=1000 稀有度=2
+Armor_123,装备,盔甲,德拉戈尔板甲,Cost=1000 稀有度=100
+Armor_124,装备,盔甲,憎恶盔甲,Cost=1000
+Armor_125,装备,盔甲,起源,Cost=1000 稀有度=100
+Armor_300,装备,盔甲,潜行盔甲,Cost=200
+Armor_302,装备,盔甲,伊莎骑士甲,Cost=200
+Armor_303,装备,盔甲,神殿盔甲,Cost=200
+Armor_304,装备,盔甲,天煞断魂盔甲,Cost=200
+Armor_305,装备,盔甲,白玉象牙盔甲,Cost=200 稀有度=2
+Armor_306,装备,盔甲,暗夜盔甲,Cost=200 稀有度=3
+Armor_307,装备,盔甲,优雅女神甲,Cost=200 稀有度=1
+Armor_308,装备,盔甲,孔雀之灵,Cost=200 稀有度=3
+Armor_309,装备,盔甲,武士盔甲,Cost=200 稀有度=2
+Armor_310,装备,盔甲,编织袈裟,Cost=200 稀有度=200
+Armor_311,装备,盔甲,白玉拂尘盔甲,Cost=200 稀有度=1
+Armor_312,装备,盔甲,幽灵钢甲,Cost=200 稀有度=1
+Armor_313,装备,盔甲,瑋白利披甲,Cost=200
+Armor_314,装备,盔甲,巴尔苏姆盔甲,Cost=200
+Armor_315,装备,盔甲,后中之盔甲,Cost=200
+Armor_316,装备,盔甲,神盾钢甲,Cost=200
+Armor_317,装备,盔甲,贾哈撒,Cost=200
+Armor_318,装备,盔甲,禄尼斯板甲,Cost=200 稀有度=100
+Armor_319,装备,盔甲,科迈科盔甲,Cost=200
+Helmet_10,装备,头盔,钢铁头套,Cost=146000
+Helmet_16,装备,头盔,军团头盔,Cost=17500
+Helmet_27,装备,头盔,征服者头盔,Cost=675000
+Helmet_29,装备,头盔,彩绘蛋,Cost=3000 稀有度=150
+Helmet_30,装备,头盔,官妖,Cost=3000 稀有度=150
+Helmet_31,装备,头盔,破皮帽,Cost=3000 稀有度=150
+Helmet_33,装备,头盔,铁头,Cost=3000 稀有度=150
+Helmet_34,装备,头盔,蝴蝶彩盔,Cost=3000 稀有度=150
+Helmet_35,装备,头盔,太阳长钉,Cost=3000 稀有度=150
+Helmet_36,装备,头盔,丘比特,Cost=3000 稀有度=150
+Helmet_37,装备,头盔,克雷兹,Cost=3000 稀有度=150
+Helmet_110,装备,头盔,钢牙头盔,Cost=20100
+Helmet_112,装备,头盔,沉默头盔,Cost=450250
+Helmet_114,装备,头盔,牛角头盔,Cost=30000 稀有度=1
+Helmet_115,装备,头盔,制裁头盔,Cost=750000 稀有度=3
+Helmet_117,装备,头盔,独眼巨人头盔,Cost=100000
+Helmet_119,装备,头盔,将军头盔,Cost=55000
+Helmet_120,装备,头盔,铁冠头盔,Cost=255000
+Helmet_123,装备,头盔,钢盔,Cost=850
+Helmet_126,装备,头盔,长角头盔,Cost=350000 稀有度=3
+Helmet_127,装备,头盔,双层遮面头盔,Cost=57000 稀有度=2
+Helmet_130,装备,头盔,折叠式头盔,Cost=550000
+Helmet_134,装备,头盔,破旧弧形头盔,Cost=31990 稀有度=100
+Helmet_137,装备,头盔,木刺头盔,Cost=750000 稀有度=2
+Helmet_138,装备,头盔,无痕头盔,Cost=170500 稀有度=2
+Helmet_141,装备,头盔,太阳皇冠头盔,Cost=600000 稀有度=200
+Helmet_142,装备,头盔,黑暗电镀头盔,Cost=80000
+Helmet_144,装备,头盔,浑铁头盔,Cost=300000
+Helmet_146,装备,头盔,乌木鹰盔,Cost=200 稀有度=2
+Helmet_147,装备,头盔,百锻锰钢盔,Cost=200
+Helmet_148,装备,头盔,圣灵剑士头盔,Cost=200 稀有度=1
+Helmet_149,装备,头盔,星十字骑士头盔,Cost=200 稀有度=3
+Helmet_150,装备,头盔,赛克头盔,Cost=200 稀有度=100
+Helmet_151,装备,头盔,黑月幽光头盔,Cost=200 稀有度=1
+Helmet_152,装备,头盔,猴面机器人头盔,Cost=200 稀有度=1
+Helmet_153,装备,头盔,野蛮角斗士,Cost=200
+Helmet_154,装备,头盔,暗黑天行头盔,Cost=200
+Helmet_155,装备,头盔,幻化超音头盔,Cost=200
+Helmet_156,装备,头盔,隐匿棉蓝头盔,Cost=200
+Helmet_157,装备,头盔,终极银盔,Cost=200 稀有度=1
+Helmet_158,装备,头盔,帝皇头盔,Cost=200 稀有度=3
+Helmet_159,装备,头盔,赛瑞斯面具,Cost=200
+Helmet_160,装备,头盔,无状态,Cost=200 稀有度=3
+Helmet_161,装备,头盔,崇聖,Cost=200 稀有度=150
+Helmet_162,装备,头盔,狼吞虎咽,Cost=200 稀有度=150
+Helmet_163,装备,头盔,伊乌头盔,Cost=200
+Helmet_164,装备,头盔,德拉戈尔的诅咒,Cost=200 稀有度=100
+Helmet_165,装备,头盔,憎恶头盔,Cost=200
+Helmet_199,装备,头盔,Helmet_199,Cost=100 稀有度=200
+Helmet_300,装备,头盔,潜行头盔,Cost=200
+Helmet_301,装备,头盔,穆瑞森头盔,Cost=20000 稀有度=100
+Helmet_302,装备,头盔,骑士头盔,Cost=200
+Helmet_303,装备,头盔,伊莎面具,Cost=200 稀有度=200
+Helmet_304,装备,头盔,伊纳里头盔,Cost=200 稀有度=1
+Helmet_305,装备,头盔,强化头盔,Cost=200 稀有度=3
+Helmet_306,装备,头盔,风暴回廊,Cost=200 稀有度=2
+Helmet_307,装备,头盔,神鹰羽翼,Cost=200
+Helmet_308,装备,头盔,静谧魔盔,Cost=200 稀有度=3
+Helmet_309,装备,头盔,神秘阿修罗,Cost=200 稀有度=1
+Helmet_310,装备,头盔,贵族头盔,Cost=200
+Helmet_311,装备,头盔,龙鳞头盔,Cost=200
+Helmet_312,装备,头盔,奇世水晶头盔,Cost=200 稀有度=2
+Helmet_313,装备,头盔,震慑头盔,Cost=200 稀有度=2
+Helmet_314,装备,头盔,迅龙头盔,Cost=200 稀有度=2
+Helmet_315,装备,头盔,钴质头盔,Cost=200
+Helmet_316,装备,头盔,蒙面蓝妖姬,Cost=200
+Helmet_317,装备,头盔,岩钙圆盔,Cost=200 稀有度=2
+Helmet_318,装备,头盔,青光龙骑士盔,Cost=200
+Helmet_319,装备,头盔,旷野外邦人,Cost=200
+Helmet_320,装备,头盔,狮面铁血头盔,Cost=200
+Helmet_321,装备,头盔,破空尼斯盔,Cost=200 稀有度=3
+Helmet_326,装备,头盔,骑士钢盔,Cost=200 稀有度=100
+Helmet_329,装备,头盔,岁月头盔,Cost=200 稀有度=3
+Helmet_333,装备,头盔,力量头盔,Cost=200
+Helmet_335,装备,头盔,布里斯托头盔,Cost=200 稀有度=3
+Helmet_336,装备,头盔,死灵骨甲头盔,Cost=200 稀有度=1
+Helmet_337,装备,头盔,白玉拂尘头盔,Cost=200 稀有度=1
+Helmet_338,装备,头盔,幽灵头盔,Cost=200 稀有度=1
+Helmet_339,装备,头盔,崇聖,Cost=200 稀有度=150
+Helmet_340,装备,头盔,狼吞虎咽,Cost=200 稀有度=150
+Helmet_341,装备,头盔,后中之冠,Cost=200
+Helmet_342,装备,头盔,瑞克,Cost=200
+Helmet_343,装备,头盔,瑋白利面具,Cost=200
+Helmet_344,装备,头盔,绍穆什,Cost=200 稀有度=3
+Helmet_345,装备,头盔,克雷兹,Cost=200 稀有度=150
+Helmet_346,装备,头盔,破皮帽,Cost=200 稀有度=150
+Helmet_347,装备,头盔,彩绘蛋,Cost=200 稀有度=150
+Helmet_348,装备,头盔,蝴蝶彩盔,Cost=200 稀有度=150
+Helmet_349,装备,头盔,官妖,Cost=200 稀有度=150
+Helmet_350,装备,头盔,太阳长钉,Cost=200 稀有度=150
+Helmet_351,装备,头盔,丘比特,Cost=200 稀有度=150
+Helmet_352,装备,头盔,铁头,Cost=200 稀有度=150
+Helmet_354,装备,头盔,贾哈撒面具,Cost=200 稀有度=2
+Helmet_355,装备,头盔,禄尼斯之盔,Cost=200 稀有度=100
+Helmet_356,装备,头盔,科迈科之盔,Cost=200
+Magic_6,装备,戒指,冰与火之戒,Cost=55300 稀有度=2
+Magic_8,装备,戒指,破碎戒指,Cost=1000 稀有度=1
+Magic_10,装备,戒指,元素戒指,Cost=72440
+Magic_11,装备,戒指,喷泉戒指,Cost=29000
+Magic_12,装备,戒指,生命指环,Cost=38800 稀有度=3
+Magic_13,装备,戒指,齿轮戒指,Cost=800000
+Magic_15,装备,戒指,科瓦德戒指,Cost=640000
+Magic_16,装备,戒指,启示录戒指,Cost=600200 稀有度=200
+Magic_17,装备,戒指,玉带戒指,Cost=189000
+Magic_19,装备,戒指,游魂指环,Cost=16500
+Magic_20,装备,戒指,德拉戈尔戒指,Cost=1200000 稀有度=1
+Magic_100,装备,戒指,三色连环戒,Cost=59000 稀有度=1
+Magic_102,装备,戒指,黑水晶戒指,Cost=51000
+Magic_103,装备,戒指,罗盘戒指,Cost=21000 稀有度=2
+Magic_105,装备,戒指,忠诚之戒,Cost=770000
+Magic_107,装备,戒指,皮革编织戒指,Cost=18000
+Magic_108,装备,戒指,环中环戒指,Cost=20700
+Magic_109,装备,戒指,嶙峋戒指,Cost=36400
+Magic_110,装备,戒指,毒蚀戒指,Cost=501000 稀有度=2
+Magic_111,装备,戒指,甜美戒指,Cost=19000 稀有度=100
+Magic_112,装备,戒指,黑玫瑰戒指,Cost=795000 稀有度=3
+Magic_113,装备,戒指,皇室嵌边戒指,Cost=32000
+Magic_115,装备,戒指,牺牲之戒,Cost=230000 稀有度=2
+Magic_116,装备,戒指,青龙火银戒,Cost=20000 稀有度=3
+Magic_117,装备,戒指,巨风暴戒指,Cost=900
+Magic_118,装备,戒指,爱恋之戒,Cost=10000
+Magic_119,装备,戒指,绿宝石戒指,Cost=11500 稀有度=1
+Magic_120,装备,戒指,蛀洞戒指,Cost=2000
+Magic_122,装备,戒指,紫宝石戒指,Cost=1000000
+Magic_124,装备,戒指,黄金牛角环,Cost=850000 稀有度=1
+Magic_126,装备,戒指,镶金戒指,Cost=29500
+Magic_130,装备,戒指,红宝石戒指,Cost=1500000 稀有度=3
+Magic_131,装备,戒指,圣光指环,Cost=1600000 稀有度=3
+Magic_132,装备,戒指,羊皮盾,Cost=4810
+Magic_133,装备,戒指,塔姆大型魔法装备,Cost=4810
+Magic_134,装备,戒指,金狮指环,Cost=4810 稀有度=2
+Magic_135,装备,戒指,酋长指环,Cost=4810 稀有度=1
+Magic_136,装备,戒指,碧玉沙皇戒,Cost=4810
+Magic_137,装备,戒指,湖蓝如意戒,Cost=4810
+Magic_138,装备,戒指,独角兽指环,Cost=4810
+Magic_139,装备,戒指,红宝石特使戒,Cost=4810
+Magic_140,装备,戒指,展翅金鹰戒,Cost=4810
+Magic_141,装备,戒指,十字碧晶,Cost=4810 稀有度=2
+Magic_142,装备,戒指,铁心戒指,Cost=4810
+Magic_143,装备,戒指,绯红皇冠戒,Cost=4810 稀有度=1
+Magic_144,装备,戒指,白莲冰心戒,Cost=4810
+Magic_145,装备,戒指,欧米茄指环,Cost=4810 稀有度=2
+Magic_146,装备,戒指,青玉方阵,Cost=4810 稀有度=3
+Magic_147,装备,戒指,黑乌鸦指环,Cost=4810 稀有度=2
+Magic_148,装备,戒指,粉紫精灵戒,Cost=4810
+Magic_149,装备,戒指,斯轨指环,Cost=4810 稀有度=100
+Magic_150,装备,戒指,映蓝祥云戒,Cost=4810 稀有度=1
+Magic_151,装备,戒指,青峰古月刀,Cost=4810 稀有度=1
+Magic_152,装备,戒指,简约节戒,Cost=4810
+Shield_3,装备,盾牌,格鲁曼盾,Cost=19600
+Shield_17,装备,盾牌,爱国者之盾,Cost=545200
+Shield_18,装备,盾牌,德拉戈尔骨盾,Cost=650000 稀有度=100
+Shield_19,装备,盾牌,海克西安盾,Cost=256400
+Shield_20,装备,盾牌,少女之盾,Cost=104300 稀有度=1
+Shield_24,装备,盾牌,伍尔坎之盾,Cost=460750 稀有度=2
+Shield_26,装备,盾牌,凤凰护盾,Cost=382000
+Shield_109,装备,盾牌,幻月青铜盾,Cost=1000
+Shield_110,装备,盾牌,希腊神盾,Cost=245000 稀有度=200
+Shield_111,装备,盾牌,旋风护盾,Cost=65200 稀有度=1
+Shield_113,装备,盾牌,海洋之盾,Cost=13200
+Shield_115,装备,盾牌,圆月铸铁盾,Cost=1500
+Shield_122,装备,盾牌,连胜护盾,Cost=72500 稀有度=2
+Shield_125,装备,盾牌,鹰翅护盾,Cost=752000 稀有度=3
+Shield_130,装备,盾牌,斯托达盾牌,Cost=125000 稀有度=100
+Shield_133,装备,盾牌,天子神龙盾,Cost=850000 稀有度=3
+Shield_134,装备,盾牌,浑铁盾牌,Cost=400000 稀有度=1
+Shield_135,装备,盾牌,龙牙红花盾,Cost=200 稀有度=2
+Shield_136,装备,盾牌,赤坝金刚盾,Cost=200
+Shield_137,装备,盾牌,爆破精钢盾,Cost=200
+Shield_138,装备,盾牌,麒麟铜盾,Cost=200
+Shield_139,装备,盾牌,锥齿圆舵轮,Cost=200
+Shield_140,装备,盾牌,铬黑日晷,Cost=200
+Shield_141,装备,盾牌,青铜壁垒,Cost=200
+Shield_142,装备,盾牌,罗马铁盾,Cost=200 稀有度=1
+Shield_143,装备,盾牌,永恒魔盾,Cost=200
+Shield_144,装备,盾牌,奈博护盾,Cost=200
+Shield_145,装备,盾牌,伊乌护盾,Cost=200 稀有度=1
+Shield_146,装备,盾牌,普罗斯之盾,Cost=200 稀有度=1
+Shield_147,装备,盾牌,憎恶盾牌,Cost=200 稀有度=1
+Shield_299,装备,盾牌,Shield_299,Cost=1 稀有度=200
+Shield_302,装备,盾牌,亚洲雄狮,Cost=200
+Shield_304,装备,盾牌,黑暗骑士铠甲,Cost=200 稀有度=3
+Shield_306,装备,盾牌,凤舞金箭,Cost=200 稀有度=2
+Shield_307,装备,盾牌,铁锥风火轮,Cost=200 稀有度=100
+Shield_308,装备,盾牌,蛮皮护臂,Cost=200
+Shield_309,装备,盾牌,科技护臂甲,Cost=200 稀有度=1
+Shield_311,装备,盾牌,皇甲特卫护臂甲,Cost=200
+Shield_312,装备,盾牌,护盾,Cost=200
+Shield_313,装备,盾牌,无情金针甲,Cost=200 稀有度=1
+Shield_317,装备,盾牌,映阳四重盾,Cost=200
+Shield_319,装备,盾牌,多恩之盾,Cost=200 稀有度=1
+Shield_322,装备,盾牌,诺克斯之盾,Cost=200
+Shield_325,装备,盾牌,红宝石之盾,Cost=200
+Shield_327,装备,盾牌,鹰头印花盾,Cost=200
+Shield_328,装备,盾牌,海象铜盾,Cost=200
+Shield_332,装备,盾牌,戒指,Cost=200
+Shield_333,装备,盾牌,武士前臂甲,Cost=200
+Shield_334,装备,盾牌,白骨阴阳护臂,Cost=200
+Shield_335,装备,盾牌,古龙铜钱臂,Cost=200 稀有度=1
+Shield_336,装备,盾牌,漩涡冲子臂,Cost=200
+Shield_337,装备,盾牌,超级闪电碗,Cost=200 稀有度=2
+Shield_338,装备,盾牌,幽灵护盾,Cost=200
+Shield_339,装备,盾牌,女皇,Cost=200 稀有度=3
+Shield_340,装备,盾牌,陈年披肩,Cost=200
+Shield_341,装备,盾牌,瑋白利护盾,Cost=200 稀有度=2
+Shield_342,装备,盾牌,迪奥腾铠甲,Cost=200
+Shield_344,装备,盾牌,贾哈撒之盾,Cost=200
+Shield_345,装备,盾牌,禄尼斯之盾,Cost=200 稀有度=2
+Shield_346,装备,盾牌,科迈科之盾,Cost=200 稀有度=100
+Sword_13,装备,武器其他,骨髓剑,Cost=10200
+Sword_18,装备,双武器,微光剑,Cost=290000
+Sword_26,装备,武器其他,无尽之剑,Cost=1250000 稀有度=200
+Sword_30,装备,武器其他,霜寒之剑,Cost=274000 稀有度=1
+Sword_32,装备,武器其他,凯西尔之剑,Cost=58000
+Sword_36,装备,武器其他,德拉戈尔之剑,Cost=1600000 稀有度=100
+Sword_46,装备,武器其他,黑曜石之剑,Cost=250000 稀有度=2
+Sword_49,装备,双武器,毒镰刀,Cost=945000 稀有度=1
+Sword_102,装备,武器其他,绕绳弯刀,Cost=10500
+Sword_103,装备,武器其他,暗影之剑,Cost=50750
+Sword_110,装备,武器其他,凝碧飞霄剑,Cost=495000 稀有度=1
+Sword_111,装备,武器其他,远古之剑,Cost=750000
+Sword_114,装备,武器其他,坟墓之剑,Cost=890
+Sword_121,装备,武器其他,罗马之剑,Cost=20000
+Sword_125,装备,武器其他,断门刀,Cost=330000
+Sword_139,装备,武器其他,青素剑,Cost=1000000
+Sword_140,装备,武器其他,太阳剑-LX,Cost=2000000
+Sword_141,装备,武器其他,母舰恒星剑,Cost=1000000
+Sword_142,装备,武器其他,饮血瑞士剑,Cost=1000000
+Sword_143,装备,武器其他,骨制锯齿刀,Cost=1000000
+Sword_144,装备,武器其他,埃及之剑,Cost=1000000
+Sword_145,装备,武器其他,符文剑,Cost=1000000
+Sword_146,装备,武器其他,万全轩辕剑,Cost=1000000 稀有度=1
+Sword_147,装备,武器其他,慑菲艾之剑,Cost=1000000 稀有度=1
+Sword_148,装备,武器其他,腐朽之剑,Cost=1000000 稀有度=2
+Sword_149,装备,武器其他,柳叶剑,Cost=200
+Sword_150,装备,武器其他,绸缎剑,Cost=200 稀有度=2
+Sword_151,装备,武器其他,无尽之剑,Cost=1250000 稀有度=100
+Sword_152,装备,武器其他,无尽之剑,Cost=1250000 稀有度=100
+Sword_153,装备,武器其他,轴,Cost=200 稀有度=1
+Sword_154,装备,武器其他,伊乌剑,Cost=200
+Sword_155,装备,武器其他,罗克拉之剑,Cost=200
+Sword_156,装备,武器其他,太阴刀,Cost=200 稀有度=100
+Sword_204,装备,重武器,千金钢锤,Cost=38500
+Sword_205,装备,重武器,格拉斯的失落战斧,Cost=751000 稀有度=100
+Sword_213,装备,重武器,半星剑,Cost=170000 稀有度=1
+Sword_215,装备,重武器,双扇铁斧,Cost=800000
+Sword_216,装备,重武器,龙头荆棘斧,Cost=5800
+Sword_217,装备,重武器,鹤嘴镰刀,Cost=980000
+Sword_218,装备,重武器,花岗岩鹰钩锤,Cost=59500 稀有度=1
+Sword_221,装备,重武器,祥龙斧,Cost=650000 稀有度=100
+Sword_222,装备,重武器,双扇披风斧,Cost=995000 稀有度=100
+Sword_226,装备,重武器,亮银弯月钩,Cost=950000 稀有度=100
+Sword_229,装备,重武器,狼牙斧,Cost=900000 稀有度=100
+Sword_232,装备,重武器,浑铁狼牙棒,Cost=1000000
+Sword_233,装备,重武器,太阳剑-JX,Cost=2000000 稀有度=100
+Sword_234,装备,重武器,驱魔棒,Cost=1400000 稀有度=100
+Sword_236,装备,重武器,断魂刀,Cost=700000
+Sword_237,装备,重武器,神谕之斧,Cost=700000 稀有度=1
+Sword_238,装备,重武器,凤头斧,Cost=700000
+Sword_239,装备,重武器,柳叶狂魔大刀,Cost=700000
+Sword_240,装备,重武器,猛禽斧,Cost=700000 稀有度=1
+Sword_241,装备,重武器,强压战斧,Cost=700000 稀有度=3
+Sword_242,装备,重武器,铁斧,Cost=700000
+Sword_243,装备,重武器,鱼骨纹斧,Cost=700000
+Sword_244,装备,重武器,节仗锤,Cost=700000
+Sword_245,装备,重武器,灰浆巨锤,Cost=700000 稀有度=1
+Sword_246,装备,重武器,赤道战斧,Cost=700000 稀有度=2
+Sword_251,装备,重武器,无尽魔刃,Cost=200 稀有度=100
+Sword_252,装备,重武器,霍纳方锤,Cost=200
+Sword_253,装备,重武器,伊乌斧头,Cost=200
+Sword_254,装备,重武器,天堂之斧,Cost=200
+Sword_255,装备,重武器,德偌伊克,Cost=200
+Sword_303,装备,双武器,阉割者之剑,Cost=725000
+Sword_310,装备,双武器,铁铸短柄斧,Cost=29750
+Sword_311,装备,双武器,淹水吊钩,Cost=106000 稀有度=1
+Sword_312,装备,双武器,赫斯火焰剑,Cost=855000
+Sword_317,装备,双武器,铁铸黑砂棒,Cost=255000
+Sword_323,装备,双武器,门扇砍山刀,Cost=4100
+Sword_325,装备,双武器,碧月银针剑,Cost=260000 稀有度=1
+Sword_330,装备,双武器,奥西剑,Cost=104000 稀有度=100
+Sword_332,装备,双武器,太和一字剑,Cost=950000 稀有度=3
+Sword_333,装备,双武器,浑铁亮刃刀,Cost=1000000 稀有度=3
+Sword_334,装备,双武器,太阳剑-OX,Cost=2000000 稀有度=100
+Sword_335,装备,双武器,平头快刀,Cost=1000000
+Sword_336,装备,双武器,血色剥皮刀,Cost=1000000
+Sword_337,装备,双武器,惩罚者之刀,Cost=1000000 稀有度=100
+Sword_338,装备,双武器,巨龙下颌骨,Cost=1000000
+Sword_339,装备,双武器,战壕格斗刀,Cost=1000000
+Sword_340,装备,双武器,双子剑,Cost=1000000
+Sword_341,装备,双武器,顿纳剑,Cost=1000000 稀有度=1
+Sword_342,装备,双武器,地狱使者,Cost=1000000 稀有度=100
+Sword_343,装备,双武器,碎颅狼牙锤,Cost=1000000
+Sword_344,装备,双武器,黑钢斩魂刀,Cost=1000000 稀有度=1
+Sword_351,装备,双武器,呵斥者,Cost=200
+Sword_353,装备,双武器,无尽之剑,Cost=200 稀有度=100
+Sword_354,装备,双武器,伊乌刀剑,Cost=200 稀有度=2
+Sword_355,装备,双武器,勒霸斯,Cost=200
+Sword_356,装备,双武器,阿梅穆之剑,Cost=200
+Sword_357,装备,双武器,太阴剑,Cost=200
+Sword_402,装备,单手武器,赤血玄铁棍,Cost=200 稀有度=1
+Sword_403,装备,单手武器,隐忍断门刀,Cost=200
+Sword_404,装备,单手武器,嗜血夺命刀,Cost=200
+Sword_406,装备,单手武器,巴里诺夫,Cost=200 稀有度=2
+Sword_407,装备,单手武器,皇家武士刀,Cost=200
+Sword_408,装备,单手武器,赤血魔剑,Cost=200
+Sword_409,装备,单手武器,极道帝兵切刀,Cost=200
+Sword_410,装备,单手武器,噬菌鬼头刀,Cost=200
+Sword_411,装备,单手武器,霉朽之剑,Cost=200 稀有度=100
+Sword_412,装备,单手武器,先兆之剑,Cost=200 稀有度=2
+Sword_413,装备,单手武器,青霜剑,Cost=200 稀有度=100
+Sword_414,装备,单手武器,艾达姆之刃,Cost=200 稀有度=100
+Sword_415,装备,单手武器,克莱蒙剑,Cost=200 稀有度=150
+Sword_421,装备,单手武器,冰霜之剑,Cost=200
+Sword_422,装备,单手武器,冷月轻风刃,Cost=200
+Sword_423,装备,单手武器,无边剑,Cost=200 稀有度=100
+Sword_424,装备,单手武器,伊洛瑞姆刀,Cost=200
+Sword_425,装备,单手武器,铁爪剑,Cost=200
+Sword_429,装备,单手武器,盘纹古定剑,Cost=200 稀有度=1
+Sword_432,装备,单手武器,千古翔云剑,Cost=200
+Sword_434,装备,单手武器,齿翼月牙刀,Cost=200
+Sword_435,装备,单手武器,废墟剑,Cost=200
+Sword_437,装备,单手武器,银剑,Cost=200
+Sword_440,装备,单手武器,不忠之剑,Cost=200 稀有度=1
+Sword_442,装备,单手武器,天崩地裂之剑,Cost=200 稀有度=2
+Sword_443,装备,单手武器,浪人武士刀,Cost=200 稀有度=150
+Sword_444,装备,单手武器,无尽之剑,Cost=200 稀有度=100
+Sword_445,装备,单手武器,瑋白利剑,Cost=200
+Sword_446,装备,单手武器,布林星辰,Cost=200
+Sword_447,装备,单手武器,天堂之刃,Cost=200
+Sword_448,装备,单手武器,太阳剑-DX,Cost=2000000
+Sword_449,装备,单手武器,静止的太刀,Cost=200 稀有度=100
+Sword_502,装备,长柄武器,天鹰银戟,Cost=200
+Sword_504,装备,长柄武器,弯月双头戟,Cost=200
+Sword_505,装备,长柄武器,乾坤双叉戟,Cost=200 稀有度=100
+Sword_506,装备,长柄武器,特提斯之矛,Cost=200 稀有度=100
+Sword_507,装备,长柄武器,血滴诱捕杖,Cost=200 稀有度=2
+Sword_508,装备,长柄武器,双龙法轮杖,Cost=200
+Sword_509,装备,长柄武器,疾风狼杵棒,Cost=200
+Sword_510,装备,长柄武器,双头醉柳蛇矛,Cost=200
+Sword_511,装备,长柄武器,披星双头锤,Cost=200
+Sword_512,装备,长柄武器,艾布纳智慧杖,Cost=200
+Sword_513,装备,长柄武器,极龙圣杖,Cost=200 稀有度=1
+Sword_515,装备,长柄武器,眼镜蛇权杖,Cost=200
+Sword_517,装备,长柄武器,无尽骑士长矛,Cost=200 稀有度=100
+Sword_518,装备,长柄武器,飞鹰护臂甲,Cost=200
+Sword_519,装备,长柄武器,费伦哲之剑,Cost=200
+Sword_520,装备,长柄武器,狼牙棒,Cost=200
+Sword_526,装备,长柄武器,风雨双流星,Cost=200 稀有度=3
+Sword_527,装备,长柄武器,开天凤嘴锄,Cost=200 稀有度=100
+Sword_529,装备,长柄武器,黑风拔火棍,Cost=200 稀有度=2
+Sword_530,装备,长柄武器,惩罚者之剑,Cost=200
+Sword_531,装备,长柄武器,兰姆之剑,Cost=200
+Sword_534,装备,长柄武器,邪恶纺锤刀,Cost=200 稀有度=1
+Sword_535,装备,长柄武器,游龙棍,Cost=200
+Sword_537,装备,长柄武器,锯齿矛,Cost=200
+Sword_538,装备,长柄武器,瑋白利矛,Cost=200
+Sword_539,装备,长柄武器,诺尔菲,Cost=200
+Sword_541,装备,长柄武器,太阳剑-MX,Cost=2000000 稀有度=100
+Sword_542,装备,长柄武器,卡拉丁之剑,Cost=200
+Sword_543,装备,长柄武器,静寂之矛,Cost=200
+Sword_600,装备,双武器,杰斯特拳剑,Cost=200
+Sword_601,装备,双武器,噬白吞黑拳剑,Cost=200
+Sword_602,装备,双武器,盗墓者拳剑,Cost=200 稀有度=1
+Sword_605,装备,双武器,泣血寡妇拳套,Cost=200 稀有度=2
+Sword_606,装备,双武器,破晓金刚爪,Cost=200
+Sword_607,装备,双武器,圣通之剑,Cost=200 稀有度=100
+Sword_608,装备,双武器,涵碧毒刃,Cost=200
+Sword_609,装备,双武器,月牙匕首,Cost=200
+Sword_611,装备,双武器,寒冰匕首,Cost=200 稀有度=100
+Sword_612,装备,双武器,飞龙狩猎刀,Cost=200
+Sword_613,装备,双武器,饮血利刃,Cost=200
+Sword_614,装备,双武器,毒液割喉刀,Cost=200
+Sword_615,装备,双武器,赛丝特拉匕首,Cost=200 稀有度=3
+Sword_616,装备,双武器,缠磨军刀,Cost=200
+Sword_618,装备,双武器,吊月悬钩,Cost=200 稀有度=1
+Sword_619,装备,双武器,燃木剑,Cost=200
+Sword_620,装备,双武器,弗林之剑,Cost=200
+Sword_621,装备,双武器,无尽匕首,Cost=200 稀有度=100
+Sword_622,装备,双武器,冰冻剑,Cost=200 稀有度=1
+Sword_627,装备,双武器,骶骨飞剑,Cost=200
+Sword_629,装备,双武器,破碎之剑,Cost=200 稀有度=1
+Sword_632,装备,双武器,透骨子午刀,Cost=200
+Sword_633,装备,双武器,强韧野狼獾,Cost=200
+Sword_634,装备,双武器,韦斯顿,Cost=200
+Sword_635,装备,双武器,瑋白利爪子,Cost=200
+Sword_636,装备,双武器,拓力安,Cost=200 稀有度=100
+Sword_637,装备,双武器,死神手套,Cost=200
+Sword_638,装备,双武器,奥秘匕首,Cost=200 稀有度=100
+Sword_639,装备,双武器,太阳剑-GX,Cost=2000000 稀有度=100
+Sword_1000,装备,武器其他,Sword_1000,Cost=1 稀有度=200
+Sword_2000,装备,重武器,Sword_2000,Cost=1 稀有度=200
+Sword_3000,装备,双武器,Sword_3000,Cost=1 稀有度=200
+Sword_4000,装备,单手武器,Sword_4000,Cost=1 稀有度=200
+Sword_5000,装备,长柄武器,Sword_5000,Cost=1 稀有度=200
+Sword_6000,装备,双武器,Sword_6000,Cost=1 稀有度=200
+8ft_2W_SpikeArms,装备,Boss专属/Boss其他,酷刑傀儡人,Boss物品
+8ft_2W_DarkNinja,装备,Boss专属/Boss其他,黑暗忍者,Boss物品
+8ft_2W_Shaman,装备,Boss专属/Boss其他,萨满祭司,Boss物品
+8ft_2W_Scratchy,装备,Boss专属/Boss其他,扭曲诺克顿,Boss物品
+8ft_2W_RuneShade,装备,Boss专属/Boss其他,暗黑族人,Boss物品
+8ft_2W_GK_Squidface,装备,Boss专属/Boss其他,梅莱克,Boss物品
+8ft_2W_GK_Pincrown,装备,Boss专属/Boss其他,婆楼那,Boss物品
+8ft_2W_Wasp,装备,Boss专属/Boss其他,苏•乌拉,Boss物品
+10ft_2W_HornedWitch,装备,Boss专属/Boss其他,短角人类女巫,Boss物品
+10ft_2W_Jester,装备,Boss专属/Boss其他,伍德杰斯特,Boss物品
+10ft_2W_Kabuki,装备,Boss专属/Boss其他,歌舞鬼,Boss物品
+10ft_2W_MX-Stealth,装备,Boss专属/Boss其他,MX-忍者,Boss物品
+10ft_2W_IronButcher,装备,Boss专属/Boss其他,钢铁屠夫,Boss物品
+10ft_2W_StoneOracle,装备,Boss专属/Boss其他,灵石贤者,Boss物品
+10ft_2W_Xyloto,装备,Boss专属/Boss其他,塞鲁图,Boss物品
+10ft_2W_WickerHaunt,装备,Boss专属/Boss其他,恶灵巡逻,Boss物品
+10ft_2Sword_Ninja,装备,Boss专属/Boss其他,库尔罗,Boss物品
+10ft_2W_Archivist,装备,Boss专属/Boss其他,档案管理员,Boss物品
+10ft_2W_Roman,装备,Boss专属/Boss其他,电镀索罗克,Boss物品
+7ft_trainingdummy,装备,Boss专属/Boss其他,7ft_trainingdummy,Boss物品
+6ft_2H_Worker,装备,Boss专属/Boss其他,加拉斯,Boss物品
+6ft_2H_Worker_Intro,装备,Boss专属/Boss其他,6ft_2H_Worker_Intro,Boss物品
+6ft_2H_Loggins,装备,Boss专属/Boss其他,头盔野人,Boss物品
+6ft_SnS_GK_TallSpike,装备,Boss专属/Boss其他,瑞达勒?,Boss物品
+6ft_SnS_GK_TallSpikeV2,装备,Boss专属/Boss其他,瑞达勒?,Boss物品
+6ft_SnS_GK_TallSpikeV3,装备,Boss专属/Boss其他,佐莎儿,Boss物品
+6ft_SnS_Deathless,装备,Boss专属/Boss其他,6ft_SnS_Deathless,Boss物品
+6ft_SnS_HornedWildling,装备,Boss专属/Boss其他,牛头叛军,Boss物品
+6ft_SnS_IronGuard,装备,Boss专属/Boss其他,钢铁护盾,Boss物品
+6ft_SnS_EnemyKnight,装备,Boss专属/Boss其他,雇佣骑士,Boss物品
+6ft_SnS_Ausar,装备,Boss专属/Boss其他,邪恶的奥萨,Boss物品
+6ft_2H_EXO-Pilot,装备,Boss专属/Boss其他,铠甲飞行员,Boss物品
+6ft_SnS_IronHunter,装备,Boss专属/Boss其他,钢铁猎人,Boss物品
+6ft_2H_ConeHead,装备,Boss专属/Boss其他,骸骨傀儡人,Boss物品
+6ft_2H_PlatedGuard,装备,Boss专属/Boss其他,装甲守卫,Boss物品
+6ft_2H_Shade,装备,Boss专属/Boss其他,暗影剑客,Boss物品
+6ft_SnS_GodKing,装备,Boss专属/Boss其他,瑞达勒,Boss物品
+6ft_SnS_Collector,装备,Boss专属/Boss其他,收集者,Boss物品
+6ft_SnS_ZealotNoc,装备,Boss专属/Boss其他,诺克狂热分子,Boss物品
+6ft_2H_PointyNoggin,装备,Boss专属/Boss其他,残忍京族,Boss物品
+6ft_2W_Ryth2,装备,Boss专属/Boss其他,莱斯,Boss物品
+6ft_SnS_DarkLord,装备,Boss专属/Boss其他,经典不死之王,Boss物品
+6ft_2H_SamuraiWoman,装备,Boss专属/Boss其他,女索罗克,Boss物品
+6ft_2H_RedBull,装备,Boss专属/Boss其他,瑞索贝尔,Boss物品
+6ft_2H_Peacock,装备,Boss专属/Boss其他,装甲浪人,Boss物品
+6ft_2H_Robecca,装备,Boss专属/Boss其他,MX-忍者,Boss物品
+6ft_SnS_GK_Berka,装备,Boss专属/Boss其他,莉莲德,Boss物品
+6ft_SnS_GK_BerkaV2,装备,Boss专属/Boss其他,莉莲德,Boss物品
+20ft_B_SaddleBeast,装备,Boss专属/Boss其他,廊佩斯,Boss物品
+20ft_B_R_ChainBeard,装备,Boss专属/Boss其他,巴克斯骑士,Boss物品
+20ft_B_FieldBlight,装备,Boss专属/Boss其他,败柳残兵,Boss物品
+20ft_B_GodkingBeastAlternate,装备,Boss专属/Boss其他,20ft_B_GodkingBeastAlternate,Boss物品
+20ft_B_Lupun,装备,Boss专属/Boss其他,狼人,Boss物品
+20ft_B_Behemid,装备,Boss专属/Boss其他,甲壳类怪物,Boss物品
+20ft_B_Chelon,装备,Boss专属/Boss其他,鱼怪,Boss物品
+20ft_B_Gargap,装备,Boss专属/Boss其他,鹰嘴兽,Boss物品
+20ft_B_IronWretch,装备,Boss专属/Boss其他,类猿怪,Boss物品
+20ft_B_IronWretchV1,装备,Boss专属/Boss其他,钢铁类猿怪,Boss物品
+20ft_B_IronWretchV2,装备,Boss专属/Boss其他,穿耳类猿怪,Boss物品
+20ft_B_IronWretchV3,装备,Boss专属/Boss其他,装甲类猿怪,Boss物品
+20ft_B_MossGolem,装备,Boss专属/Boss其他,苔藓石魔,Boss物品
+20ft_B_MX-Goliath,装备,Boss专属/Boss其他,MX-机械巨人,Boss物品
+20ft_B_ShatteredBeast,装备,Boss专属/Boss其他,废墟恶魔,Boss物品
+20ft_B_EmberDragon,装备,Boss专属/Boss其他,灰烬恶魔,Boss物品
+15ft_2H_Slinky,装备,Boss专属/Boss其他,锥齿圆舵轮,Boss物品
+15ft_2H_HeavyPlate,装备,Boss专属/Boss其他,重装甲武士,Boss物品
+15ft_2H_ManyFaces,装备,Boss专属/Boss其他,塞恩,Boss物品
+15ft_2H_BigBang,装备,Boss专属/Boss其他,白金傀儡人,Boss物品
+15ft_2H_RamHead,装备,Boss专属/Boss其他,克劳斯,Boss物品
+15ft_2H_ChainBeard,装备,Boss专属/Boss其他,弥诺克,Boss物品
+15ft_2h_Rancor,装备,Boss专属/Boss其他,戈托尔,Boss物品
+15ft_2H_Golem,装备,Boss专属/Boss其他,钢铁巨人,Boss物品
+15ft_2H_Keeper,装备,Boss专属/Boss其他,无头守门人,Boss物品
+15ft_2H_Troll,装备,Boss专属/Boss其他,野生巨魔,Boss物品
+15ft_2H_Executioner,装备,Boss专属/Boss其他,刽子手,Boss物品
+15ft_2H_BogGiant,装备,Boss专属/Boss其他,沼泽巨人,Boss物品
+15ft_2H_Genno,装备,Boss专属/Boss其他,人身石怪,Boss物品
+15ft_2H_HeadsMan,装备,Boss专属/Boss其他,侩子手,Boss物品
+15ft_2H_HornedDemon,装备,Boss专属/Boss其他,长角兽,Boss物品
+15ft_2H_IronSentinel,装备,Boss专属/Boss其他,钢铁哨兵,Boss物品
+15ft_2H_MX-Hulk,装备,Boss专属/Boss其他,MX-巨人,Boss物品
+15ft_2H_RabidNoc,装备,Boss专属/Boss其他,狂暴间谍,Boss物品
+15ft_2H_StoneDemon,装备,Boss专属/Boss其他,飞天石人双角怪,Boss物品
+15ft_2H_Warden,装备,Boss专属/Boss其他,典狱官,Boss物品
+12ft_S_DevilSpike,装备,Boss专属/Boss其他,邪恶小魔鬼,Boss物品
+12ft_S_Toaster,装备,Boss专属/Boss其他,合金傀儡人,Boss物品
+12ft_S_ScorianGuard,装备,Boss专属/Boss其他,MX-高阶战士,Boss物品
+12ft_S_Heightener,装备,Boss专属/Boss其他,噢斯林牧,Boss物品
+12ft_S_GK_BigHorn,装备,Boss专属/Boss其他,赛林,Boss物品
+10ft_S_DarkFiend,装备,Boss专属/Boss其他,暗夜魔鬼,Boss物品
+10ft_S_HornedStalker,装备,Boss专属/Boss其他,角魔尾行者,Boss物品
+10ft_S_IronLancer,装备,Boss专属/Boss其他,钢铁枪骑兵,Boss物品
+10ft_S_Acolyte,装备,Boss专属/Boss其他,鹰头侍僧,Boss物品
+10ft_S_EyelessNoc,装备,Boss专属/Boss其他,无眼间谍,Boss物品
+10ft_S_MX-Enforcer,装备,Boss专属/Boss其他,MX-装甲兵,Boss物品
+10ft_S_PetrifiedNoc,装备,Boss专属/Boss其他,石化间谍,Boss物品
+12ft_S_Curly,装备,Boss专属/Boss其他,剃刀石魔像,Boss物品
+10ft_S_FelSiren,装备,Boss专属/Boss其他,堕落塞壬,Boss物品
+10ft_S_Saydhi,装备,Boss专属/Boss其他,塞得海,Boss物品
+10ft_SnS_Tuskface,装备,Boss专属/Boss其他,潦倒圣骑士,Boss物品
+10ft_SnS_Spaceface,装备,Boss专属/Boss其他,MX-掷弹兵,Boss物品
+10ft_SnS_GK_Skull,装备,Boss专属/Boss其他,泰诺瓦斯,Boss物品
+10ft_SnS_MechFencer,装备,Boss专属/Boss其他,MX-剑士,Boss物品
+10ft_SnS_Crusty,装备,Boss专属/Boss其他,腾戴尔邪神,Boss物品
+10ft_SnS_Ashimar,装备,Boss专属/Boss其他,阿诗玛,Boss物品
+10ft_SnS_Ronin,装备,Boss专属/Boss其他,羚羊浪人,Boss物品
+10ft_SnS_BlackKnight,装备,Boss专属/Boss其他,黑暗骑士,Boss物品
+10ft_SnS_Ghoul,装备,Boss专属/Boss其他,骨髓恶魔,Boss物品
+10ft_SnS_EK_Electro,装备,Boss专属/Boss其他,钢铁圣骑士,Boss物品
+10ft_SnS_Mohawk,装备,Boss专属/Boss其他,兽人,Boss物品
+10ft_SnS_Chieftain,装备,Boss专属/Boss其他,长角部落头领,Boss物品
+10ft_SnS_RookBane,装备,Boss专属/Boss其他,鲁克班,Boss物品
+10ft_SnS_MX-Defender,装备,Boss专属/Boss其他,MX-守卫,Boss物品
+10ft_SnS_RustNoc,装备,Boss专属/Boss其他,铁锈间谍,Boss物品
+10ft_SnS_IronWatchman,装备,Boss专属/Boss其他,钢铁守门人,Boss物品
+10ft_SnS_Antler,装备,Boss专属/Boss其他,牛头护卫,Boss物品
+10ft_SnS_Mech,装备,Boss专属/Boss其他,零点机械工,Boss物品
+10ft_SnS_Ronin_Movie,装备,Boss专属/Boss其他,重装甲武士,Boss物品
+10ft_SnS_LavaLord,装备,Boss专属/Boss其他,灰烬骑士,Boss物品
+10ft_SnS_GodKingAlpha,装备,Boss专属/Boss其他,塞恩,Boss物品
+10ft_SnS_GodKingAlpha2,装备,Boss专属/Boss其他,塞恩,Boss物品
+10ft_SnS_GodKingAlpha3,装备,Boss专属/Boss其他,罗马之剑,Boss物品
+10ft_SnS_Faun,装备,Boss专属/Boss其他,伊洛索姆,Boss物品
+50ft_Dragon,装备,Boss专属/Boss其他,巴埃儿,Boss物品
+50ft_Dragon_Pisci,装备,Boss专属/Boss其他,巨龙巴伊,Boss物品
+50ft_Dragon_StonyCrag,装备,Boss专属/Boss其他,拜.伊尔,Boss物品
+6ft_SnS_Zero,装备,Boss专属/Boss其他,嗜血奴隶,Boss物品
+6ft_2H_LogginsB,装备,Boss专属/Boss其他,暗黑头盔野人,Boss物品
+6ft_2H_Sith,装备,Boss专属/Boss其他,6ft_2H_Sith,Boss物品
+15ft_2H_Butcher,装备,Boss专属/Boss其他,屠宰者,Boss物品
+10ft_SnS_Low_1,装备,Boss专属/Boss武器,10ft_SnS_Low_1,Boss物品
+10ft_SnS_Low_2,装备,Boss专属/Boss武器,10ft_SnS_Low_2,Boss物品
+10ft_SnS_Low_3,装备,Boss专属/Boss武器,10ft_SnS_Low_3,Boss物品
+10ft_SnS_Mid_1,装备,Boss专属/Boss武器,10ft_SnS_Mid_1,Boss物品
+10ft_SnS_Mid_2,装备,Boss专属/Boss武器,10ft_SnS_Mid_2,Boss物品
+10ft_SnS_Mid_3,装备,Boss专属/Boss武器,10ft_SnS_Mid_3,Boss物品
+10ft_SnS_Mid_4,装备,Boss专属/Boss武器,10ft_SnS_Mid_4,Boss物品
+10ft_SnS_Mid_5,装备,Boss专属/Boss武器,10ft_SnS_Mid_5,Boss物品
+10ft_SnS_High_1,装备,Boss专属/Boss武器,10ft_SnS_High_1,Boss物品
+10ft_SnS_High_2,装备,Boss专属/Boss武器,10ft_SnS_High_2,Boss物品
+10ft_SnS_High_3,装备,Boss专属/Boss武器,10ft_SnS_High_3,Boss物品
+10ft_SnS_High_4,装备,Boss专属/Boss武器,10ft_SnS_High_4,Boss物品
+10ft_Claw_Low_1,装备,Boss专属/Boss武器,10ft_Claw_Low_1,Boss物品
+10ft_Claw_Low_2,装备,Boss专属/Boss武器,10ft_Claw_Low_2,Boss物品
+10ft_Claw_Low_3,装备,Boss专属/Boss武器,10ft_Claw_Low_3,Boss物品
+10ft_Claw_Mid_1,装备,Boss专属/Boss武器,10ft_Claw_Mid_1,Boss物品
+10ft_Claw_Mid_2,装备,Boss专属/Boss武器,10ft_Claw_Mid_2,Boss物品
+10ft_Claw_Mid_3,装备,Boss专属/Boss武器,10ft_Claw_Mid_3,Boss物品
+10ft_Claw_High_1,装备,Boss专属/Boss武器,10ft_Claw_High_1,Boss物品
+10ft_Claw_High_2,装备,Boss专属/Boss武器,10ft_Claw_High_2,Boss物品
+10ft_Claw_High_3,装备,Boss专属/Boss武器,10ft_Claw_High_3,Boss物品
+12ft_Staff_Low_1,装备,Boss专属/Boss武器,12ft_Staff_Low_1,Boss物品
+12ft_Staff_Low_2,装备,Boss专属/Boss武器,12ft_Staff_Low_2,Boss物品
+12ft_Staff_Low_3,装备,Boss专属/Boss武器,12ft_Staff_Low_3,Boss物品
+12ft_Staff_Low_4,装备,Boss专属/Boss武器,12ft_Staff_Low_4,Boss物品
+12ft_Staff_Mid_1,装备,Boss专属/Boss武器,12ft_Staff_Mid_1,Boss物品
+12ft_Staff_Mid_2,装备,Boss专属/Boss武器,12ft_Staff_Mid_2,Boss物品
+12ft_Staff_Mid_3,装备,Boss专属/Boss武器,12ft_Staff_Mid_3,Boss物品
+12ft_Staff_Mid_4,装备,Boss专属/Boss武器,12ft_Staff_Mid_4,Boss物品
+12ft_Staff_High_1,装备,Boss专属/Boss武器,12ft_Staff_High_1,Boss物品
+12ft_Staff_High_2,装备,Boss专属/Boss武器,12ft_Staff_High_2,Boss物品
+12ft_Staff_High_3,装备,Boss专属/Boss武器,12ft_Staff_High_3,Boss物品
+12ft_Staff_High_4,装备,Boss专属/Boss武器,12ft_Staff_High_4,Boss物品
+12ft_2SB_Low_1,装备,Boss专属/Boss武器,12ft_2SB_Low_1,Boss物品
+12ft_2SB_Low_2,装备,Boss专属/Boss武器,12ft_2SB_Low_2,Boss物品
+12ft_2SB_Low_3,装备,Boss专属/Boss武器,12ft_2SB_Low_3,Boss物品
+12ft_2SB_Low_4,装备,Boss专属/Boss武器,12ft_2SB_Low_4,Boss物品
+12ft_2SB_Mid_1,装备,Boss专属/Boss武器,12ft_2SB_Mid_1,Boss物品
+12ft_2SB_Mid_2,装备,Boss专属/Boss武器,12ft_2SB_Mid_2,Boss物品
+12ft_2SB_Mid_3,装备,Boss专属/Boss武器,12ft_2SB_Mid_3,Boss物品
+12ft_2SB_Mid_4,装备,Boss专属/Boss武器,12ft_2SB_Mid_4,Boss物品
+12ft_2SB_High_1,装备,Boss专属/Boss武器,12ft_2SB_High_1,Boss物品
+12ft_2SB_High_2,装备,Boss专属/Boss武器,12ft_2SB_High_2,Boss物品
+12ft_2SB_High_3,装备,Boss专属/Boss武器,12ft_2SB_High_3,Boss物品
+12ft_2SB_High_4,装备,Boss专属/Boss武器,12ft_2SB_High_4,Boss物品
+08ft_2S_Low_1,装备,Boss专属/Boss武器,08ft_2S_Low_1,Boss物品
+08ft_2S_Low_2,装备,Boss专属/Boss武器,08ft_2S_Low_2,Boss物品
+08ft_2S_Low_3,装备,Boss专属/Boss武器,08ft_2S_Low_3,Boss物品
+08ft_2S_Mid_1,装备,Boss专属/Boss武器,08ft_2S_Mid_1,Boss物品
+08ft_2S_Mid_2,装备,Boss专属/Boss武器,08ft_2S_Mid_2,Boss物品
+08ft_2S_Mid_3,装备,Boss专属/Boss武器,08ft_2S_Mid_3,Boss物品
+08ft_2S_Mid_4,装备,Boss专属/Boss武器,08ft_2S_Mid_4,Boss物品
+08ft_2S_High_1,装备,Boss专属/Boss武器,08ft_2S_High_1,Boss物品
+08ft_2S_High_2,装备,Boss专属/Boss武器,08ft_2S_High_2,Boss物品
+08ft_2S_High_3,装备,Boss专属/Boss武器,08ft_2S_High_3,Boss物品
+15ft_2H_Low_1,装备,Boss专属/Boss武器,15ft_2H_Low_1,Boss物品
+15ft_2H_Low_2,装备,Boss专属/Boss武器,15ft_2H_Low_2,Boss物品
+15ft_2H_Low_3,装备,Boss专属/Boss武器,15ft_2H_Low_3,Boss物品
+15ft_2H_Mid_1,装备,Boss专属/Boss武器,15ft_2H_Mid_1,Boss物品
+15ft_2H_Mid_2,装备,Boss专属/Boss武器,15ft_2H_Mid_2,Boss物品
+15ft_2H_Mid_3,装备,Boss专属/Boss武器,15ft_2H_Mid_3,Boss物品
+15ft_2H_Mid_4,装备,Boss专属/Boss武器,15ft_2H_Mid_4,Boss物品
+15ft_2H_High_1,装备,Boss专属/Boss武器,15ft_2H_High_1,Boss物品
+15ft_2H_High_2,装备,Boss专属/Boss武器,15ft_2H_High_2,Boss物品
+15ft_2H_High_3,装备,Boss专属/Boss武器,15ft_2H_High_3,Boss物品
+15ft_2H_High_4,装备,Boss专属/Boss武器,15ft_2H_High_4,Boss物品
+15ft_2H_High_5,装备,Boss专属/Boss武器,15ft_2H_High_5,Boss物品
+15ft_2H_High_6,装备,Boss专属/Boss武器,15ft_2H_High_6,Boss物品
+15ft_Log_Low_1,装备,Boss专属/Boss武器,15ft_Log_Low_1,Boss物品
+15ft_Log_Low_2,装备,Boss专属/Boss武器,15ft_Log_Low_2,Boss物品
+15ft_Log_Mid_1,装备,Boss专属/Boss武器,15ft_Log_Mid_1,Boss物品
+15ft_Log_Mid_2,装备,Boss专属/Boss武器,15ft_Log_Mid_2,Boss物品
+15ft_Log_High_1,装备,Boss专属/Boss武器,15ft_Log_High_1,Boss物品
+06ft_2H_Low_1,装备,Boss专属/Boss武器,06ft_2H_Low_1,Boss物品
+06ft_2H_Low_2,装备,Boss专属/Boss武器,06ft_2H_Low_2,Boss物品
+06ft_2H_Low_3,装备,Boss专属/Boss武器,06ft_2H_Low_3,Boss物品
+06ft_2H_Mid_1,装备,Boss专属/Boss武器,06ft_2H_Mid_1,Boss物品
+06ft_2H_Mid_2,装备,Boss专属/Boss武器,06ft_2H_Mid_2,Boss物品
+06ft_2H_Mid_3,装备,Boss专属/Boss武器,06ft_2H_Mid_3,Boss物品
+06ft_2H_Mid_4,装备,Boss专属/Boss武器,06ft_2H_Mid_4,Boss物品
+06ft_2H_High_1,装备,Boss专属/Boss武器,06ft_2H_High_1,Boss物品
+06ft_2H_High_2,装备,Boss专属/Boss武器,06ft_2H_High_2,Boss物品
+06ft_2H_High_3,装备,Boss专属/Boss武器,06ft_2H_High_3,Boss物品
+06ft_2H_High_4,装备,Boss专属/Boss武器,06ft_2H_High_4,Boss物品
+06ft_2H_High_5,装备,Boss专属/Boss武器,06ft_2H_High_5,Boss物品
+06ft_2H_High_6,装备,Boss专属/Boss武器,06ft_2H_High_6,Boss物品
+06ft_2W_Low_1,装备,Boss专属/Boss武器,06ft_2W_Low_1,Boss物品
+06ft_2W_Low_2,装备,Boss专属/Boss武器,06ft_2W_Low_2,Boss物品
+06ft_2W_Low_3,装备,Boss专属/Boss武器,06ft_2W_Low_3,Boss物品
+06ft_2W_Mid_1,装备,Boss专属/Boss武器,06ft_2W_Mid_1,Boss物品
+06ft_2W_Mid_2,装备,Boss专属/Boss武器,06ft_2W_Mid_2,Boss物品
+06ft_2W_Mid_3,装备,Boss专属/Boss武器,06ft_2W_Mid_3,Boss物品
+06ft_2W_Mid_4,装备,Boss专属/Boss武器,06ft_2W_Mid_4,Boss物品
+06ft_2W_High_1,装备,Boss专属/Boss武器,06ft_2W_High_1,Boss物品
+06ft_2W_High_2,装备,Boss专属/Boss武器,06ft_2W_High_2,Boss物品
+06ft_2W_High_3,装备,Boss专属/Boss武器,06ft_2W_High_3,Boss物品
+06ft_SnS_Low_1,装备,Boss专属/Boss武器,06ft_SnS_Low_1,Boss物品
+06ft_SnS_Low_2,装备,Boss专属/Boss武器,06ft_SnS_Low_2,Boss物品
+06ft_SnS_Low_3,装备,Boss专属/Boss武器,06ft_SnS_Low_3,Boss物品
+06ft_SnS_Mid_1,装备,Boss专属/Boss武器,06ft_SnS_Mid_1,Boss物品
+06ft_SnS_Mid_2,装备,Boss专属/Boss武器,06ft_SnS_Mid_2,Boss物品
+06ft_SnS_Mid_3,装备,Boss专属/Boss武器,06ft_SnS_Mid_3,Boss物品
+06ft_SnS_Mid_4,装备,Boss专属/Boss武器,06ft_SnS_Mid_4,Boss物品
+06ft_SnS_Mid_5,装备,Boss专属/Boss武器,06ft_SnS_Mid_5,Boss物品
+06ft_SnS_High_1,装备,Boss专属/Boss武器,06ft_SnS_High_1,Boss物品
+06ft_SnS_High_2,装备,Boss专属/Boss武器,06ft_SnS_High_2,Boss物品
+06ft_SnS_High_3,装备,Boss专属/Boss武器,06ft_SnS_High_3,Boss物品
+06ft_SnS_High_4,装备,Boss专属/Boss武器,06ft_SnS_High_4,Boss物品
+06ftF_Staff_Low_1,装备,Boss专属/Boss武器,06ftF_Staff_Low_1,Boss物品
+06ftF_Staff_Low_2,装备,Boss专属/Boss武器,06ftF_Staff_Low_2,Boss物品
+06ftF_Staff_Low_3,装备,Boss专属/Boss武器,06ftF_Staff_Low_3,Boss物品
+06ftF_Staff_Mid_1,装备,Boss专属/Boss武器,06ftF_Staff_Mid_1,Boss物品
+06ftF_Staff_Mid_2,装备,Boss专属/Boss武器,06ftF_Staff_Mid_2,Boss物品
+06ftF_Staff_Mid_3,装备,Boss专属/Boss武器,06ftF_Staff_Mid_3,Boss物品
+06ftF_Staff_High_1,装备,Boss专属/Boss武器,06ftF_Staff_High_1,Boss物品
+06ftF_Staff_High_2,装备,Boss专属/Boss武器,06ftF_Staff_High_2,Boss物品
+06ftF_Staff_High_3,装备,Boss专属/Boss武器,06ftF_Staff_High_3,Boss物品
+06ftF_Claw_Low_1,装备,Boss专属/Boss武器,06ftF_Claw_Low_1,Boss物品
+06ftF_Claw_Low_2,装备,Boss专属/Boss武器,06ftF_Claw_Low_2,Boss物品
+06ftF_Claw_Low_3,装备,Boss专属/Boss武器,06ftF_Claw_Low_3,Boss物品
+06ftF_Claw_Mid_1,装备,Boss专属/Boss武器,06ftF_Claw_Mid_1,Boss物品
+06ftF_Claw_Mid_2,装备,Boss专属/Boss武器,06ftF_Claw_Mid_2,Boss物品
+06ftF_Claw_Mid_3,装备,Boss专属/Boss武器,06ftF_Claw_Mid_3,Boss物品
+06ftF_Claw_High_1,装备,Boss专属/Boss武器,06ftF_Claw_High_1,Boss物品
+06ftF_Claw_High_2,装备,Boss专属/Boss武器,06ftF_Claw_High_2,Boss物品
+06ftF_Claw_High_3,装备,Boss专属/Boss武器,06ftF_Claw_High_3,Boss物品
+06ftF_Sword_Low_1,装备,Boss专属/Boss武器,06ftF_Sword_Low_1,Boss物品
+06ftF_Sword_Low_2,装备,Boss专属/Boss武器,06ftF_Sword_Low_2,Boss物品
+06ftF_Sword_Low_3,装备,Boss专属/Boss武器,06ftF_Sword_Low_3,Boss物品
+06ftF_Sword_Mid_1,装备,Boss专属/Boss武器,06ftF_Sword_Mid_1,Boss物品
+06ftF_Sword_Mid_2,装备,Boss专属/Boss武器,06ftF_Sword_Mid_2,Boss物品
+06ftF_Sword_Mid_3,装备,Boss专属/Boss武器,06ftF_Sword_Mid_3,Boss物品
+06ftF_Sword_High_1,装备,Boss专属/Boss武器,06ftF_Sword_High_1,Boss物品
+06ftF_Sword_High_2,装备,Boss专属/Boss武器,06ftF_Sword_High_2,Boss物品
+06ftF_Sword_High_3,装备,Boss专属/Boss武器,06ftF_Sword_High_3,Boss物品
+10ft_SnS_DefLow_1,装备,Boss专属/Boss盾甲,10ft_SnS_DefLow_1,Boss物品
+10ft_SnS_DefLow_2,装备,Boss专属/Boss盾甲,10ft_SnS_DefLow_2,Boss物品
+10ft_SnS_DefLow_3,装备,Boss专属/Boss盾甲,10ft_SnS_DefLow_3,Boss物品
+10ft_SnS_DefLow_4,装备,Boss专属/Boss盾甲,10ft_SnS_DefLow_4,Boss物品
+10ft_SnS_DefMid_1,装备,Boss专属/Boss盾甲,10ft_SnS_DefMid_1,Boss物品
+10ft_SnS_DefMid_2,装备,Boss专属/Boss盾甲,10ft_SnS_DefMid_2,Boss物品
+10ft_SnS_DefMid_3,装备,Boss专属/Boss盾甲,10ft_SnS_DefMid_3,Boss物品
+10ft_SnS_DefMid_4,装备,Boss专属/Boss盾甲,10ft_SnS_DefMid_4,Boss物品
+10ft_SnS_DefHigh_1,装备,Boss专属/Boss盾甲,10ft_SnS_DefHigh_1,Boss物品
+10ft_SnS_DefHigh_2,装备,Boss专属/Boss盾甲,10ft_SnS_DefHigh_2,Boss物品
+10ft_SnS_DefHigh_3,装备,Boss专属/Boss盾甲,10ft_SnS_DefHigh_3,Boss物品
+10ft_SnS_DefHigh_4,装备,Boss专属/Boss盾甲,10ft_SnS_DefHigh_4,Boss物品
+06ft_SnS_DefLow_1,装备,Boss专属/Boss盾甲,06ft_SnS_DefLow_1,Boss物品
+06ft_SnS_DefLow_2,装备,Boss专属/Boss盾甲,06ft_SnS_DefLow_2,Boss物品
+06ft_SnS_DefLow_3,装备,Boss专属/Boss盾甲,06ft_SnS_DefLow_3,Boss物品
+06ft_SnS_DefLow_4,装备,Boss专属/Boss盾甲,06ft_SnS_DefLow_4,Boss物品
+06ft_SnS_DefMid_1,装备,Boss专属/Boss盾甲,06ft_SnS_DefMid_1,Boss物品
+06ft_SnS_DefMid_2,装备,Boss专属/Boss盾甲,06ft_SnS_DefMid_2,Boss物品
+06ft_SnS_DefMid_3,装备,Boss专属/Boss盾甲,06ft_SnS_DefMid_3,Boss物品
+06ft_SnS_DefMid_4,装备,Boss专属/Boss盾甲,06ft_SnS_DefMid_4,Boss物品
+06ft_SnS_DefHigh_1,装备,Boss专属/Boss盾甲,06ft_SnS_DefHigh_1,Boss物品
+06ft_SnS_DefHigh_2,装备,Boss专属/Boss盾甲,06ft_SnS_DefHigh_2,Boss物品
+06ft_SnS_DefHigh_3,装备,Boss专属/Boss盾甲,06ft_SnS_DefHigh_3,Boss物品
+06ft_SnS_DefHigh_4,装备,Boss专属/Boss盾甲,06ft_SnS_DefHigh_4,Boss物品
+10ft_InfinityBlade,装备,Boss专属/Boss武器,10ft_InfinityBlade,Boss物品
+10ft_Ronin_Katana,装备,Boss专属/Boss武器,10ft_Ronin_Katana,Boss物品
+06ft_InfinityBlade,装备,Boss专属/Boss武器,06ft_InfinityBlade,Boss物品
+06ft_InfinityDual,装备,Boss专属/Boss武器,06ft_InfinityDual,Boss物品
+06ft_InfinityHeavy,装备,Boss专属/Boss武器,06ft_InfinityHeavy,Boss物品
+06ft_InfinityCleaver,装备,Boss专属/Boss武器,06ft_InfinityCleaver,Boss物品
+06ft_DualSaber,装备,Boss专属/Boss武器,06ft_DualSaber,Boss物品
+06ft_AxeSaber,装备,Boss专属/Boss武器,06ft_AxeSaber,Boss物品
+06ft_SnS_EmptyShield,装备,Boss专属/Boss盾甲,06ft_SnS_EmptyShield,Boss物品
+06ft_SnS_Epsilon,装备,Boss专属/Boss盾甲,06ft_SnS_Epsilon,Boss物品
+12ft_InfinityLance,装备,Boss专属/Boss武器,12ft_InfinityLance,Boss物品
+06ftF_InfinityDaggers,装备,Boss专属/Boss武器,06ftF_InfinityDaggers,Boss物品
+06ftF_Sinestra,装备,Boss专属/Boss武器,06ftF_Sinestra,Boss物品
+12ftF_FelSiren_Staff,装备,Boss专属/Boss武器,12ftF_FelSiren_Staff,Boss物品
+12ftF_Saydhi,装备,Boss专属/Boss武器,12ftF_Saydhi,Boss物品
+12ft_InfinityDual,装备,Boss专属/Boss武器,12ft_InfinityDual,Boss物品
+06ft_VileSword,装备,Boss专属/Boss武器,06ft_VileSword,Boss物品
+06ft_VileDual,装备,Boss专属/Boss武器,06ft_VileDual,Boss物品
+06ft_VileHeavy,装备,Boss专属/Boss武器,06ft_VileHeavy,Boss物品
+06ft_VileShield,装备,Boss专属/Boss盾甲,06ft_VileShield,Boss物品
+06ft_InfinityKatana,装备,Boss专属/Boss武器,06ft_InfinityKatana,Boss物品
+06ft_DarkRibbon,装备,Boss专属/Boss武器,06ft_DarkRibbon,Boss物品
+06ft_DarkPolice,装备,Boss专属/Boss盾甲,06ft_DarkPolice,Boss物品
+TRA_Key_Small,收集品,钥匙,小钥匙,setgivekeyitem 发放
+TRA_Key_Medium,收集品,钥匙,中钥匙,setgivekeyitem 发放
+TRA_Key_Large,收集品,钥匙,大钥匙,setgivekeyitem 发放
+TreasureMap20,收集品,地图,库尔罗的藏宝图,setgivekeyitem 发放
+TreasureMap22,收集品,地图,板块地图,setgivekeyitem 发放
+TreasureMap23,收集品,地图,人生地图,setgivekeyitem 发放
+TreasureMap24,收集品,地图,被遗忘的地图,setgivekeyitem 发放
+TreasureMap25,收集品,地图,寻根地图,setgivekeyitem 发放
+TreasureMap26,收集品,地图,灰烬地图,setgivekeyitem 发放
+TreasureMap27,收集品,地图,古老地图,setgivekeyitem 发放
+TreasureMap28,收集品,地图,藏古地图,setgivekeyitem 发放
+TreasureMap29,收集品,地图,抢掠者地图,setgivekeyitem 发放
+TreasureMap30,收集品,地图,星空图,setgivekeyitem 发放
+TreasureMap31,收集品,地图,勇者地图,setgivekeyitem 发放
+TreasureMap32,收集品,地图,晦涩地图,setgivekeyitem 发放
+TreasureMap33,收集品,地图,通往天国的地图,setgivekeyitem 发放
+TreasureMap34,收集品,地图,献祭地图,setgivekeyitem 发放
+TreasureMap35,收集品,地图,炉膛地图,setgivekeyitem 发放
+TreasureMap36,收集品,地图,烧焦的地图,setgivekeyitem 发放
+TreasureMap37,收集品,地图,邪恶墓穴,setgivekeyitem 发放
+TreasureMap38,收集品,地图,黑色火焰地图,setgivekeyitem 发放
+TRA_GrabBag_Small,收集品,抽奖箱,摇奖转轮,item 发放
+TRA_GrabBag_Medium,收集品,抽奖箱,高级摇奖转轮,item 发放
+TRA_GrabBag_Large,收集品,抽奖箱,稀世摇奖转轮,item 发放
+TRA_GrabBag_SmallGem,收集品,抽奖箱,宝石转轮,item 发放
+TRA_GrabBag_MediumGem,收集品,抽奖箱,大宝石转轮,item 发放
+TRA_GrabBag_LargeGem,收集品,抽奖箱,稀世宝石转轮,item 发放
+TRA_GrabBag_Uber,收集品,抽奖箱,大联盟摇奖转轮,item 发放
+TRA_World_1_Cactus,收集品,材料,绿仙人掌,药水材料
+TRA_World_2_Berries,收集品,材料,蓝莓,药水材料
+TRA_World_3_PinkPlant,收集品,材料,红花,药水材料
+TRA_World_4_Reeds,收集品,材料,绿芦苇,药水材料
+TRA_World_5_DesertBulb,收集品,材料,稀有球茎,药水材料
+TRA_World_6_Mushroom,收集品,材料,红蘑菇,药水材料
+TRA_World_7_Root,收集品,材料,稀有根茎,药水材料
+TRA_World_8_Butterfly,收集品,材料,蓝蝴蝶,药水材料
+TRA_World_9_Skullfly,收集品,材料,骷髅蝇,药水材料
+TRA_World_10_Cocoon,收集品,材料,黄蛹,药水材料
+TRA_World_11_Bones,收集品,材料,黄骨,药水材料
+TRA_Potion_HealthL,收集品,药水,体力回满,也可用 setplayerpotions
+AttackGem,宝石,孔位1,攻击宝石(推断),
+AttackGemIn,宝石,孔位1,攻击宝石·合成原料(推断),熔炉槽位宝石
+AttackGemOut,宝石,孔位1,攻击宝石·合成产物(推断),合成专用宝石
+UberAttackGem,宝石,孔位1,稀有攻击宝石,
+HealthGem,宝石,孔位1,生命宝石(推断),
+HealthGemIn,宝石,孔位1,生命宝石·合成原料(推断),熔炉槽位宝石
+HealthGemOut,宝石,孔位1,生命宝石·合成产物(推断),合成专用宝石
+UberHealthGem,宝石,孔位1,稀有健康宝石,
+ShieldGem,宝石,孔位1,盾牌宝石(推断),
+ShieldGemIn,宝石,孔位1,盾牌宝石·合成原料(推断),熔炉槽位宝石
+ShieldGemOut,宝石,孔位1,盾牌宝石·合成产物(推断),合成专用宝石
+UberShieldGem,宝石,孔位1,稀有防护宝石,
+MagicGem,宝石,孔位1,魔法宝石(推断),
+MagicGemIn,宝石,孔位1,魔法宝石·合成原料(推断),熔炉槽位宝石
+MagicGemOut,宝石,孔位1,魔法宝石·合成产物(推断),合成专用宝石
+UberMagicGem,宝石,孔位1,稀有魔法宝石,
+FireGem,宝石,孔位2,火焰宝石(推断),
+FireGemIn,宝石,孔位2,火焰宝石·合成原料(推断),熔炉槽位宝石
+FireGemOut,宝石,孔位2,火焰宝石·合成产物(推断),合成专用宝石
+UberFireGem,宝石,孔位2,稀有火焰宝石,
+IceGem,宝石,孔位2,冰霜宝石(推断),
+IceGemIn,宝石,孔位2,冰霜宝石·合成原料(推断),熔炉槽位宝石
+IceGemOut,宝石,孔位2,冰霜宝石·合成产物(推断),合成专用宝石
+UberIceGem,宝石,孔位2,稀有冰霜宝石,
+ElecGem,宝石,孔位2,闪电宝石(推断),
+ElecGemIn,宝石,孔位2,闪电宝石·合成原料(推断),熔炉槽位宝石
+ElecGemOut,宝石,孔位2,闪电宝石·合成产物(推断),合成专用宝石
+UberElecGem,宝石,孔位2,稀有震动宝石,
+PoisonGem,宝石,孔位2,剧毒宝石(推断),
+PoisonGemIn,宝石,孔位2,剧毒宝石·合成原料(推断),熔炉槽位宝石
+PoisonGemOut,宝石,孔位2,剧毒宝石·合成产物(推断),合成专用宝石
+UberPoisonGem,宝石,孔位2,稀有毒液宝石,
+LightGem,宝石,孔位2,光辉宝石(推断),
+LightGemIn,宝石,孔位2,光辉宝石·合成原料(推断),熔炉槽位宝石
+LightGemOut,宝石,孔位2,光辉宝石·合成产物(推断),合成专用宝石
+UberLightGem,宝石,孔位2,稀有明亮宝石,
+DarkGem,宝石,孔位2,暗黑宝石(推断),
+DarkGemIn,宝石,孔位2,暗黑宝石·合成原料(推断),熔炉槽位宝石
+DarkGemOut,宝石,孔位2,暗黑宝石·合成产物(推断),合成专用宝石
+UberDarkGem,宝石,孔位2,稀有暗宝石,
+WaterGem,宝石,孔位2,水流宝石(推断),
+WaterGemIn,宝石,孔位2,水流宝石·合成原料(推断),熔炉槽位宝石
+WaterGemOut,宝石,孔位2,水流宝石·合成产物(推断),合成专用宝石
+UberWaterGem,宝石,孔位2,稀有水宝石,
+WindGem,宝石,孔位2,风暴宝石(推断),
+WindGemIn,宝石,孔位2,风暴宝石·合成原料(推断),熔炉槽位宝石
+WindGemOut,宝石,孔位2,风暴宝石·合成产物(推断),合成专用宝石
+UberWindGem,宝石,孔位2,稀有风宝石,
+UberElementalAttackGem,宝石,孔位2,稀有暗火宝石,
+RainbowElementalAttackGem,宝石,孔位2,稀有光谱宝石,
+UberElementalAttackGem_100,宝石,孔位2,稀有暗火宝石,
+RainbowElementalAttackGem_100,宝石,孔位2,稀有光谱宝石,
+StabAttackGem,宝石,孔位2,突刺攻击宝石(推断),
+SlashAttackGem,宝石,孔位2,挥砍攻击宝石(推断),
+ParryChargeGem,宝石,孔位2,招架充能宝石(推断),
+BlockChargeGem,宝石,孔位2,格挡充能宝石(推断),
+DodgeChargeGem,宝石,孔位2,闪避充能宝石(推断),
+Gem3_1,宝石,孔位3,圆形宝石1(推断),
+Gem3_2,宝石,孔位3,圆形宝石2(推断),
+Gem3_3,宝石,孔位3,圆形宝石3(推断),
+Gem3_4,宝石,孔位3,圆形宝石4(推断),
+Gem3_5,宝石,孔位3,圆形宝石5(推断),
+Gem3_6,宝石,孔位3,圆形宝石6(推断),
+Gem3_7,宝石,孔位3,圆形宝石7(推断),
+Gem3_8,宝石,孔位3,圆形宝石8(推断),
+UberElementalGemMax,宝石,孔位3,稀有元素宝石(最大)(推断),
+UberElementalGem1,宝石,孔位3,稀有元素宝石1(推断),
+UberElementalGem2,宝石,孔位3,稀有元素宝石2(推断),
+UberElementalGem3,宝石,孔位3,稀有元素宝石3(推断),
+UberElementalGem4,宝石,孔位3,稀有元素宝石4(推断),
+ItemDropGem_1,宝石,孔位3,物品掉落宝石 #1(推断),
+ItemDropGem_2,宝石,孔位3,物品掉落宝石 #2(推断),
+ItemDropGem_3,宝石,孔位3,物品掉落宝石 #3(推断),
+ItemDropGem_4,宝石,孔位3,物品掉落宝石 #4(推断),
+DragonFightGem_1,宝石,孔位3,龙战宝石 #1(推断),
+BlockGem_1,宝石,孔位4,格挡宝石 #1(推断),
+BlockGem_2,宝石,孔位4,格挡宝石 #2(推断),
+PerfectBlockGem_1,宝石,孔位4,完美格挡宝石 #1(推断),
+PerfectBlockGem_2,宝石,孔位4,完美格挡宝石 #2(推断),
+ScratchGem_1,宝石,孔位4,磨削宝石 #1(推断),
+ScratchGem_2,宝石,孔位4,磨削宝石 #2(推断),
+GloryModeHitGem_1,宝石,孔位4,荣耀模式命中宝石 #1(推断),
+GloryModeHitGem_2,宝石,孔位4,荣耀模式命中宝石 #2(推断),
+GloryModeHitGem_3,宝石,孔位4,荣耀模式命中宝石 #3(推断),
+ComboGem_1,宝石,孔位4,连击宝石 #1(推断),
+ComboGem_2,宝石,孔位4,连击宝石 #2(推断),
+BonusComboGem_1,宝石,孔位4,奖励连击宝石 #1(推断),
+BonusComboGem_2,宝石,孔位4,奖励连击宝石 #2(推断),
+BonusComboGem_3,宝石,孔位4,奖励连击宝石 #3(推断),
+BonusComboGem_4,宝石,孔位4,奖励连击宝石 #4(推断),
+BonusComboGem_5,宝石,孔位4,奖励连击宝石 #5(推断),
+BonusComboGem_6,宝石,孔位4,奖励连击宝石 #6(推断),
+ParryGem_1,宝石,孔位4,招架宝石 #1(推断),
+ParryGem_2,宝石,孔位4,招架宝石 #2(推断),
+GreatParryAllGem,宝石,孔位4,完美招架全部宝石(推断),
+PerfectParryGem_1,宝石,孔位4,完美招架宝石 #1(推断),
+PerfectParryGem_2,宝石,孔位4,完美招架宝石 #2(推断),
+HitGem_1,宝石,孔位4,命中宝石 #1(推断),
+FinalHitGem_1,宝石,孔位4,终结命中宝石 #1(推断),
+FinalHitGem_2,宝石,孔位4,终结命中宝石 #2(推断),
+FinalHitGem_3,宝石,孔位4,终结命中宝石 #3(推断),
+FinalHitGem_4,宝石,孔位4,终结命中宝石 #4(推断),
+FinalHitGem_5,宝石,孔位4,终结命中宝石 #5(推断),
+BreakBossForHealthGem_1,宝石,孔位4,破Boss回血宝石 #1(推断),
+BreakBossHitWindow_1,宝石,孔位4,破Boss破绽窗口宝石 #1(推断),
+BreakBossGetMagic_1,宝石,孔位4,破Boss得魔法宝石 #1(推断),
+BreakBossGetSuper_1,宝石,孔位4,破Boss得大招宝石 #1(推断),
+GlobalScaleGoldGem_1,宝石,孔位5,全局金币加成宝石 #1(推断),
+GlobalScaleXPGem_1,宝石,孔位5,全局经验加成宝石 #1(推断),
+GlobalScaleRareGem_1,宝石,孔位5,全局稀有加成宝石 #1(推断),
+UberBossGem_1,宝石,孔位5,稀有Boss宝石 #1(推断),
+UberBossGem_2,宝石,孔位5,稀有Boss宝石 #2(推断),
+UberBossGem_3,宝石,孔位5,稀有Boss宝石 #3(推断),
+UberMagic_1,宝石,孔位5,稀有魔法宝石1(推断),
+UberMagic_2,宝石,孔位5,稀有魔法宝石2(推断),
+UberGoldGem,宝石,孔位5,稀有黄金宝石,
+UberXPGem,宝石,孔位5,稀有经验宝石,
+UberSwitchClass,宝石,孔位5,稀有换武器宝石(推断),
+UberTakeHitGem_1,宝石,孔位5,稀有受击宝石 #1(推断),
+UberTakeHitGem_2,宝石,孔位5,稀有受击宝石 #2(推断),
+UberTakeHitGem_3,宝石,孔位5,稀有受击宝石 #3(推断),
+BonusComboLenGem,宝石,孔位5,奖励连击长度宝石(推断),
+BossBoostGem,宝石,孔位5,Boss强化宝石(推断),
+UberBossBoostGem,宝石,孔位5,稀有Boss强化宝石(推断),
+LightGem_1,宝石,孔位6,光辉宝石 #1(推断),
+LightGem_2,宝石,孔位6,光辉宝石 #2(推断),
+LightGem_3,宝石,孔位6,光辉宝石 #3(推断),
+LightGem_4,宝石,孔位6,光辉宝石 #4(推断),
+LightGem_5,宝石,孔位6,光辉宝石 #5(推断),
+LightGem_6,宝石,孔位6,光辉宝石 #6(推断),
+LightGemMagic,宝石,孔位6,光辉宝石Magic(推断),
+UberParryChargeGem,宝石,孔位6,稀有招架充能宝石(推断),
+HeavyGem_1,宝石,孔位7,重击宝石1(推断),
+HeavyGem_2,宝石,孔位7,重击宝石2(推断),
+HeavyGem_3,宝石,孔位7,重击宝石3(推断),
+HeavyGem_4,宝石,孔位7,重击宝石4(推断),
+HeavyGem_5,宝石,孔位7,重击宝石5(推断),
+HeavyGem_6,宝石,孔位7,重击宝石6(推断),
+HeavyGem_7,宝石,孔位7,重击宝石7(推断),
+HeavyGem_8,宝石,孔位7,重击宝石8(推断),
+HeavyGemMagic,宝石,孔位7,重击宝石(魔法)(推断),
+UberBlockChargeGem,宝石,孔位7,稀有格挡充能宝石(推断),
+DualGem_1,宝石,孔位8,双重宝石1(推断),
+DualGem_2,宝石,孔位8,双重宝石2(推断),
+DualGem_3,宝石,孔位8,双重宝石3(推断),
+DualGem_4,宝石,孔位8,双重宝石4(推断),
+DualGem_5,宝石,孔位8,双重宝石5(推断),
+DualGem_6,宝石,孔位8,双重宝石6(推断),
+DualGem_7,宝石,孔位8,双重宝石7(推断),
+DualGem_8,宝石,孔位8,双重宝石8(推断),
+DualGemMagic,宝石,孔位8,双重宝石(魔法)(推断),
+UberDodgeChargeGem,宝石,孔位8,稀有闪避充能宝石(推断),
+UberElementalAttackGem_200,宝石,孔位2,UberElementalAttackGem_200,
+RainbowElementalAttackGem_200,宝石,孔位2,RainbowElementalAttackGem_200,

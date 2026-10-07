@@ -1,0 +1,42 @@
+# ---- 游戏数据：绝不入库，只随 GitHub Release 资产分发 ----
+# SwordGame.upk 是游戏原版脚本包的改造版（解压 + exec 位补丁），属 Epic/Chair 版权内容
+SwordGame.upk
+*.upk
+# ib3_gems.ini 是游戏原版 DefaultGems.ini（仅去掉作者后加的 11 行融合链）
+ib3_gems.ini
+
+# ---- 本机运行时状态：含内存地址与进程信息，换台机器即失效，且发给别人会写坏内存 ----
+ib3_addrs.ini
+ib3_mailbox.json
+ib3_paths.ini
+ib3_ui.ini
+ib3_update.ini
+ib3_update.done
+ib3_update.tmp
+ib3_crash.txt
+
+# ---- 备份 / 中间产物 ----
+*.bak_*
+*.stale_*
+*.wrongrun_*
+*.pre_*
+addrprobe_snap.bin
+addrprobe.txt
+gem_index.ini*
+*.old
+
+# ---- 编译产物（tools\ 下的 CLI 工具 exe 是要提交的，故逐个点名而非用 *.exe）----
+src/ib3trainer2/IB3训练器2.exe
+src/ib3trainer2/IB3训练器2.new.exe
+src/ib3trainer2/enginetest2.exe
+src/ib3trainer2/gemselftest.exe
+src/ib3trainer2/addrprobe.exe
+src/ib3trainer2/updatetest.exe
+
+# ---- 系统 / 编辑器 ----
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+.vs/
+.idea/

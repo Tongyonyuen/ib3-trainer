@@ -1,0 +1,12 @@
+# 统一换行，避免 Windows / Linux 贡献者之间产生整文件 diff
+* text=auto
+
+# build.sh 由 sh 执行，必须保持 LF，否则在 Git Bash / WSL 下会报 $'\r': command not found
+*.sh text eol=lf
+
+# 二进制：禁止任何换行归一化
+*.jpg binary
+*.png binary
+*.exe binary
+*.dll binary
+*.upk binary

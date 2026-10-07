@@ -1,0 +1,48 @@
+MIT License
+
+Copyright (c) 2026 Andrew Tong
+
+────────────────────────────────────────────────────────────────────────
+适用范围说明 / Scope
+
+本许可证**仅覆盖本仓库中由作者本人编写的源代码与文档**（即 src\ 与 docs\
+下的内容）。
+
+以下内容**不属于**本许可证的授权范围，其版权归各自权利人所有，随本仓库
+分发仅为保证程序可运行，使用者应自行确保拥有合法游戏副本：
+
+  · SwordGame.upk —— 游戏《Infinity Blade III》原版脚本包的改造版，
+    版权归 Epic Games / Chair Entertainment 所有。该文件**不在本仓库内**，
+    仅随 GitHub Release 成品包分发。
+  · ib3_gems.ini —— 游戏原版 DefaultGems.ini 的内容。同上，不在本仓库内。
+  · 任何游戏内的文本、数据表、模板名、本地化字符串（包括由作者整理或转写
+    的部分）—— 版权归原权利人所有。
+  · image\ 下的横幅图片 —— 游戏官方宣传美术，版权归原权利人所有。
+
+《Infinity Blade》为 Epic Games, Inc. 的商标。本项目与 Epic Games 及
+Chair Entertainment 无任何隶属或背书关系。
+
+This license covers only the source code and documentation authored by the
+project owner (the contents of src\ and docs\). Game data, game text, and
+promotional artwork retain their original copyright and are not licensed
+under the MIT terms below.
+
+────────────────────────────────────────────────────────────────────────
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

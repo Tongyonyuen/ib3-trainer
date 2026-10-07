@@ -1,0 +1,622 @@
+﻿﻿所属类,命令,标准格式,中文说明,参数说明,示例,返回,Native(原生实现),FunctionFlags,功能模块
+Actor,flushdebugstrings,flushdebugstrings,刷新调试字符串,无,flushdebugstrings,,是,0x00022601,Engine — 引擎标准类
+Controller,switchtobestweapon,switchtobestweapon <bForceNewWeapon>,切换到最佳武器,bForceNewWeapon=0或1,switchtobestweapon 1,,,0x00024202,Engine — 引擎标准类
+PlayerController,setaudiogroupvolume,setaudiogroupvolume <Volume> <GroupName>,设置音频组音量,volume=小数：音量；groupName=标识符：组名,setaudiogroupvolume 0.5 Music,,是,0x00020600,Engine — 引擎标准类
+PlayerController,enablecheats,enablecheats,"启用作弊:生成CheatManager,God/Fly等命令的前置条件",无,enablecheats,,,0x00020202,Engine — 引擎标准类
+PlayerController,settiltactive,settiltactive <bActive>,开关倾斜输入(移动端遗留),bActive=0或1,settiltactive 1,,,0x00020202,Engine — 引擎标准类
+PlayerController,talk,talk,语音(无效),无,talk,,,0x00020202,Engine — 引擎标准类
+PlayerController,teamtalk,teamtalk,队伍语音(无效),无,teamtalk,,,0x00020202,Engine — 引擎标准类
+PlayerController,fov,fov <F>,设置视场角,f=小数：角度(默认80),fov 100,,,0x00020202,Engine — 引擎标准类
+PlayerController,mutate,mutate <MutateString>,向Mutator发送指令(单机无效),mutateString=文本,mutate x,,,0x00020202,Engine — 引擎标准类
+PlayerController,say,say <msg>,聊天广播(单机无效),msg=文本,say hi,,,0x00020202,Engine — 引擎标准类
+PlayerController,teamsay,teamsay <msg>,队伍聊天(单机无效),msg=文本,teamsay hi,,,0x00020202,Engine — 引擎标准类
+PlayerController,camera,camera <NewMode>,切换相机模式,newMode=标识符：模式名,camera 3rdperson,,,0x00020202,Engine — 引擎标准类
+PlayerController,speech,speech <Callsign> <Index> <Type>,语音(无效),callsign=文本；index=整数；type=标识符,speech a 1 b,,,0x00020202,Engine — 引擎标准类
+PlayerController,restartlevel,restartlevel,重启当前关卡,无,restartlevel,,,0x00020202,Engine — 引擎标准类
+PlayerController,localtravel,localtravel <URL>,切换到指定地图,uRL=文本：地图URL,localtravel entry,,,0x00020202,Engine — 引擎标准类
+PlayerController,pause,pause,暂停/继续游戏,无,pause,,,0x00020202,Engine — 引擎标准类
+PlayerController,utrace,utrace,调试追踪(无实际效果),无,utrace,,,0x00020202,Engine — 引擎标准类
+PlayerController,throwweapon,throwweapon,丢弃当前武器,无,throwweapon,,,0x00020202,Engine — 引擎标准类
+PlayerController,prevweapon,prevweapon,切换上一件武器,无,prevweapon,,,0x00020202,Engine — 引擎标准类
+PlayerController,nextweapon,nextweapon,切换下一件武器,无,nextweapon,,,0x00020202,Engine — 引擎标准类
+PlayerController,startfire,startfire <FireModeNum>,开始开火(按压),fireModeNum=0~255整数：开火模式,startfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController,stopfire,stopfire <FireModeNum>,停止开火,fireModeNum=0~255整数：开火模式,stopfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController,startaltfire,startaltfire <FireModeNum>,开始副开火,fireModeNum=0~255整数,startaltfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController,stopaltfire,stopaltfire <FireModeNum>,停止副开火,fireModeNum=0~255整数,stopaltfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController,use,use,使用/互动(准星目标),无,use,,,0x00020202,Engine — 引擎标准类
+PlayerController,suicide,suicide,自杀,无,suicide,,,0x00020202,Engine — 引擎标准类
+PlayerController,setname,setname <S>,设置玩家名字,s=文本：名字,setname abc,,,0x00020202,Engine — 引擎标准类
+PlayerController,switchteam,switchteam,切换队伍(单机无效),teamName=文本,switchteam 0,,,0x00020202,Engine — 引擎标准类
+PlayerController,changeteam,changeteam <TeamName>,切换队伍(单机无效),teamName=文本,changeteam 0,,,0x00024202,Engine — 引擎标准类
+PlayerController,switchlevel,switchlevel <URL>,切换关卡,uRL=文本：地图名,switchlevel entry,,,0x00020202,Engine — 引擎标准类
+PlayerController.Spectating,restartlevel,restartlevel,重启当前关卡,无,restartlevel,,,0x00020200,Engine — 引擎标准类
+PlayerController.Spectating,suicide,suicide,自杀,无,suicide,,,0x00020200,Engine — 引擎标准类
+PlayerController.Spectating,throwweapon,throwweapon,丢弃当前武器,无,throwweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.Spectating,startfire,startfire <FireModeNum>,开始开火(按压),fireModeNum=0~255整数：开火模式,startfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController.Spectating,startaltfire,startaltfire <FireModeNum>,开始副开火,fireModeNum=0~255整数,startaltfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController.PlayerWaiting,nextweapon,nextweapon,切换下一件武器,无,nextweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.PlayerWaiting,prevweapon,prevweapon,切换上一件武器,无,prevweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.PlayerWaiting,switchtobestweapon,switchtobestweapon <bForceNewWeapon>,切换到最佳武器,bForceNewWeapon=0或1,switchtobestweapon 1,,,0x00024200,Engine — 引擎标准类
+PlayerController.PlayerWaiting,jump,jump,跳跃,无,jump,,,0x00020200,Engine — 引擎标准类
+PlayerController.PlayerWaiting,suicide,suicide,自杀,无,suicide,,,0x00020200,Engine — 引擎标准类
+PlayerController.PlayerWaiting,startfire,startfire <FireModeNum>,开始开火(按压),fireModeNum=0~255整数：开火模式,startfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController.WaitingForPawn,startfire,startfire <FireModeNum>,开始开火(按压),fireModeNum=0~255整数：开火模式,startfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController.RoundEnded,suicide,suicide,自杀,无,suicide,,,0x00020200,Engine — 引擎标准类
+PlayerController.RoundEnded,throwweapon,throwweapon,丢弃当前武器,无,throwweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.RoundEnded,use,use,使用/互动(准星目标),无,use,,,0x00020200,Engine — 引擎标准类
+PlayerController.RoundEnded,startfire,startfire <FireModeNum>,开始开火(按压),fireModeNum=0~255整数：开火模式,startfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController.Dead,nextweapon,nextweapon,切换下一件武器,无,nextweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.Dead,prevweapon,prevweapon,切换上一件武器,无,prevweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.Dead,throwweapon,throwweapon,丢弃当前武器,无,throwweapon,,,0x00020200,Engine — 引擎标准类
+PlayerController.Dead,startfire,startfire <FireModeNum>,开始开火(按压),fireModeNum=0~255整数：开火模式,startfire 0,,,0x00024202,Engine — 引擎标准类
+PlayerController.Dead,use,use,使用/互动(准星目标),无,use,,,0x00020202,Engine — 引擎标准类
+PlayerController.Dead,jump,jump,跳跃,无,jump,,,0x00020202,Engine — 引擎标准类
+PlayerController,causeevent,causeevent <EventName>,触发一个Kismet远程事件,eventID=标识符：事件名,causeevent myevent,,,0x00024202,Engine — 引擎标准类
+PlayerController,ce,ce <EventName>,CauseEvent 缩写,eventID=标识符：事件名,ce myevent,,,0x00024202,Engine — 引擎标准类
+PlayerController,listconsoleevents,listconsoleevents,列出控制台事件,无,listconsoleevents,,,0x00020202,Engine — 引擎标准类
+PlayerController,listce,listce,列出全部可用远程事件,无,listce,,,0x00020202,Engine — 引擎标准类
+PlayerController,remoteevent,remoteevent <EventName>,触发远程事件(同CauseEvent),eventID=标识符：事件名,remoteevent myevent,,,0x00024202,Engine — 引擎标准类
+PlayerController,re,re <EventName>,远程事件重定向(RE xxxx:事件),conString=文本：连接串,re x,,,0x00024202,Engine — 引擎标准类
+PlayerController,showplayerstate,showplayerstate,在屏幕显示玩家状态,无,showplayerstate,,,0x00020202,Engine — 引擎标准类
+PlayerController,showgamestate,showgamestate,在屏幕显示游戏状态,无,showgamestate,,,0x00020202,Engine — 引擎标准类
+PlayerController,saveclassconfig,saveclassconfig <ClassName>,把类默认值写入ini,aClassName=标识符：类名,saveclassconfig x,,,0x00020202,Engine — 引擎标准类
+PlayerController,saveactorconfig,saveactorconfig <actorName>,把Actor配置写入ini,aClassName=标识符：类名,saveactorconfig x,,,0x00020202,Engine — 引擎标准类
+PlayerController,setshowsubtitles,setshowsubtitles <bValue>,开关字幕,bValue=0或1：是否显示,setshowsubtitles 1,,是,0x00020700,Engine — 引擎标准类
+PlayerController,consolekey,consolekey <Key>,查询或临时设置控制台开关键,key=标识符：键名,consolekey minus,,,0x00020202,Engine — 引擎标准类
+PlayerController,sendtoconsole,sendtoconsole <Command>,向控制台转发一条命令,command=文本：命令,sendtoconsole stat fps,,,0x00020202,Engine — 引擎标准类
+PlayerController,pathstep,pathstep <Cnt>,寻路调试：单步前进,无,pathstep,,,0x00024202,Engine — 引擎标准类
+PlayerController,pathchild,pathchild <Cnt>,寻路调试：走到相邻节点,index=整数：节点号,pathchild 0,,,0x00024202,Engine — 引擎标准类
+PlayerController,pathclear,pathclear,寻路调试：清除路径,无,pathclear,,,0x00020202,Engine — 引擎标准类
+PlayerController,debugcameraanims,debugcameraanims,调试相机动画,无,debugcameraanims,,,0x00020202,Engine — 引擎标准类
+PlayerController,bugitgo,bugitgo <Roll> <Yaw> <Pitch> <Z> <Y> <X>,传送到指定坐标并截图,roll=小数：横滚；yaw=小数：偏航；pitch=小数：俯仰；z=小数：Z坐标；y=小数：Y坐标；x=小数：X坐标,bugitgo 0 0 0 0 0 0,,,0x00820202,Engine — 引擎标准类
+PlayerController,bugit,bugit <ScreenShotDescription>,截图+坐标写入BugIt报告文件,theLocation=文本：位置说明,bugit desc,,,0x00824A02,Engine — 引擎标准类
+PlayerController,logloc,logloc,向日志输出当前位置,bEnabled=0或1：是否持续,logloc 1,,,0x00820202,Engine — 引擎标准类
+PlayerController,bugitai,bugitai <ScreenShotDescription>,AI版BugIt,theLocation=文本：位置说明,bugitai desc,,,0x00824A02,Engine — 引擎标准类
+PlayerController,bugitstringcreator,bugitstringcreator <LocString> <GoString> <ViewRotation> <ViewLocation>,生成BugIt字符串,无,bugitstringcreator,,,0x00420A02,Engine — 引擎标准类
+PlayerController,dumponlinesessionstate,dumponlinesessionstate,转储联机会话状态,无,dumponlinesessionstate,,,0x00020202,Engine — 引擎标准类
+PlayerController,dumpvoicemutingstate,dumpvoicemutingstate,转储语音静音状态(无效),无,dumpvoicemutingstate,,,0x00820202,Engine — 引擎标准类
+PlayerController,dumppeers,dumppeers,转储联机节点(无效),无,dumppeers,,,0x00820202,Engine — 引擎标准类
+Admin,admin,admin <CommandLine>,管理员命令(联机无效),cmd=文本：命令,admin x,,,0x00020202,Engine — 引擎标准类
+Admin,kickban,kickban <S>,封禁玩家(联机无效),playerName=文本,kickban x,,,0x00020202,Engine — 引擎标准类
+Admin,kick,kick <S>,踢出玩家(联机无效),playerName=文本,kick x,,,0x00020202,Engine — 引擎标准类
+Admin,playerlist,playerlist,列出玩家(联机无效),无,playerlist,,,0x00020202,Engine — 引擎标准类
+Admin,restartmap,restartmap,重启地图(服务端),无,restartmap,,,0x00020202,Engine — 引擎标准类
+Admin,switch,switch <URL>,切换地图(服务端),uRL=文本：地图,switch entry,,,0x00020202,Engine — 引擎标准类
+CheatManager,fxplay,fxplay <FXAnimPath> <aClass>,播放指定特效,fXAnimPath=文本：路径；aClass=类名：类,fxplay path class,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,fxstop,fxstop <aClass>,停止指定特效,aClass=类名：类,fxstop class,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugai,debugai <Category>,开关AI调试显示,category=标识符：类别,debugai combat,,,0x00024200,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,editaibytrace,editaibytrace,编辑准星指向的AI,无,editaibytrace,,,0x00820202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugpause,debugpause,暂停AI/游戏调试,无,debugpause,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,listdynamicactors,listdynamicactors,向日志列出全部动态Actor,无,listdynamicactors,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,freezeframe,freezeframe <Delay>,冻结游戏指定秒数,delay=小数：秒数,freezeframe 2,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,writetolog,writetolog <Param>,向日志写入一条文本,param=文本：内容,writetolog hello,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,killviewedactor,killviewedactor,杀死准星指向的Actor,无,killviewedactor,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,teleport,teleport,传送到准星指向位置,无,teleport,,,0x00820202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,changesize,changesize <F>,改变角色体型缩放,f=小数：倍率,changesize 2,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,endpath,endpath,结束路径记录,无,endpath,,,0x00020200,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,amphibious,amphibious,水陆两栖模式,无,amphibious,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,fly,fly,飞行模式(可移动不受重力),无,fly,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,walk,walk,恢复正常行走(退出飞行/穿墙),无,walk,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,ghost,ghost,穿墙模式(飞行+无碰撞),无,ghost,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,allammo,allammo,"补满全部弹药(IB3无弹药,基本无效)",无,allammo,,,0x00020200,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,god,god,切换无敌模式(不死),无,god,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,slomo,slomo <T>,设置游戏时间流速,"t=小数：倍率(1=正常,0.5=半速,2=双倍)",slomo 0.5,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,setjumpz,setjumpz <F>,设置跳跃初速度,f=小数：速度,setjumpz 500,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,setgravity,setgravity <F>,设置重力加速度,f=小数：数值,setgravity 500,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,setspeed,setspeed <F>,设置移动速度乘数,f=小数：倍率,setspeed 2,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,killall,killall <aClass>,杀死指定类的所有AI,aClass=类名：目标类(如 Engine.Pawn),killall engine.pawn,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,killpawns,killpawns,杀死全部角色(Pawn),无,killpawns,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,avatar,avatar <ClassName>,头像子命令(内部),cmd=文本：子命令,avatar help,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,summon,summon <ClassName>,召唤生成指定类名的Actor到准星处,className=类名：要生成的类,summon engine.pawn,,,0x00820202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,giveweapon,giveweapon <WeaponClassStr>,"发放指定武器(标准接口,IB3可能无效)",weaponTag=标识符：武器标签,giveweapon x,ObjectProperty,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,playersonly,playersonly,冻结所有Actor(只走玩家逻辑),无,playersonly,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,suspendai,suspendai,暂停/恢复全部AI,bSuspend=0或1：是否暂停,suspendai 1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,destroyfractures,destroyfractures <Radius>,销毁全部可破坏碎块,无,destroyfractures,,,0x00024202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,fractureallmeshes,fractureallmeshes,触发全部可破坏网格破碎,bForce=0或1：是否强制,fractureallmeshes 1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,fractureallmeshestomaximizememoryusage,fractureallmeshestomaximizememoryusage,触发全部破碎并最大化内存占用(压力测试),无,fractureallmeshestomaximizememoryusage,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,rememberspot,rememberspot,记住当前位置(寻路调试),无,rememberspot,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,viewself,viewself <bQuiet>,视角切回自己,无,viewself,,,0x00024202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,viewplayer,viewplayer <S>,视角跟随指定玩家,s=文本：玩家名,viewplayer p1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,viewactor,viewactor <actorName>,视角跟随指定Actor,anActor=标识符：Actor名,viewactor x,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,viewbot,viewbot,视角切换到AI Bot,无,viewbot,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,viewclass,viewclass <aClass>,视角切换到指定类的对象,aClass=类名：目标类,viewclass engine.pawn,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,loaded,loaded,向日志输出当前已加载的包列表,无,loaded,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,allweapons,allweapons,"发放全部武器(标准接口,IB3可能无效)",无,allweapons,,,0x00020200,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,streamlevelin,streamlevelin <PackageName>,流式加载指定关卡,packageName=标识符：包名,streamlevelin sub1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,onlyloadlevel,onlyloadlevel <PackageName>,只加载指定关卡(卸载其余),packageName=标识符：关卡包名,onlyloadlevel a01,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,streamlevelout,streamlevelout <PackageName>,流式卸载指定关卡,packageName=标识符：包名,streamlevelout sub1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,testlevel,testlevel,测试当前关卡(性能),无,testlevel,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,dumponlinesessionstate,dumponlinesessionstate,转储联机会话状态,无,dumponlinesessionstate,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,setonlinedebuglevel,setonlinedebuglevel <DebugLevel>,设置联机调试级别,debugLevel=整数：级别,setonlinedebuglevel 1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,testnavmeshpath,testnavmeshpath <bDrawPath>,测试寻路(调试),无,testnavmeshpath,,,0x00824202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,testpylonconnectivity,testpylonconnectivity,测试导航柱连通性,无,testpylonconnectivity,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,verbosepathdebug,verbosepathdebug,详细寻路调试,无,verbosepathdebug,,,0x00820202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,logplaysoundcalls,logplaysoundcalls <bShouldLog>,记录播放声音调用,无,logplaysoundcalls,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,logparticleactivatesystemcalls,logparticleactivatesystemcalls <bShouldLog>,记录粒子系统调用,无,logparticleactivatesystemcalls,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,verifynavmeshobjects,verifynavmeshobjects,校验导航网格对象,无,verifynavmeshobjects,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,drawunsupportingedges,drawunsupportingedges <PawnClassName>,绘制导航网格边缘(调试),无,drawunsupportingedges,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,navmeshverification,navmeshverification <interval>,导航网格校验(调试),无,navmeshverification,,,0x00024202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,printallpathobjectedges,printallpathobjectedges,打印全部寻路边(调试),无,printallpathobjectedges,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,printnavmeshobstacles,printnavmeshobstacles,打印导航网格障碍,无,printnavmeshobstacles,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,verifynavmeshcoverrefs,verifynavmeshcoverrefs,校验导航掩码引用,无,verifynavmeshcoverrefs,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,toggleailogging,toggleailogging,开关AI日志,无,toggleailogging,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debuginilocpatcher,debuginilocpatcher,调试：ini本地化补丁,无,debuginilocpatcher,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugdownloadtitlefile,debugdownloadtitlefile <bFromCache> <Filename>,调试：下载标题文件,bFromCache=0或1；filename=文本：文件名,debugdownloadtitlefile 0 x,,,0x00024202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugsavetitlefile,debugsavetitlefile <Filename>,调试：写标题文件,无,debugsavetitlefile,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugdeletetitlefiles,debugdeletetitlefiles,调试：删除标题文件,无,debugdeletetitlefiles,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugemsdownload,debugemsdownload,调试：EMS内容下载,无,debugemsdownload,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,dumpcoverstats,dumpcoverstats,转储掩体统计(调试),无,dumpcoverstats,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,drawlocation,drawlocation <Loc>,在屏幕绘制当前坐标,bEnabled=0或1：是否开启,drawlocation 1,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,drawlocationxyz,drawlocationxyz <Z> <Y> <X>,在屏幕绘制指定坐标,bEnabled=0或1；x=小数；y=小数；z=小数,drawlocationxyz 1 1 2 3,,,0x00820202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugnotification,debugnotification <SecondsFromNow> <MessageBody>,调试：弹出系统通知,无,debugnotification,,,0x00820202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugqueryuserfiles,debugqueryuserfiles <UserId>,调试：查询用户文件列表,无,debugqueryuserfiles,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugwriteuserfile,debugwriteuserfile <Filename> <UserId>,调试：写用户文件,无,debugwriteuserfile,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugreaduserfile,debugreaduserfile <Filename> <UserId>,调试：读用户文件,无,debugreaduserfile,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,debugdeleteuserfile,debugdeleteuserfile <Filename> <UserId>,调试：删除用户文件,无,debugdeleteuserfile,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,testhttp,testhttp <bSendParallelRequest> <URL> <Payload> <Verb>,发起一次HTTP测试请求,bSendParallelRequest=0或1；uRL=文本；payload=文本；verb=文本,testhttp 0 http://x p GET,,,0x00024202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,sendanalyticsevent,sendanalyticsevent <AttributeValue> <AttributeName> <EventName>,"发送一条统计事件(服务已死,无效)",按游戏内部定义,sendanalyticsevent,,,0x00024202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,sendanalyticsuserattributeevent,sendanalyticsuserattributeevent <AttributeValue> <AttributeName>,"上报用户属性事件(服务已死,无效)",无,sendanalyticsuserattributeevent,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,sendanalyticsitempurchaseevent,sendanalyticsitempurchaseevent <ItemQuantity> <PerItemCost> <Currency> <ItemId>,"上报物品购买事件(服务已死,无效)",无,sendanalyticsitempurchaseevent,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,sendanalyticscurrencypurchaseevent,sendanalyticscurrencypurchaseevent <PaymentProvider> <RealMoneyCost> <RealCurrencyType> <GameCurrencyAmount> <GameCurrencyType>,"上报货币购买事件(服务已死,无效)",无,sendanalyticscurrencypurchaseevent,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,sendanalyticscurrencygivenevent,sendanalyticscurrencygivenevent <GameCurrencyAmount> <GameCurrencyType>,"上报货币给予事件(服务已死,无效)",无,sendanalyticscurrencygivenevent,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,sendanalyticscachedevents,sendanalyticscachedevents,"发送缓存的统计事件(服务已死,无效)",无,sendanalyticscachedevents,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,setanalyticsuserid,setanalyticsuserid <UserId>,设置统计系统用户ID,userId=文本,setanalyticsuserid x,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,getanalyticsuserid,getanalyticsuserid,输出统计系统用户ID,无,getanalyticsuserid,,是,0x00020600,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,analyticsstartsession,analyticsstartsession,"开始统计会话(服务已死,无效)",无,analyticsstartsession,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,analyticsendsession,analyticsendsession,"结束统计会话(服务已死,无效)",无,analyticsendsession,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,googleauth,googleauth,Google授权(无效),无,googleauth,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,googlerevoke,googlerevoke,撤销Google授权(无效),无,googlerevoke,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+CheatManager,subscribetochairchannel,subscribetochairchannel,订阅ChAIR频道(无效),无,subscribetochairchannel,,,0x00020202,CheatManager — 引擎作弊管理器（需先 EnableCheats）
+GameInfo,dotraveltheworld,dotraveltheworld,遍历加载全部地图(压力测试),无,dotraveltheworld,,,0x00020202,Engine — 引擎标准类
+GameInfo,setbandwidthlimit,setbandwidthlimit <AsyncIOBandwidthLimit>,设置带宽限制(联机),bandwidth=整数：值,setbandwidthlimit 10000,,是,0x00020600,Engine — 引擎标准类
+GameInfo,beginbvt,beginbvt <TagDesc>,开始基础验证测试(内部),无,beginbvt,,,0x00024302,Engine — 引擎标准类
+GameViewportClient,debugcreateplayer,debugcreateplayer <ControllerId>,调试：创建一个本地玩家,controllerIndex=整数：控制器编号,debugcreateplayer 1,,,0x00020202,Engine — 引擎标准类
+GameViewportClient,ssswapcontrollers,ssswapcontrollers,交换分屏控制器,无,ssswapcontrollers,,,0x00020202,Engine — 引擎标准类
+GameViewportClient,debugremoveplayer,debugremoveplayer <ControllerId>,调试：移除本地玩家,controllerIndex=整数：控制器编号,debugremoveplayer 1,,,0x00020202,Engine — 引擎标准类
+GameViewportClient,setsplit,setsplit <Mode>,设置分屏,splitType=整数：分屏类型,setsplit 0,,,0x00020202,Engine — 引擎标准类
+GameViewportClient,showtitlesafearea,showtitlesafearea,显示安全区框线,无,showtitlesafearea,,,0x00020202,Engine — 引擎标准类
+GameViewportClient,setconsoletarget,setconsoletarget <PlayerIndex>,设置控制台目标玩家,playerIndex=整数：玩家编号,setconsoletarget 0,,,0x00020202,Engine — 引擎标准类
+GameViewportClient,setprogresstime,setprogresstime <T>,设置进度条显示时间,time=小数：秒数,setprogresstime 5,,,0x00020A02,Engine — 引擎标准类
+GameViewportClient,clearprogressmessages,clearprogressmessages,清除进度提示,无,clearprogressmessages,,,0x00020202,Engine — 引擎标准类
+HUD,togglehud,togglehud,开关HUD,无,togglehud,,,0x00020202,Engine — 引擎标准类
+HUD,showhud,showhud,开关HUD,无,showhud,,,0x00020202,Engine — 引擎标准类
+HUD,showscores,showscores,显示计分板,无,showscores,,,0x00020202,Engine — 引擎标准类
+HUD,setshowscores,setshowscores <bNewValue>,开关计分板,bInValue=0或1,setshowscores 1,,,0x00020202,Engine — 引擎标准类
+HUD,showdebug,showdebug <DebugType>,切换调试信息面板(循环多页),aClassName=类名：指定类(可空),showdebug,,,0x00024202,Engine — 引擎标准类
+HUD,toggledirectorinfohud,toggledirectorinfohud,开关导演信息HUD,无,toggledirectorinfohud,,,0x00020202,Engine — 引擎标准类
+HUD,toggledirectorinfodebug,toggledirectorinfodebug,开关导演信息调试,无,toggledirectorinfodebug,,,0x00020202,Engine — 引擎标准类
+Input,setbind,setbind <Command> <BindName>,绑定按键到命令,bindName=标识符：键名；command=文本：命令,setbind f slomo 0.5,,,0x00C20202,Engine — 引擎标准类
+PlayerInput,invertmouse,invertmouse,翻转鼠标垂直方向,bInvert=0或1：是否翻转,invertmouse 1,BoolProperty,,0x00020202,Engine — 引擎标准类
+PlayerInput,invertturn,invertturn,翻转横向转向,bInvert=0或1：是否翻转,invertturn 1,BoolProperty,,0x00020202,Engine — 引擎标准类
+PlayerInput,setsensitivity,setsensitivity <F>,设置鼠标灵敏度,f=小数：灵敏度,setsensitivity 2,,,0x00020202,Engine — 引擎标准类
+PlayerInput,jump,jump,跳跃,无,jump,,,0x00020202,Engine — 引擎标准类
+PlayerInput,smartjump,smartjump,智能跳跃,无,smartjump,,,0x00020202,Engine — 引擎标准类
+PlayerInput,clearsmoothing,clearsmoothing,清除鼠标平滑,无,clearsmoothing,,,0x00020202,Engine — 引擎标准类
+SwordPawn,hideweaponr,hideweaponr,隐藏右手武器,无,hideweaponr,,,0x00020202,SwordPawn — 角色
+SwordPawn,showweaponr,showweaponr,显示右手武器,无,showweaponr,,,0x00020202,SwordPawn — 角色
+SwordPawn,hideweaponl,hideweaponl,隐藏左手武器,无,hideweaponl,,,0x00020202,SwordPawn — 角色
+SwordPawn,showweaponl,showweaponl,显示左手武器,无,showweaponl,,,0x00020202,SwordPawn — 角色
+SwordPawn,hideweapons,hideweapons,隐藏武器(角色侧),无,hideweapons,,,0x00020202,SwordPawn — 角色
+SwordPawn,showweapons,showweapons,显示武器(角色侧),无,showweapons,,,0x00020202,SwordPawn — 角色
+SwordPawn,toggleselfshadow,toggleselfshadow <bOn>,开关自身阴影,bOn=0或1：是否开启,toggleselfshadow 1,,,0x00020202,SwordPawn — 角色
+SwordPawn,togglereflection,togglereflection <bOn>,开关反射效果,bOn=0或1：是否开启,togglereflection 1,,,0x00020202,SwordPawn — 角色
+SwordPawn,takeenemydamage,takeenemydamage <DamageScalar>,让玩家受到指定伤害,damageScalar=小数：伤害系数,takeenemydamage 100,,,0x00024202,SwordPawn — 角色
+SwordHudBase,hudpausegame,hudpausegame,暂停/继续游戏(HUD侧),无,hudpausegame,,,0x00020202,SwordHud* — 界面
+SwordHudBase,hudtimer,hudtimer <Seconds> <Cmd>,定时执行命令,seconds=整数：延迟秒数；cmd=文本：命令,hudtimer 5 slomo 1,,,0x00024202,SwordHud* — 界面
+SwordHudBase,matineefastforward,matineefastforward,快进当前过场动画,无,matineefastforward,,,0x00020202,SwordHud* — 界面
+SwordHudBase,matineeresume,matineeresume,恢复过场动画,无,matineeresume,,,0x00020202,SwordHud* — 界面
+SwordHudBase,alwaysfastfoward,alwaysfastfoward,过场动画总是快进,无,alwaysfastfoward,,,0x00020200,SwordHud* — 界面
+SwordHudBase,disablefastforward,disablefastforward <bDisable>,禁用过场快进,bDisable=0或1,disablefastforward 1,,,0x00024202,SwordHud* — 界面
+SwordHudBase,displayplayerevent,displayplayerevent <DrawColor> <FadeTime> <HoldTime> <SubEvent> <Event>,在屏幕显示一条玩家事件文本,drawColor=结构：颜色；fadeTime=小数：淡入秒；holdTime=小数：停留秒；subEvent=文本；event=文本,"displayplayerevent (R=255,G=0,B=0,A=255) 1 5 sub ev",,,0x00020202,SwordHud* — 界面
+SwordHudBase,gesturetest,gesturetest,手势测试,无,gesturetest,,,0x00020202,SwordHud* — 界面
+SwordHudBase,showbattlehud,showbattlehud,显示战斗HUD,无,showbattlehud,,,0x00020202,SwordHud* — 界面
+SwordHudBase,huddrawenable,huddrawenable,启用HUD绘制,无,huddrawenable,,,0x00020202,SwordHud* — 界面
+SwordHudBase,huddrawdisable,huddrawdisable,禁用HUD绘制,无,huddrawdisable,,,0x00020202,SwordHud* — 界面
+SwordHudBase,displayvictorybanner,displayvictorybanner <bIsVictory>,显示胜利横幅,bIsVictory=0或1：是否胜利,displayvictorybanner 1,,,0x00020202,SwordHud* — 界面
+SwordHudBase,showfixedslash,showfixedslash <FadeInTime> <ArrowDir>,显示固定挥砍方向提示,fadeTime=小数：淡入；arrowDir=0~255整数：方向,showfixedslash 1 0,,,0x00020202,SwordHud* — 界面
+SwordHudBase,clearfixedslash,clearfixedslash <bSuccess> <FadeOutTime>,清除挥砍方向提示,bSuccess=0或1：是否成功；fadeTime=小数：淡出,clearfixedslash 1 1,,,0x00020202,SwordHud* — 界面
+SwordHudBase,showachievement,showachievement <AchievementDesc> <AchievementName>,屏幕弹出成就横幅,achievementDesc=文本：描述；achievementName=文本：名称,showachievement desc name,,,0x00020202,SwordHud* — 界面
+SwordHudBase,showfadedzones,showfadedzones,显示淡出区域(调试),无,showfadedzones,,,0x00020202,SwordHud* — 界面
+SwordHudBase,deactivatemagicmode,deactivatemagicmode,退出魔法模式,无,deactivatemagicmode,,,0x00020200,SwordHud* — 界面
+SwordHudBase,execmenu,execmenu <msg>,执行一条菜单命令,msg=文本：命令,execmenu x,,,0x00020202,SwordHud* — 界面
+SwordHudBase,togglebatchrendering,togglebatchrendering,切换批渲染,无,togglebatchrendering,,,0x00020202,SwordHud* — 界面
+SwordBasePC,blockforasyncloads,blockforasyncloads,阻塞等待异步加载完成,无,blockforasyncloads,,是,0x00022600,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,loadsublevel,loadsublevel <bShouldBlockOnLoad> <SubLevelName>,加载指定子关卡,bShouldBlockOnLoad=0或1：是否阻塞等待；subLevelName=文本：子关卡名,loadsublevel 0 sub_x,,是,0x00022600,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,unloadsublevel,unloadsublevel <SubLevelName>,卸载指定子关卡,subLevelName=文本：子关卡名,unloadsublevel sub_x,,是,0x00022600,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,issublevelloaded,issublevelloaded <SubLevelName>,查询指定子关卡是否已加载,subLevelName=文本：子关卡名,issublevelloaded sub_x,BoolProperty,是,0x00022600,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,setalwaystick,setalwaystick <bSet>,强制Actor每帧Tick,bSet=0或1,setalwaystick 1,,是,0x00020600,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,showloadingscreen,showloadingscreen <bPause>,显示加载画面,bPause=0或1：是否暂停,showloadingscreen 1,,,0x00024302,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,hideloadingscreen,hideloadingscreen,隐藏加载画面,无,hideloadingscreen,,,0x00020302,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,testdisconnect,testdisconnect,模拟断线(调试),无,testdisconnect,,,0x00020302,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,closewaitingpopup,closewaitingpopup <ErrorMsg> <Reason>,关闭等待弹窗,errorMsg=文本；reason=文本,closewaitingpopup e r,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,swordreportscores,swordreportscores <MaxBloodLine> <GodKingLevel> <TotalGold> <PawnLevel> <TotalKills>,"上报分数(服务已死,无效)",maxBloodLine=整数；godKingLevel=整数；totalGold=整数；pawnLevel=整数；totalKills=整数,swordreportscores 1 1 1 1 1,,,0x00820202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,swordreadscores,swordreadscores,"读取排行榜(服务已死,无效)",无,swordreadscores,,,0x00820202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,swordreadfriendscores,swordreadfriendscores,"读取好友分数(服务已死,无效)",无,swordreadfriendscores,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,swordreadrangescores,swordreadrangescores <Length> <Start>,"读取分数区间(服务已死,无效)",length=整数；start=整数,swordreadrangescores 10 0,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,swordreadscoresaroundplayer,swordreadscoresaroundplayer <Num>,"读取玩家附近排名(服务已死,无效)",num=整数,swordreadscoresaroundplayer 10,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,swordreadachievements,swordreadachievements,"读取成就列表(服务已死,无效)",无,swordreadachievements,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,dopccheevos,dopccheevos <bOff>,开关成就系统(调试),bOff=0或1：是否关闭,dopccheevos 0,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,unlockachievement,unlockachievement <PercentComplete> <bSilent> <AchievementId>,解锁指定成就,percentComplete=小数：进度；bSilent=0或1：是否静默；achievementId=0~255整数：成就ID,unlockachievement 100 0 3,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,testachievement,testachievement <PercentComplete> <Achievement>,测试指定成就,percentComplete=小数；achievement=整数,testachievement 100 1,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,testachievementsall,testachievementsall,测试解锁全部成就,无,testachievementsall,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,setcheatdate,setcheatdate <Date> <Month>,设置作弊用日期(触发节日类内容),date=整数：日；month=整数：月,setcheatdate 25 12,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,testcloudstep,testcloudstep <bFinishSteps>,测试云存档步骤,bFinishSteps=0或1,testcloudstep 1,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,testcloudcleardelegates,testcloudcleardelegates,清理云存档委托,无,testcloudcleardelegates,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,testclouddebugfail,testclouddebugfail <Chance> <Step>,模拟云存档失败,chance=整数：概率；step=整数：步骤,testclouddebugfail 50 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,cloudtest,cloudtest,云存档综合测试,无,cloudtest,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,clouddocs,clouddocs,云存档文档目录,无,clouddocs,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordBasePC,cloudprint,cloudprint,打印云存档状态,无,cloudprint,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPC,mobilegamestartmatch,mobilegamestartmatch,开始一场移动端比赛(内部),无,mobilegamestartmatch,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,openclashmobmenu,openclashmobmenu,打开ClashMob菜单,无,openclashmobmenu,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hidesubtitlesonfirstrun,hidesubtitlesonfirstrun,首次运行隐藏字幕,无,hidesubtitlesonfirstrun,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,resetsubtitlesafterfirstrun,resetsubtitlesafterfirstrun,复位首次运行字幕状态,无,resetsubtitlesafterfirstrun,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hideallchoicenodes,hideallchoicenodes,隐藏全部分支节点,无,hideallchoicenodes,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,sworddisablesleep,sworddisablesleep,禁止系统休眠,无,sworddisablesleep,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,swordenablesleep,swordenablesleep,允许系统休眠,无,swordenablesleep,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showdemovideo,showdemovideo,播放演示视频,无,showdemovideo,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,appledemo,appledemo <Type>,Apple演示模式,type=整数：类型,appledemo 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,appledemofull,appledemofull,完整Apple演示模式,无,appledemofull,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pax,pax,进入PAX展会演示模式,无,pax,,,0x00820202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,paxprog,paxprog <Progress>,推进展会演示进度,progress=整数：进度,paxprog 5,,,0x00024200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerdragonfight,setplayerdragonfight <ForceMap> <FixedStart>,进入屠龙战(原生实现,需剧情进度/场景条件满足),forceMap=文本：强制地图名(第1位,0=默认龙巢,可试 K02_Dragonlair_Def)；fixedStart=整数：起始方式(第2位,0=常规)。原生逻辑,条件不满足时静默无效,setplayerdragonfight 0 0,,,0x00024200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,checkfordragonpausedeath,checkfordragonpausedeath,检查龙战暂停死亡(调试),无,checkfordragonpausedeath,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setupcollector,setupcollector <ForceWeaponStart>,进入收藏家模式(会置位收藏家遭遇游戏标志;能否刷出受剧情进度/场景限制),forceWeaponStart=整数：起始武器索引(0=默认),setupcollector 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerquicktimedifficulty,setplayerquicktimedifficulty <SetValue>,设置QTE(快速反应)难度,setValue=整数：难度值,setplayerquicktimedifficulty 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setforceswordclash,setforceswordclash,强制触发剑刃对拼(QTE),无,setforceswordclash,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayercombatlog,setplayercombatlog <bSet>,开关战斗日志输出,bSet=0或1：是否开启,setplayercombatlog 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayercombolog,setplayercombolog <bSet>,开关连击日志输出,bSet=0或1：是否开启,setplayercombolog 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,playambientmusic,playambientmusic,播放环境音乐,无,playambientmusic,,,0x00820202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pausesong,pausesong,暂停当前音乐,无,pausesong,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,resumeprevioussong,resumeprevioussong,恢复上一首音乐,无,resumeprevioussong,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,assistclashmobcurrentmap,assistclashmobcurrentmap <LoopAssistCount> <LoopAssistTime> <GoalProgress>,以协助模式打当前ClashMob地图,loopAssistCount=整数：次数；loopAssistTime=小数：时长；goalProgress=整数：目标进度,assistclashmobcurrentmap 5 60 100,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerstopallmatinee,setplayerstopallmatinee,停止全部过场动画,无,setplayerstopallmatinee,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setmastervolume,setmastervolume <bNoTurnOffCheck> <fxvolume>,设置主音量,bNoTurnOffCheck=0或1；fxvolume=小数：音量(0~1),setmastervolume 0 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,updatemastervolume,updatemastervolume,刷新主音量,无,updatemastervolume,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setinputdefenseholddelay,setinputdefenseholddelay <DodgeHoldDelay> <BlockHoldDelay>,设置防御输入延迟,dodgeHoldDelay=小数：闪避延迟；blockHoldDelay=小数：格挡延迟,setinputdefenseholddelay 0.1 0.1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadnextboss,loadnextboss <MapName> <bNextClassType>,加载下一场Boss战,mapName=文本：地图名；bNextClassType=0或1：是否下一形态,loadnextboss map_x 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,sf,sf <MapName> <FightMapVariation> <BossClass> <BossName>,SetFight 的缩写，直接进入指定Boss战,mapName=文本；fightMapVariation=整数；bossClass=整数；bossName=文本,sf map_x 0 1 titan,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setfight,setfight <MapName> <BattleMapVariation> <BossClass> <BossName>,直接进入指定Boss战,mapName=文本：地图名；battleMapVariation=整数：变体；bossClass=整数：Boss类别；bossName=文本：Boss名,setfight map_x 0 1 titan,,,0x00024200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,testfight,testfight,以测试配置进入一场Boss战,无,testfight,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setboss,setboss <bDontTakeDamage> <bDontBlock> <bDontInitiateAttack>,设置Boss行为开关,bDontTakeDamage=0或1：Boss不受伤；bDontBlock=0或1：Boss不格挡；bDontInitiateAttack=0或1：Boss不主动攻击,setboss 0 1 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossattack,setbossattack <ForcedAttackAnim>,强制Boss使用指定攻击动画,forcedAttackAnim=标识符：动画名,setbossattack anim_x,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossidleanim,setbossidleanim <NewIdle>,设置Boss待机动画,newIdle=标识符：动画名,setbossidleanim anim,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossforceallowspecialattacks,setbossforceallowspecialattacks,允许Boss使用特殊技,无,setbossforceallowspecialattacks,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossforcemagicanimrate,setbossforcemagicanimrate <Rate>,设置Boss魔法动画速率,rate=小数：倍率,setbossforcemagicanimrate 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossforceattackset,setbossforceattackset <ForcedAttackSet>,强制Boss攻击组合,forcedAttackSet=整数：组合编号,setbossforceattackset 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossforceparryreact,setbossforceparryreact <ReactType>,强制Boss招架反应,reactType=整数：反应类型,setbossforceparryreact 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossforceswordclash,setbossforceswordclash,强制Boss触发剑刃对拼,无,setbossforceswordclash,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossforceparryattack,setbossforceparryattack,强制Boss招架攻击,无,setbossforceparryattack,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbosstagaskilled,setbosstagaskilled,把当前Boss标记为已击杀,无,setbosstagaskilled,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbosscinscale,setbosscinscale <ForceBoss>,设置过场中Boss模型缩放,forceBoss=标识符,setbosscinscale titan,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossmeshscale,setbossmeshscale <ForceBoss> <ForceScale>,缩放当前Boss模型,forceBoss=标识符：Boss名；forceScale=小数：缩放倍率,setbossmeshscale titan 2,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,resetbossmeshscale,resetbossmeshscale <ForceBoss>,恢复Boss模型缩放,forceBoss=标识符：Boss名,resetbossmeshscale titan,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbosselementalattack,setbosselementalattack <ElementalAttackType>,设置Boss的元素攻击类型,elementalAttackType=0~255整数：元素类型编号,setbosselementalattack 3,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbosselementalresist,setbosselementalresist <ElementalAttackType>,设置Boss的元素抗性类型,elementalAttackType=0~255整数：元素类型编号,setbosselementalresist 3,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossmagicattack,setbossmagicattack <MagicFXName>,设置Boss魔法攻击特效,magicFXName=标识符：特效名,setbossmagicattack fx,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossdumpcurrentattacks,setbossdumpcurrentattacks,转储Boss当前攻击列表,无,setbossdumpcurrentattacks,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbosslevel,setbosslevel <iLevel>,设置当前Boss等级,ilevel=整数：等级,setbosslevel 50,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pawnpoints,pawnpoints <B> <bDontFlush> <fScale>,显示角色坐标点(调试),b=对象；bDontFlush=0或1；fScale=小数,pawnpoints none 1 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossnextweapon,setbossnextweapon,让Boss切换下一件武器,无,setbossnextweapon,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossnextclass,setbossnextclass,Boss切换下一职业形态,无,setbossnextclass,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,cyclebossonretry,cyclebossonretry,重试战斗时轮换Boss形态,无,cyclebossonretry,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossdisarm,setbossdisarm,缴械当前Boss(去掉武器),无,setbossdisarm,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcebossweaponswitch,forcebossweaponswitch <ForceClassIndex>,强制Boss切换到指定武器类别,forceClassIndex=整数：类别编号,forcebossweaponswitch 2,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,bossinfo,bossinfo,在屏幕/日志显示当前Boss信息,无,bossinfo,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,trainingprevattackset,trainingprevattackset,训练模式上一攻击组合,无,trainingprevattackset,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,trainingnextattackset,trainingnextattackset,训练模式下一攻击组合,无,trainingnextattackset,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbosscycleelemental,setbosscycleelemental,轮换Boss元素,无,setbosscycleelemental,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayercycleelemental,setplayercycleelemental,轮换玩家元素,无,setplayercycleelemental,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerlevel,setplayerlevel <iLevel>,设置玩家等级,ilevel=整数：目标等级,setplayerlevel 50,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayergiveallperks,setplayergiveallperks,解锁全部特长(Perks),无,setplayergiveallperks,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerallstats,setplayerallstats <ForceStatsTo>,模拟按 体力→攻击→盾牌→魔法 顺序给四维加点（消耗现有未分配技能点,点数不足时排在前面的属性吃掉全部余量;非覆写）,forceStatsTo=整数：每维目标值,setplayerallstats 5,,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerskiptutorial,setplayerskiptutorial,跳过教程,无,setplayerskiptutorial,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayergiverandomgem,setplayergiverandomgem <RewardLevel> <GoldScale> <FavorSocketType>,随机发放一颗宝石,rewardLevel=整数：奖励等级(越高宝石越好,排第1位)；goldScale=小数：价值缩放(排第2位)；favorSocketType=整数：偏好槽位形状(排第3位,0=不限)。2026-10-05 游戏内自动补全修正原顺序错误,setplayergiverandomgem 50 1 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayergiveallitems,setplayergiveallitems,一次性发放全套物品(全武器/防具/戒指/宝石等),无,setplayergiveallitems,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayermasterallitems,setplayermasterallitems <SetAllToLevel> <MasterCount>,将全部物品设为满熟练度/指定等级,setAllToLevel=整数：目标等级；masterCount=整数：数量,setplayermasterallitems 10 100,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayeritemlevel,setplayeritemlevel <ForceLevel>,设置当前物品的等级,forceLevel=整数：目标等级,setplayeritemlevel 10,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,item,item <ItemName>,"发放指定模板名的物品到背包(模板名=物品ini节名,宝石见宝石列表)",itemName=文本：物品模板名,item attackgem / item sword_1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerrandomdropratios,setplayerrandomdropratios <Items> <Gems> <Potions> <Keys> <Gold>,设置随机掉落比例(各类权重),items=整数：物品；gems=整数：宝石；potions=整数：药水；keys=整数：钥匙；gold=整数：金币,setplayerrandomdropratios 50 50 30 10 60,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerrandomitemdropratios,setplayerrandomitemdropratios <Magic> <Helmet> <Armor> <Shield> <Sword>,设置各类装备的随机掉落比例,magic=整数：魔法；helmet=整数：头盔；armor=整数：护甲；shield=整数：盾牌；sword=整数：剑,setplayerrandomitemdropratios 10 10 10 10 60,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayercustomfx,setplayercustomfx <CustomFXName>,设置自定义特效,customFXName=标识符：特效名,setplayercustomfx fx_x,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerfootstepsurface,setplayerfootstepsurface <FootStepMaterialType>,设置脚步声材质类型,footStepMaterialType=0~255整数：材质编号,setplayerfootstepsurface 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,approvefacebook,approvefacebook,批准Facebook关联,无,approvefacebook,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,postfacebookstats,postfacebookstats <bAllowPopups>,发布Facebook统计(无效),bAllowPopups=0或1,postfacebookstats 0,,,0x00024200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpplayerxpstats,dumpplayerxpstats <PlayThrough>,转储玩家经验统计,playThrough=整数：周目数,dumpplayerxpstats 0,,,0x00024200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpanimsetfxplayerusage,dumpanimsetfxplayerusage <OnlyAnimSet>,转储玩家动画集特效使用,onlyAnimSet=整数：动画集编号,dumpanimsetfxplayerusage 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpanimsetfxbossusage,dumpanimsetfxbossusage <OnlyAnimSet>,转储Boss动画集特效使用,onlyAnimSet=整数：动画集编号,dumpanimsetfxbossusage 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpitemstats,dumpitemstats,向日志转储全部物品的属性数据,无,dumpitemstats,,,0x00020200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpitemnames,dumpitemnames,向日志转储全部物品模板名(配合日志文件查名),无,dumpitemnames,,,0x00020200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerstats,setplayerstats <Shield> <Magic> <Health> <Damage>,直接覆写当前角色的四维加点属性（不消耗技能点；默认改当前使用角色,改 Isa 需切到 Isa）,shield=整数：护盾(第1位,用户实测顺序2026-10-05)；magic=整数：魔法(第2位)；health=整数：体力(第3位)；damage=整数：攻击(第4位),setplayerstats 500 500 500 500,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerdodgevars,setplayerdodgevars <DodgeRechargeSeconds> <DodgeCountMax>,设置闪避参数,dodgeRechargeSeconds=整数：闪避充能秒数；dodgeCountMax=整数：闪避次数上限,setplayerdodgevars 0 99,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayermultistab,setplayermultistab <StabAnimSpeed> <StabAnimBlendOutPct>,设置连突刺参数,stabAnimSpeed=小数：动画速度；stabAnimBlendOutPct=小数：混合比例,setplayermultistab 2 0.5,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerglobalanimspeed,setplayerglobalanimspeed <Speed>,设置全局动画速度,speed=小数：速度倍率(1=正常),setplayerglobalanimspeed 0.5,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayermaxhealth,setplayermaxhealth <To>,设置玩家生命上限,to=整数：上限值,setplayermaxhealth 10000,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerhealth,setplayerhealth <To>,设置玩家当前生命值,to=整数：生命值,setplayerhealth 10000,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayergold,setplayergold <Gold>,设置玩家金币余额为指定值,gold=整数：要设置的金币数量,setplayergold 999999999,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerchips,setplayerchips <Chips>,设置玩家筹码(内部货币)余额,chips=整数：筹码数量,setplayerchips 5000,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerdisplaystatus,setplayerdisplaystatus <bShowExtraParryInfo> <bShowXP> <bShow>,开关HUD扩展显示,bShowExtraParryInfo=0或1：额外招架信息；bShowXP=0或1：经验；bShow=0或1：总开关,setplayerdisplaystatus 1 1 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,playplayertagfx,playplayertagfx <FXTag>,按标签播放玩家特效,fXTag=标识符：特效标签,playplayertagfx fx_x,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,playbosstagfx,playbosstagfx <FXTag>,按标签播放Boss特效,fXTag=标识符：特效标签,playbosstagfx fx_x,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayersword,setplayersword <SwordNumber>,切换指定编号的剑(编号见 DumpItemNames 输出),swordNumber=整数：武器编号,setplayersword 3,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayershield,setplayershield <ShieldNumber>,切换指定编号的盾牌,shieldNumber=整数：盾牌编号,setplayershield 2,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerarmor,setplayerarmor <ArmorNumber>,切换指定编号的护甲,armorNumber=整数：护甲编号,setplayerarmor 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerhelmet,setplayerhelmet <HelmetNumber>,切换指定编号的头盔,helmetNumber=整数：头盔编号,setplayerhelmet 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayermagic,setplayermagic <MagicNumber>,切换指定编号的魔法,magicNumber=整数：魔法编号,setplayermagic 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayernextweapon,setplayernextweapon,切换到下一件武器,无,setplayernextweapon,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayercyclemagicspells,setplayercyclemagicspells,轮换已装备的魔法组合,无,setplayercyclemagicspells,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerboostmagicspelllevel,setplayerboostmagicspelllevel,提升当前魔法咒语的等级,无,setplayerboostmagicspelllevel,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerinputfilter,setplayerinputfilter <NoMagic> <NoSuper> <NoDodge> <NoShield> <NoAttack>,屏蔽玩家的部分输入(调试用),noMagic=0或1：禁魔法；noSuper=0或1：禁大招；noDodge=0或1：禁闪避；noShield=0或1：禁格挡；noAttack=0或1：禁攻击,setplayerinputfilter 1 0 0 0 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossbattlefx,setbossbattlefx <bCameraShake> <bScreenFlash> <bSound> <bAnimFX> <bFX>,开关Boss战特效,bCameraShake=0或1：镜头震动；bScreenFlash=0或1：闪屏；bSound=0或1：音效；bAnimFX=0或1：动画特效；bFX=0或1：特效,setbossbattlefx 0 0 0 0 0,,,0x00026A02,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossrage,setbossrage <Rage>,设置Boss怒气值,rage=小数：怒气(0~1),setbossrage 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerfilterslomo,setplayerfilterslomo <bSet>,开关过滤式慢动作,bSet=0或1：是否开启,setplayerfilterslomo 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,exitbossfight,exitbossfight,立即退出当前Boss战,无,exitbossfight,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcefighttransition,forcefighttransition,强制战斗转场,无,forcefighttransition,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcesuperdodgeactive,forcesuperdodgeactive,强制完美闪避生效,无,forcesuperdodgeactive,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,killboss,killboss,立即击杀当前Boss,无,killboss,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setmpgodmode,setmpgodmode <bSet>,切换多人/挑战模式的上帝模式,bSet=0或1：是否开启,setmpgodmode 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setmpfullmeters,setmpfullmeters <SpecialLevel>,将大招/魔法槽充满,specialLevel=小数：槽位值,setmpfullmeters 999,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dobossspecial,dobossspecial,让Boss释放特殊技,无,dobossspecial,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dobossspecialmash,dobossspecialmash,模拟Boss特殊技连打,无,dobossspecialmash,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dobosssupermash,dobosssupermash,模拟Boss大招连打,无,dobosssupermash,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpmpbossattackcheck,dumpmpbossattackcheck,转储多人Boss攻击判定,无,dumpmpbossattackcheck,,,0x00020300,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showmenuitem,showmenuitem <ItemName>,显示指定物品的菜单,itemName=标识符：物品名,showmenuitem sword_1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,testcloudsave,testcloudsave,测试云存档写入,无,testcloudsave,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,testcloudload,testcloudload,测试云存档读取,无,testcloudload,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpunencryptedsavefile,dumpunencryptedsavefile <bDeleteSave> <Index> <SavedFileName>,将存档解密转储到日志,bDeleteSave=0或1：是否删除；index=整数：编号；savedFileName=文本：文件名,dumpunencryptedsavefile 0 0 save.bin,ObjectProperty,,0x00424202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setsave,setsave <SaveIndex>,写入指定编号的存档,saveIndex=整数：存档编号,setsave 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadsave,loadsave <SaveIndex>,读取指定编号的存档,saveIndex=整数：存档编号,loadsave 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showrebirthtime,showrebirthtime,显示下次转生剩余时间,无,showrebirhttime,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showlocalizedtext,showlocalizedtext <TimeToShow> <Key> <Section>,在屏幕显示本地化文本(调试),timeToShow=小数：显示秒数；key=文本：键名；section=文本：节名,showlocalizedtext 5 SOME_KEY SwordGame,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadchoicemodepoint,loadchoicemodepoint,读取分支模式存档点,无,loadchoicemodepoint,BoolProperty,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showclashmobpopup,showclashmobpopup <EventID>,弹出ClashMob活动提示,eventID=文本：活动ID,showclashmobpopup event_x,BoolProperty,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcedebugtouchactors,forcedebugtouchactors <bAll>,强制调试触摸Actor,bAll=0或1：是否全部,forcedebugtouchactors 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcealltouchrandom,forcealltouchrandom <bDebugShow>,强制所有触摸点随机化,bDebugShow=0或1：是否显示调试,forcealltouchrandom 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcecyclealltouch,forcecyclealltouch,轮换全部触摸点内容,无,forcecyclealltouch,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setshowsubtitles,setshowsubtitles <bValue>,开关字幕,bValue=0或1：是否显示,setshowsubtitles 1,,,0x00020302,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setcurrentsaveslot,setcurrentsaveslot <SaveFileIndex> <SaveSlotIndex>,设置当前存档文件与槽位,saveFileIndex=整数：文件编号；saveSlotIndex=整数：槽位编号,setcurrentsaveslot 0 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,clearallsavegames,clearallsavegames,删除全部存档(危险！不可恢复),无,clearallsavegames,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,deletesavegame,deletesavegame,删除当前存档(危险！),无,deletesavegame,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,resetmap,resetmap,重置当前地图,无,resetmap,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadlastsavepoint,loadlastsavepoint,读取最近存档点,无,loadlastsavepoint,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadmakegameeasier,loadmakegameeasier <RollbackCount>,读档并回退使游戏变简单,rollbackCount=整数：回退次数,loadmakegameeasier 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,rollbackgamefinishedcount,rollbackgamefinishedcount <RollbackCount>,回退通关计数,rollbackCount=整数：回退次数,rollbackgamefinishedcount 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadstartnewbloodlinekilled,loadstartnewbloodlinekilled <UberBossIndex>,以击杀指定稀有Boss的状态开新血脉,uberBossIndex=整数：Boss编号,loadstartnewbloodlinekilled 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayermoney,setplayermoney <Chips> <Gold>,同时设置筹码与金币余额,chips=整数：筹码(内部货币)；gold=整数：金币数量,setplayermoney 0 999999999,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadstartnewbloodline,loadstartnewbloodline <ForceBloodline>,开始新血脉(转生重开),forceBloodline=整数：血脉代数,loadstartnewbloodline 5,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadstartib3finishgame,loadstartib3finishgame <bSkipTutorial>,以通关状态开始游戏,bSkipTutorial=0或1：是否跳过教程,loadstartib3finishgame 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadstartnewgameplus,loadstartnewgameplus,开始二周目(New Game+),无,loadstartnewgameplus,,,0x00020200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,tothenegativeworld,tothenegativeworld <NegativeBloodlineGeneration>,进入负血脉世界,negativeBloodlineGeneration=整数：负血脉代数,tothenegativeworld 5,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hidesaber,hidesaber,隐藏武器(全部),无,hidesaber,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hidesaberl,hidesaberl,隐藏左手武器,无,hidesaberl,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hidesaberr,hidesaberr,隐藏右手武器,无,hidesaberr,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showsaber,showsaber,显示武器(全部),无,showsaber,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showsaberl,showsaberl,显示左手武器,无,showsaberl,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showsaberr,showsaberr,显示右手武器,无,showsaberr,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,saberon,saberon,显示双持武器,无,saberon,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,saber1on,saber1on,显示1号武器,无,saber1on,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,saber2on,saber2on,显示2号武器,无,saber2on,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,saberoff,saberoff,隐藏双持武器,无,saberoff,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,saber1off,saber1off,隐藏1号武器,无,saber1off,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,saber2off,saber2off,隐藏2号武器,无,saber2off,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,cleanuptrainingfight,cleanuptrainingfight,清理训练战,无,cleanuptrainingfight,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,ll,ll <LevelToLoad>,快速加载指定关卡,levelToLoad=文本：关卡名,ll a01_map,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,explicitloadlevel,explicitloadlevel <LevelStartIndex> <LevelToLoad>,显式加载指定关卡,levelStartIndex=整数：起始点；levelToLoad=文本：关卡名,explicitloadlevel 0 a01_map,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadlevel,loadlevel <bExplicitMapName> <bSkipSave> <LevelStartIndex> <LevelToLoad>,加载指定关卡,bExplicitMapName=0或1：是否显式地图名；bSkipSave=0或1：是否跳过存档；levelStartIndex=整数：起始点；levelToLoad=文本：关卡名,loadlevel 0 0 0 a01_map,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hideout,hideout,返回大本营(主城),无,hideout,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcerebirth,forcerebirth <RebirthCount>,强制转生指定次数,rebirthCount=整数：转生次数,forcerebirth 10,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,killedgodkingnewworld,killedgodkingnewworld,触发击杀神王后的新世界流程,无,killedgodkingnewworld,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashlefthigh,slashlefthigh,向左上方挥砍,无,slashlefthigh,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashleftlow,slashleftlow,向左下方挥砍,无,slashleftlow,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashleft,slashleft <Dir>,向左挥砍,dir=整数：方向,slashleft 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashcenterleft,slashcenterleft,向中左挥砍,无,slashcenterleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashcenterright,slashcenterright,向中右挥砍,无,slashcenterright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashcenter,slashcenter <Dir>,向中挥砍,dir=整数：方向,slashcenter 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashrighthigh,slashrighthigh,向右上方挥砍,无,slashrighthigh,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashrightlow,slashrightlow,向右下方挥砍,无,slashrightlow,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashright,slashright <Dir>,向右挥砍,dir=整数：方向,slashright 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashdownleft,slashdownleft,向左下挥砍,无,slashdownleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashdownright,slashdownright,向右下挥砍,无,slashdownright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,slashdown,slashdown <Dir>,向下挥砍,dir=整数：方向,slashdown 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,superleft,superleft,左方向大招斩,无,superleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,supercenter,supercenter,中方向大招斩,无,supercenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,superright,superright,右方向大招斩,无,superright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,superdown,superdown,下方向大招斩,无,superdown,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,swordstab,swordstab,执行突刺,无,swordstab,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,buttondodgeright,buttondodgeright,按住右闪避,无,buttondodgeright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dodgeright,dodgeright,向右闪避,无,dodgeright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasebuttondodgeright,releasebuttondodgeright,松开右闪避,无,releasebuttondodgeright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,buttondodgeleft,buttondodgeleft,按住左闪避,无,buttondodgeleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dodgeleft,dodgeleft,向左闪避,无,dodgeleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasebuttondodgeleft,releasebuttondodgeleft,松开左闪避,无,releasebuttondodgeleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,buttondodgecenter,buttondodgecenter,按住后闪避,无,buttondodgecenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dodgecenter,dodgecenter,向后闪避,无,dodgecenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasebuttondodgecenter,releasebuttondodgecenter,松开后闪避,无,releasebuttondodgecenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,buttonblockcenter,buttonblockcenter,按住中格挡,无,buttonblockcenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasebuttonblockcenter,releasebuttonblockcenter,松开中格挡,无,releasebuttonblockcenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releaseblockcenter,releaseblockcenter,松开中格挡,无,releaseblockcenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,buttonblockleft,buttonblockleft,按住左格挡,无,buttonblockleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasebuttonblockleft,releasebuttonblockleft,松开左格挡,无,releasebuttonblockleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releaseblockleft,releaseblockleft,松开左格挡,无,releaseblockleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,buttonblockright,buttonblockright,按住右格挡,无,buttonblockright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasebuttonblockright,releasebuttonblockright,松开右格挡,无,releasebuttonblockright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releaseblockright,releaseblockright,松开右格挡,无,releaseblockright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pcdefendleft,pcdefendleft,按住左侧防御,无,pcdefendleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasepcdefendleft,releasepcdefendleft,松开左防御,无,releasepcdefendleft,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pcdefendcenter,pcdefendcenter,按住中部防御,无,pcdefendcenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasepcdefendcenter,releasepcdefendcenter,松开中防御,无,releasepcdefendcenter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pcdefendright,pcdefendright,按住右侧防御,无,pcdefendright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,releasepcdefendright,releasepcdefendright,松开右防御,无,releasepcdefendright,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pcswordclashmash,pcswordclashmash,玩家侧对拼连打,无,pcswordclashmash,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossplayercontrolled,setbossplayercontrolled <bSet>,将当前Boss改为玩家可控,bSet=0或1：是否接管,setbossplayercontrolled 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,swordclashmash,swordclashmash,剑刃对拼连打模拟,无,swordclashmash,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,ongiveragebonus,ongiveragebonus <RageBonus>,给予怒气加成(内部),rageBonus=小数,ongiveragebonus 0.5,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showpendingtreasureaward,showpendingtreasureaward,显示待领取的宝藏奖励,无,showpendingtreasureaward,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,opengamewonscreen,opengamewonscreen,打开通关画面,无,opengamewonscreen,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showplayerinfo,showplayerinfo,显示玩家信息面板,无,showplayerinfo,ObjectProperty,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,closeplayerinfo,closeplayerinfo,关闭玩家信息面板,无,closeplayerinfo,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,togglebosspopup,togglebosspopup <bOnlyClose>,开关Boss信息弹窗,bOnlyClose=0或1：是否仅关闭,togglebosspopup 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showcredits,showcredits <Mode>,播放制作人员名单,mode=文本：模式,showcredits full,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,failhardcorequest,failhardcorequest,使当前硬核任务失败,无,failhardcorequest,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,completehardcorequest,completehardcorequest,使当前硬核任务完成,无,completehardcorequest,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showcollectorprompt,showcollectorprompt,显示收藏家提示,无,showcollectorprompt,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,resetcontentpack,resetcontentpack <To>,重置内容包,to=整数：包编号,resetcontentpack 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showtutorial,showtutorial <bKillCameraAnims> <bCloseOnPauseExit> <TutorialName>,强制显示指定教程,bKillCameraAnims=0或1；bCloseOnPauseExit=0或1；tutorialName=文本：教程名,showtutorial 0 1 tut_x,ObjectProperty,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,hidetutorial,hidetutorial <bClosedFromPause>,隐藏教程,bClosedFromPause=0或1,hidetutorial 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,disabletutorial,disabletutorial <bOnUnpause> <bDisable>,禁用教程系统,bOnUnpause=0或1；bDisable=0或1,disabletutorial 0 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pausegame,pausegame <OnOpenScene> <bFade> <Mode> <PauseScene>,"打开暂停菜单(带回调,慎用)",onOpenScene=委托；bFade=0或1；mode=文本；pauseScene=类名,pausegame none 0 normal none,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,unpausegame,unpausegame <bFadeOut>,关闭暂停菜单,bFadeOut=0或1,unpausegame 1,BoolProperty,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,opentitlemenu,opentitlemenu <bDontPrompt> <bFinal>,打开标题菜单,bDontPrompt=0或1；bFinal=0或1,opentitlemenu 1 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,openloginmenu,openloginmenu,打开登录菜单,无,openloginmenu,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,showinfopage,showinfopage,显示信息页,无,showinfopage,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,multilineinput,multilineinput <bUrlEncode> <DefaultString> <Title>,弹出多行文本输入框,bUrlEncode=0或1；defaultString=文本：默认值；title=文本：标题,multilineinput 0 default title,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,onmultilineinput,onmultilineinput <msg>,处理多行输入回调(内部),msg=文本,onmultilineinput msg,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,promptforcharactername,promptforcharactername,弹出改名输入框,无,promptforcharactername,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setbossquickstab,setbossquickstab <StabIndex>,设置Boss快速突刺,stabIndex=整数：突刺编号,setbossquickstab 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setcharactername,setcharactername <CharacterName>,设置角色名字,characterName=文本：名字,setcharactername 隆,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,getcharactername,getcharactername,在日志输出当前角色名,无,getcharactername,StrProperty,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,swapcharacter,swapcharacter,切换角色(塞里斯/伊萨),无,swapcharacter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setisa,setisa <bDontKeepChange>,切换为伊萨,bDontKeepChange=0或1,setisa 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setsiris,setsiris <bDontKeepChange>,切换为塞里斯,bDontKeepChange=0或1,setsiris 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,setplayerattachcrossbow,setplayerattachcrossbow <bAttach>,给角色挂载/移除弩(装饰),bAttach=0或1：是否挂载,setplayerattachcrossbow 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pauseifplayerdead,pauseifplayerdead,玩家死亡时暂停(调试),无,pauseifplayerdead,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,destroynonplayerpawns,destroynonplayerpawns <bBlockRecreation> <PawnTypes>,销毁全部非玩家角色,bBlockRecreation=0或1：是否禁止重建；pawnTypes=文本：类型过滤,destroynonplayerpawns 1 ,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,updateendofbattletrackingachievements,updateendofbattletrackingachievements <Stats>,更新战斗结算成就(内部),stats=结构：统计,updateendofbattletrackingachievements none,,,0x00020200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,clearcheevodata,clearcheevodata,清除成就数据,无,clearcheevodata,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,unlockachievement,unlockachievement <PercentComplete> <bSilent> <AchievementId>,解锁指定成就,percentComplete=小数：进度；bSilent=0或1：是否静默；achievementId=0~255整数：成就ID,unlockachievement 100 0 3,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,unlockachievementingame,unlockachievementingame <Tier> <AchievementId>,在游戏中解锁成就,tier=整数：层级；achievementId=0~255整数：成就ID,unlockachievementingame 1 3,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,unlockachievmentinsystem,unlockachievmentinsystem <PercentComplete> <AchievementId>,系统级解锁成就,percentComplete=小数；achievementId=0~255整数,unlockachievmentinsystem 100 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,securetime,securetime <msg>,安全时间校验(内部),msg=文本,securetime x,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,clashmob,clashmob <Cmd>,执行ClashMob子命令,cmd=文本：子命令,clashmob help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,cm,cm <Cmd>,ClashMob 缩写,cmd=文本：子命令,cm help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,mymob,mymob <Cmd>,MyClashMob 子命令,cmd=文本：子命令,mymob help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,mm,mm <Cmd>,MyClashMob 缩写,cmd=文本：子命令,mm help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,cloudavatar,cloudavatar <Cmd>,云端头像子命令,cmd=文本：子命令,cloudavatar help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,ca,ca <Cmd>,云端头像缩写,cmd=文本：子命令,ca help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,quest,quest <Cmd>,任务系统子命令,cmd=文本：子命令,quest help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,q,q <Cmd>,任务系统缩写,cmd=文本：子命令,q help,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,debugsendgifttomobmembers,debugsendgifttomobmembers,调试:给活动成员发礼物,无,debugsendgifttomobmembers,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,debugqueryreceivedgifts,debugqueryreceivedgifts,调试:查询收到的礼物,无,debugqueryreceivedgifts,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,dumpiconusage,dumpiconusage,转储图标使用情况,无,dumpiconusage,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,posttweet,posttweet <Link> <msg>,"发推(服务已停,无效)",link=文本；msg=文本,posttweet url msg,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,cloudgametwitter,cloudgametwitter,游戏推特关联(无效),无,cloudgametwitter,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,fbfriends,fbfriends,Facebook好友列表(无效),无,fbfriends,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,postfb,postfb <FriendID> <ImageURL> <LinkDesc> <LinkURL> <LinkCaption> <LinkName> <msg>,Facebook发帖(无效),friendID=文本；imageURL=文本；linkDesc=文本；linkURL=文本；linkCaption=文本；linkName=文本；msg=文本,postfb a b c d e f g,,,0x00824202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,posttext,posttext <Message>,发送文本分享(无效),message=文本,posttext hello,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,postemail,postemail <Message> <Subject> <Address>,发邮件分享(无效),message=文本；subject=文本；address=文本,postemail hi hi a@b.c,BoolProperty,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,schedulelocalsystemnotify,schedulelocalsystemnotify <MessageBody> <SecondsFromNow> <Value> <Key>,计划本地系统通知,messageBody=文本；secondsFromNow=整数：延迟秒数；value=文本；key=文本,schedulelocalsystemnotify msg 60 v k,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,clearlocalsystemnotify,clearlocalsystemnotify <Value> <Key>,取消本地系统通知,value=文本；key=文本,clearlocalsystemnotify v k,,,0x00820202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadleftbattle,loadleftbattle,进入左侧战斗,无,loadleftbattle,,,0x00020200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,loadrighttbattle,loadrighttbattle,进入右侧战斗,无,loadrighttbattle,,,0x00020200,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,clashmobmapscene,clashmobmapscene <ExitNumber>,进入ClashMob地图场景,exitNumber=整数,clashmobmapscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,mapscene,mapscene <ExitNumber>,进入大地图场景,exitNumber=整数：出口编号,mapscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,potionscene,potionscene <ExitNumber>,进入药水场景,exitNumber=整数：出口编号,potionscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forgescene,forgescene <ExitNumber>,进入锻造场景,exitNumber=整数：出口编号,forgescene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,gemscene,gemscene <ExitNumber>,直接进入宝石合成/镶嵌场景,exitNumber=整数：出口编号,gemscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,traderscene,traderscene <ExitNumber>,进入商店场景,exitNumber=整数：出口编号,traderscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,trainerscene,trainerscene <ExitNumber>,进入训练场景,exitNumber=整数：出口编号,trainerscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,cardsscene,cardsscene <ExitNumber>,进入卡片场景,exitNumber=整数：出口编号,cardsscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,fishscene,fishscene <ExitNumber>,进入钓鱼场景,exitNumber=整数：出口编号,fishscene 0,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,collectorscene,collectorscene,进入收藏家场景,无,collectorscene,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,logdlc,logdlc,列出DLC信息,无,logdlc,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,reloaddlc,reloaddlc <Path>,重新加载DLC,path=文本：路径,reloaddlc path,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,testcsreport,testcsreport <DetailText> <EmailSubject> <AccountAuth> <URL>,测试客服上报,detailText=文本；emailSubject=文本；accountAuth=文本；uRL=文本,testcsreport a b c d,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,createmcptestmanager,createmcptestmanager,创建MCP测试管理器,无,createmcptestmanager,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,securetimeinit,securetimeinit <bInitialize>,初始化安全时间,bInitialize=0或1,securetimeinit 1,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,texturerefdump,texturerefdump <bClearOld>,转储纹理引用,bClearOld=0或1：是否清旧数据,texturerefdump 1,,,0x00024202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,texturerefdebug,texturerefdebug,纹理引用调试,无,texturerefdebug,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forceappgainfocus,forceappgainfocus,强制应用获得焦点,无,forceappgainfocus,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,forcecheevoupload,forcecheevoupload,强制上传成就,无,forcecheevoupload,,,0x00020202,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,exitkeybind,exitkeybind,退出按键绑定模式,无,exitkeybind,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,pausegamekeybind,pausegamekeybind,暂停菜单按键绑定,无,pausegamekeybind,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,acceptpopupkeybind,acceptpopupkeybind,确认弹窗按键绑定,无,acceptpopupkeybind,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,scrollup,scrollup,模拟向上滚动,无,scrollup,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,scrolldown,scrolldown,模拟向下滚动,无,scrolldown,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,scrollleft,scrollleft,模拟向左滚动,无,scrollleft,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,scrollright,scrollright,模拟向右滚动,无,scrollright,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,domagic0,domagic0,施放1号魔法,无,domagic0,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,domagic1,domagic1,施放2号魔法,无,domagic1,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,domagic2,domagic2,施放3号魔法,无,domagic2,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordPC,doautostab,doautostab,自动突刺,无,doautostab,,,0x00020203,SwordPC — IB3 玩家控制器（作弊/调试命令主体）
+SwordGame,forcestartmatch,forcestartmatch,强制开始比赛(内部),无,forcestartmatch,,,0x00020202,SwordGame — 游戏模式
+SwordHudBoss,debugbossrecovery,debugbossrecovery,调试Boss恢复,无,debugbossrecovery,,,0x00020202,SwordHud* — 界面
+SwordHudBoss,onbossswipezone,onbossswipezone <bIsPress>,模拟Boss横扫区域点击,无,onbossswipezone,,,0x00020200,SwordHud* — 界面
+SwordHudBoss,bosssupermove,bosssupermove,让Boss释放大招,无,bosssupermove,,,0x00020202,SwordHud* — 界面
+SwordHudBoss,bossspecialattack,bossspecialattack,让Boss释放特殊攻击,无,bossspecialattack,,,0x00020202,SwordHud* — 界面
+SwordHudMain,activatesupermode,activatesupermode,进入大招模式,无,activatesupermode,,,0x00020202,SwordHud* — 界面
+SwordHudMain,debugmagic,debugmagic,魔法调试显示,无,debugmagic,,,0x00020200,SwordHud* — 界面
+SwordHudMain,activatemagicmode,activatemagicmode,进入魔法模式,无,activatemagicmode,,,0x00020202,SwordHud* — 界面
+SwordHudMain,deactivatemagicmode,deactivatemagicmode,退出魔法模式,无,deactivatemagicmode,,,0x00020202,SwordHud* — 界面
+SwordHudMain,activatefinalstrikemode,activatefinalstrikemode,进入终结连击模式,无,activatefinalstrikemode,,,0x00020202,SwordHud* — 界面
+SwordHudMain,setsidezones,setsidezones <pos> <Scale>,设置侧向区域(调试),无,setsidezones,,,0x00020202,SwordHud* — 界面
+SwordNPCMesh,toggleselfshadow,toggleselfshadow <bOn>,开关自身阴影,bOn=0或1：是否开启,toggleselfshadow 1,,,0x00020202,SwordPawn — 角色
+SwordPlayer,setworlditemorderlist,setworlditemorderlist <bClearExisting> <ForceAddCount> <ForceAddType>,设置场景物品刷新序列,bClearExisting=0或1：是否清空；forceAddCount=整数：追加数量；forceAddType=0~255整数：类型,setworlditemorderlist 1 5 0,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerkilleduberboss,setplayerkilleduberboss <UberBossIndex>,将指定稀有Boss标记为已击杀,uberBossIndex=整数：Boss编号,setplayerkilleduberboss 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,disablecharacterbutton,disablecharacterbutton <bDisable>,禁用角色切换按钮,bDisable=0或1,disablecharacterbutton 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setgameflag,setgameflag <GameFlag>,置位指定游戏标志位,gameFlag=整数：标志位,setgameflag 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,cleargameflag,cleargameflag <GameFlag>,清除指定游戏标志位,gameFlag=整数：标志位,cleargameflag 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setgameflagexplicit,setgameflagexplicit <Value> <GameFlag>,将游戏标志位设为指定值,value=整数：值；gameFlag=整数：标志位,setgameflagexplicit 1 2,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,dorebalanceplayerstats,dorebalanceplayerstats,按当前等级重新平衡玩家属性,无,dorebalanceplayerstats,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,clearpurchasedperks,clearpurchasedperks,清空已购买的特长,无,clearpurchasedperks,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayergodking,setplayergodking,将玩家标记为神王(通关状态),无,setplayergodking,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,clearplayergodking,clearplayergodking,清除神王标记,无,clearplayergodking,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,loadstartinglevel,loadstartinglevel,加载初始关卡,无,loadstartinglevel,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,dodemostartplayer,dodemostartplayer,演示模式玩家初始化,无,dodemostartplayer,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,giveandmasteritem,giveandmasteritem <ItemName>,发放指定物品并直接置为满熟练度,itemName=标识符：物品模板名,giveandmasteritem sword_2,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerawakening,setplayerawakening <bAdjustWoker> <Awakening>,设置玩家觉醒值,bAdjustWoker=0或1：是否调整；awakening=整数：觉醒值,setplayerawakening 0 100,,,0x00024200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerupgradegemcarry,setplayerupgradegemcarry,升级宝石携带上限,无,setplayerupgradegemcarry,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayergems,setplayergems <bLowGems>,刷新商店宝石列表（实测2026-10-06：不进背包；档位抽样，含稀有/自定义链模板如暗火+2000、光谱+2000）,bLowGems=0或1：是否低档宝石,setplayergems 0,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerpotions,setplayerpotions,补满/发放药水,无,setplayerpotions,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayercreatenewlistofstoregems,setplayercreatenewlistofstoregems <bCheatHighEndGems> <ForceCount> <bCreatePotions> <AllSameType> <bUseCheatGems>,生成一批商店宝石列表,bCheatHighEndGems=0或1：是否高档宝石；forceCount=整数：数量；bCreatePotions=0或1：是否含药水；allSameType=文本：强制统一类型(可空)；bUseCheatGems=0或1：是否用作弊宝石,setplayercreatenewlistofstoregems 1 10 0  1,,,0x00824202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,forcemerchant,forcemerchant <AppearanceCount>,强制商店出现,appearanceCount=整数：出现次数,forcemerchant 1,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerclearpotionlist,setplayerclearpotionlist,清空药水列表,无,setplayerclearpotionlist,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerhardcorecompletecount,setplayerhardcorecompletecount <Count>,设置硬核模式完成次数,count=整数：次数,setplayerhardcorecompletecount 5,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setarenacooldowntime,setarenacooldowntime <Seconds>,设置竞技场冷却时间,seconds=整数：秒数,setarenacooldowntime 0,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,cleararenacooldown,cleararenacooldown,清除竞技场冷却,无,cleararenacooldown,,,0x00820202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setarenaround,setarenaround <Round>,设置竞技场回合数,round=整数：回合,setarenaround 3,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setupengagementnotifies,setupengagementnotifies,设置接战通知(调试),无,setupengagementnotifies,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,passtimemakingitems,passtimemakingitems <Seconds>,快进锻造/合成计时指定秒数,seconds=整数：秒数,passtimemakingitems 3600,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,dodeathlessquestforgive,dodeathlessquestforgive,宽恕一次无死亡任务失败,无,dodeathlessquestforgive,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerclearitemstate,setplayerclearitemstate,清除全部物品状态(熟练度等),无,setplayerclearitemstate,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayervalidlevel,setplayervalidlevel <ValidLevel>,设置玩家有效等级标记,validLevel=整数：等级,setplayervalidlevel 50,,,0x00020200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,dumpbattlechallengeinfo,dumpbattlechallengeinfo <Tier> <Count>,转储战斗挑战信息,tier=整数：层级；count=整数：数量,dumpbattlechallengeinfo 1 10,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,consumeconsumable,consumeconsumable <ConsumableObject> <Consumable>,消耗一个消耗品,consumableObject=对象：对象；consumable=0~255整数：类型,consumeconsumable none 1,BoolProperty,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,addconsumable,addconsumable <bIgnoreMax> <AddCount> <Consumable>,增加消耗品(药水等),bIgnoreMax=0或1：是否忽略上限；addCount=整数：数量；consumable=0~255整数：消耗品类型,addconsumable 0 5 1,BoolProperty,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayeraddconsumableforce,setplayeraddconsumableforce <Consumable>,强制添加指定消耗品,consumable=0~255整数：类型,setplayeraddconsumableforce 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,forceequipinfinityblade,forceequipinfinityblade <bSpecialGiveItems> <bDo>,强制装备无尽之剑,bSpecialGiveItems=0或1：是否连带赠品；bDo=0或1：是否执行,forceequipinfinityblade 1 1,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,showbattlechallenge,showbattlechallenge <ChallengeName> <Tier> <eType> <StringToShow>,显示战斗挑战横幅,challengeName=标识符：挑战名；tier=整数：层级；eType=0~255整数：类型；stringToShow=文本：文本,showbattlechallenge c 1 0 txt,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,sethasusedkeyitem,sethasusedkeyitem <KeyItemName>,把指定钥匙物品标记为已使用,keyItemName=标识符：钥匙模板名,sethasusedkeyitem keyitem_x,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setgivekeyitem,setgivekeyitem <KeyItemName>,发放指定的钥匙物品,keyItemName=标识符：钥匙模板名,setgivekeyitem keyitem_x,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,fillsuperandmagicmeters,fillsuperandmagicmeters,充满大招与魔法槽,无,fillsuperandmagicmeters,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,dosupermove,dosupermove <fGloryModeTime> <bStabEnter>,直接释放大招,fGloryModeTime=小数：荣耀模式时长；bStabEnter=0或1：是否突刺进入,dosupermove 10 0,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,doquickslashsupermove,doquickslashsupermove <fGloryModeTime> <SlashDir>,快速斩大招,fGloryModeTime=小数：荣耀时长；slashDir=0~255整数：方向,doquickslashsupermove 10 0,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,debugactivatemagicmode,debugactivatemagicmode,直接进入魔法模式(调试),无,debugactivatemagicmode,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayeractivatesuperdodge,setplayeractivatesuperdodge <bTelegraph> <Type>,触发完美闪避(调试),bTelegraph=0或1；type=0~255整数：类型,setplayeractivatesuperdodge 1 0,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,showsuperdodgeattackpoint,showsuperdodgeattackpoint,显示完美闪避攻击点(调试),无,showsuperdodgeattackpoint,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,clearsuperdodgeattackpoint,clearsuperdodgeattackpoint,清除完美闪避攻击点,无,clearsuperdodgeattackpoint,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,killself,killself,自杀(原地死亡),无,killself,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,dosecondchance,dosecondchance,触发一次第二次机会(复活),无,dosecondchance,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,debugbattleresults,debugbattleresults <EffectXp2> <EffectXp1> <GoldScale> <RewardLevel> <GenericXP> <BossXP>,模拟结算一次战斗奖励,effectXp2=整数；effectXp1=整数；goldScale=整数；rewardLevel=整数；genericXP=整数；bossXP=整数,debugbattleresults 1 1 1 50 100 100,,,0x00824202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,doaimedstabanim,doaimedstabanim <Y> <X>,播放指定方向的突刺动画,y=小数；x=小数,doaimedstabanim 0.5 0.5,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,doblendedbodyanim,doblendedbodyanim <HideWeapons> <NextActionDelayTime> <AnimSpeed> <bUpperBodyOnly> <BlendInTime> <BlendTarget> <BlendedAnim>,播放混合身体动画(调试),hideWeapons=0~255整数；nextActionDelayTime=小数；animSpeed=小数；bUpperBodyOnly=0或1；blendInTime=小数；blendTarget=小数；blendedAnim=标识符：动画名,doblendedbodyanim 0 0 1 1 0.2 0 anim,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,clearblendedanim,clearblendedanim <BlendOutTime>,清除混合动画,blendOutTime=小数：混合时间,clearblendedanim 0.2,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setplayerdoscreenspacestabtest,setplayerdoscreenspacestabtest <ScreenDepth> <Y> <X>,屏幕空间突刺测试,screenDepth=小数；y=小数；x=小数,setplayerdoscreenspacestabtest 1 0.5 0.5,,,0x00824202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,magicmodeearlyexit,magicmodeearlyexit <bForceCloseTutorial>,提前退出魔法模式,bForceCloseTutorial=0或1,magicmodeearlyexit 0,,,0x00024200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,domagicslot0,domagicslot0,施放1号魔法,无,domagicslot0,,,0x00020200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,domagicslot1,domagicslot1,施放2号魔法,无,domagicslot1,,,0x00020200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,domagicslot2,domagicslot2,施放3号魔法,无,domagicslot2,,,0x00020200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,givefullmagic,givefullmagic,立即回满魔法,无,givefullmagic,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,popbloodlineachievement,popbloodlineachievement <bFixMissing>,弹出血脉成就,bFixMissing=0或1：是否补发缺失,popbloodlineachievement 1,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,easycheevotesting,easycheevotesting <Count>,批量成就测试,count=整数：数量,easycheevotesting 5,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setbosstestdynamicstabpointrange,setbosstestdynamicstabpointrange <YMax> <YMin> <XMax> <XMin>,设置动态突刺点范围(调试),yMax=小数；yMin=小数；xMax=小数；xMin=小数,setbosstestdynamicstabpointrange 1 0 1 0,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,checksaveobjectchange,checksaveobjectchange <IndexCheck>,检查存档对象变更(调试),indexCheck=整数：索引,checksaveobjectchange 0,,,0x00024200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setmaxcraftslots,setmaxcraftslots <Num>,设置合成槽位数量上限,num=整数：槽位数,setmaxcraftslots 5,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,setcraftslotspurchased,setcraftslotspurchased <Num>,设置已购买的合成槽位数,num=整数：槽位数,setcraftslotspurchased 5,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer,colorizeplayerto,colorizeplayerto <B> <G> <R>,将角色染成指定RGB色,b=小数：蓝；g=小数：绿；r=小数：红(0~1),colorizeplayerto 0 0 1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.DoSuperAttack,dosupermove,dosupermove <bStabEnter> <fGloryModeTime>,直接释放大招,fGloryModeTime=小数：荣耀模式时长；bStabEnter=0或1：是否突刺进入,dosupermove 10 0,,,0x00024200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.Dying,dosupermove,dosupermove <bStabEnter> <fGloryModeTime>,直接释放大招,fGloryModeTime=小数：荣耀模式时长；bStabEnter=0或1：是否突刺进入,dosupermove 10 0,,,0x00024200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.MagicMode,magicmodeearlyexit,magicmodeearlyexit <bForceCloseTutorial>,提前退出魔法模式,bForceCloseTutorial=0或1,magicmodeearlyexit 0,,,0x00024202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.SecondChance,dosecondchance,dosecondchance,触发一次第二次机会(复活),无,dosecondchance,,,0x00020200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.SecondChance,dosupermove,dosupermove <bStabEnter> <fGloryModeTime>,直接释放大招,fGloryModeTime=小数：荣耀模式时长；bStabEnter=0或1：是否突刺进入,dosupermove 10 0,,,0x00024200,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.MagicMode,domagicslot1,domagicslot1,施放2号魔法,无,domagicslot1,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.MagicMode,domagicslot2,domagicslot2,施放3号魔法,无,domagicslot2,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家
+SwordPlayer.MagicMode,domagicslot0,domagicslot0,施放1号魔法,无,domagicslot0,,,0x00020202,SwordPlayer/SwordBasePC — IB3 玩家

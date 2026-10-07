@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  IB3 训练器 2.0 — Win32 应用程序清单
+
+  作用：声明「系统级 DPI 感知」。不声明的话，csc 会内嵌一份只有 asInvoker 的默认清单，
+  进程以【未感知】启动 —— 在 125%/150% 缩放的显示器上，Windows 会把整个窗体当成位图
+  拉伸，既糊、又会把 1200x1000 的设计稿放大到装不下屏幕（用户反馈的「一进来找不到
+  游戏目录按钮」就是这么来的）。
+
+  为什么不用运行时调用 SetProcessDPIAware()：实测在本机不生效（被系统兼容性设置抢先
+  设定，函数返回 false 且静默失败）。清单声明在进程创建时就生效，不与之冲突。
+  代码里仍保留该调用作为「清单缺失」时的兜底。
+
+  刻意只写 dpiAware=true（系统级），不写 dpiAwareness=permonitorv2：
+  系统级下 DPI 在整个会话内固定，不会收到 WM_DPICHANGED，正与 Layout.cs 只读一次
+  DPI 的实现相匹配；PerMonitorV2 则需额外处理显示器间迁移时的重排。
+-->
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity version="1.0.0.0" name="Ib3Trainer2.app"/>
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
+    <security>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <requestedExecutionLevel level="asInvoker" uiAccess="false"/>
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- Windows 10 / 11 -->
+      <supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"/>
+    </application>
+  </compatibility>
+  <application xmlns="urn:schemas-microsoft-com:asm.v3">
+    <windowsSettings>
+      <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
+    </windowsSettings>
+  </application>
+</assembly>

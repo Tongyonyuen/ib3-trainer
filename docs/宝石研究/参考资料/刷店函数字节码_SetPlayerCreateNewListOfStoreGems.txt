@@ -1,0 +1,366 @@
+=== script @0x627645 len~1001
+  0001: Nothing
+  0002: Nothing
+  0003: Nothing
+  0004: Nothing
+  0005: Nothing
+  0008: Skip -> +310
+  0009: Native call 0x73
+  000A: ??? op=0x5F
+  000F: LocalVariable ?exp992512
+  0010: ??? op=0x18
+  0011: ??? op=0x63
+  0016: LocalVariable ?exp335673600
+  0017: ??? op=0x5E
+  001C: LocalVariable ?exp369765376
+  001D: LetBool
+  001E: BoolVariable
+  0023: InstanceVariable SwordPlayer.bCreatingStoreGems
+  0024: True
+  0027: JumpIfNot -> +530
+  0028: BoolVariable
+  002D: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.bUseCheatGems
+  0030: JumpIfNot -> +215
+  0031: Native call 0x7B
+  0036: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.AllSameType
+  0037: StringConst ""
+  0039: EndFunctionParms
+  003C: Skip -> +6912
+  003D: ??? op=0x63
+  0042: LocalVariable ?imp737729280
+  0047: LocalVariable ?exp1662714006
+  004C: LocalVariable ?exp369503232
+  004F: Skip -> +7168
+  0050: ??? op=0x63
+  0055: LocalVariable ?imp972610304
+  005A: LocalVariable ?exp1662779542
+  005F: LocalVariable ?exp369568768
+  0068: VirtualFunction CreateFixedStoreGemFromName (name 4943)
+  0069: Native call 0xA8
+  006A: Native call 0xA8
+  006F: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.AllSameType
+  0070: ??? op=0x38
+  0071: EndOfScript
+  0076: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.Count
+  0077: EndFunctionParms
+  0078: ??? op=0x38
+  0079: ??? op=0x55
+  007A: Native call 0xC3
+  007B: EndFunctionParms
+  007C: EndFunctionParms
+  0081: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.FixedGem
+  0082: False
+  0083: EmptyParm
+  0084: EndFunctionParms
+  0085: Native call 0xA3
+  008A: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.I
+  008B: EndFunctionParms
+  008E: Jump -> +119
+  008F: Native call 0xA3
+  0094: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.Count
+  0095: EndFunctionParms
+  0098: Jump -> +92
+  009B: Jump -> +527
+  009E: Skip -> +4608
+  009F: ??? op=0x63
+  00A4: LocalVariable ?exp638589184
+  00A5: Context:
+  00A6: Context:
+  00AB: InstanceVariable SwordPlayer.PC
+  00B2:   .field=SwordBasePC.SwordEngine skip=9 flag=0
+  00B7: InstanceVariable SwordBasePC.SwordEngine
+  00BE:   .field=SwordEngine.ItemCaches skip=9 flag=0
+  00C3: InstanceVariable SwordEngine.ItemCaches
+  00C4: ??? op=0x09
+  00C9: LocalVariable SwordInventoryItemCache.Items
+  00CE: LocalVariable ?exp4630273
+  00D3: LocalVariable ?exp1662779407
+  00D8: LocalVariable ?exp252126464
+  00DD: DefaultVariable ?exp1662779542
+  00E2: LocalVariable ?exp302003712
+  00E3: ??? op=0x63
+  00E8: LocalVariable ?exp988672
+  00E9: EndFunctionParms
+  00EA: ??? op=0x63
+  00EF: LocalVariable ?exp1178611200
+  00F4: LocalVariable ?exp469766144
+  00F5: ??? op=0x63
+  00FA: LocalVariable ?exp1662124032
+  00FF: LocalVariable ?exp33621760
+  0100: Native call 0x82
+  0101: Native call 0x77
+  0106: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.NewGem
+  0107: IntOne
+  0108: EndFunctionParms
+  0109: ??? op=0x18
+  010A: ??? op=0x33
+  010F: LocalVariable ?exp1662386201
+  0114: LocalVariable ?imp1543496448
+  0115: ??? op=0x43
+  011A: LocalVariable ?exp1629159424
+  011B: False
+  0120: LocalVariable None
+  0125: LocalVariable ?exp520105285
+  0126: ??? op=0x63
+  012B: LocalVariable ?exp603980288
+  012C: ??? op=0x0E
+  0131: DefaultVariable ?exp369959936
+  0132: EndFunctionParms
+  013B: VirtualFunction CreateFixedStoreGemFromName (name 4943)
+  013C: ??? op=0x38
+  013D: ??? op=0x57
+  013E: Context:
+  0143: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.NewGem
+  014A:   .field=Name (imp) skip=9 flag=0
+  014F: InstanceVariable Name (imp)
+  0154: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.FixedGem
+  0155: BoolVariable
+  015A: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.bCheatHighEndGems
+  015B: BoolVariable
+  0160: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.bCreatePotions
+  0161: EndFunctionParms
+  0162: Native call 0xA3
+  0167: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.I
+  0168: EndFunctionParms
+  016B: Jump -> +310
+  016E: Jump -> +1410
+  0177: VirtualFunction GetForcedStoreGemList (name 8333)
+  017C: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.ForcedStoreGems
+  0181: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.ForcedStoreGemTrackingTags
+  0182: EndFunctionParms
+  0185: Skip -> +7168
+  0186: ??? op=0x63
+  018B: LocalVariable ?imp1056496384
+  0190: DefaultVariable ?exp1662779542
+  0195: LocalVariable ?exp335558144
+  0196: ??? op=0x63
+  019B: LocalVariable ?exp1327175168
+  019C: ??? op=0x13
+  01A1: LocalVariable None
+  01A6: LocalVariable ?exp1662779408
+  01AB: LocalVariable ?exp1662255104
+  01B0: LocalVariable ?exp1662320640
+  01B5: LocalVariable ?exp373967360
+  01B8: Skip -> +44853
+  01B9: Nothing
+  01BE: LocalVariable ?exp766464
+  01C3: LocalVariable ?exp1048832
+  01C8: ObjConst ?exp16777315
+  01C9: Native call 0x73
+  01CA: ??? op=0x5F
+  01CF: LocalVariable ?exp469766144
+  01D0: ??? op=0x63
+  01D5: LocalVariable ?exp1662189568
+  01DA: LocalVariable ?exp469803776
+  01DB: ??? op=0x63
+  01E0: LocalVariable ?exp956700160
+  01E5: DefaultVariable ?exp1662713871
+  01EA: LocalVariable ?exp26383104
+  01EB: Native call 0xD4
+  01EC: ??? op=0x5E
+  01F1: LocalVariable ?exp554965760
+  01F6: LocalVariable None
+  01FB: LocalVariable ?exp370558244
+  0200: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.I
+  0201: EndFunctionParms
+  0202: LetBool
+  0203: BoolVariable
+  0208: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.bHighEndGems
+  0209: Native call 0x97
+  0212: VirtualFunction GetModVarInt (name 8468)
+  0214: ByteConst 69
+  0215: EndFunctionParms
+  0216: EmptyParmValue
+  0217: Return
+  0218: EndFunctionParms
+  021B: Skip -> +5888
+  021C: ??? op=0x63
+  0221: LocalVariable ?imp1011858176
+  0222: EndFunctionParms
+  0227: InstanceVariable SwordPlayer.HighEndGemChance
+  0228: EndFunctionParms
+  0229: Nothing
+  022E: LocalVariable ?exp1662714023
+  0233: LocalVariable ?exp333312
+  0234: ??? op=0x1D
+  0235: Native call 0xFF
+  0236: Native call 0xFF
+  0237: Native call 0xFF
+  0238: Native call 0xFF
+  023B: Skip -> +4352
+  023C: ??? op=0x63
+  0241: LocalVariable ?exp117974016
+  0242: Native call 0x88
+  0243: ??? op=0x03
+  024C: VirtualFunction CleanGameNoRestarts (name 4358)
+  024D: EmptyParm
+  024E: EndFunctionParms
+  0251: JumpIfNot -> +876
+  0252: Native call 0x98
+  0257: InstanceVariable SwordPlayer.MaxGeneration
+  0258: ??? op=0x26
+  0259: EndFunctionParms
+  025C: Skip -> +4352
+  025D: ??? op=0x63
+  0262: LocalVariable ?exp100803584
+  0263: Native call 0x88
+  0264: ??? op=0x03
+  0267: JumpIfNot -> +904
+  0268: Native call 0x98
+  026D: InstanceVariable SwordPlayer.MaxGeneration
+  026E: EmptyParmValue
+  026F: ??? op=0x08
+  0270: EndFunctionParms
+  0273: Skip -> +4352
+  0274: ??? op=0x63
+  0279: LocalVariable ?exp251995136
+  027E: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.TypeStart
+  027F: Native call 0x92
+  0280: ??? op=0x26
+  0281: Native call 0xA7
+  0282: Native call 0x92
+  0283: Native call 0x93
+  0284: ??? op=0x38
+  0285: ??? op=0x3A
+  028A: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.MaxGemType
+  028B: ??? op=0x38
+  028C: ??? op=0x3A
+  028E: ByteConst 1
+  028F: EndFunctionParms
+  0290: ??? op=0x26
+  0291: EndFunctionParms
+  0292: EndFunctionParms
+  0293: EndFunctionParms
+  0296: JumpIfNot -> +973
+  0297: Native call 0x97
+  029C: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.ForceCount
+  02A5: NameConst ?45298869498 (name 452988694)
+  02A6: ??? op=0x1E
+  02A7: ??? op=0x63
+  02AC: LocalVariable ?exp469765888
+  02AD: ??? op=0x63
+  02B2: LocalVariable ?imp2113460992
+  02B3: ??? op=0x05
+  02B4: Native call 0x96
+  02B9: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.I
+  02BE: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.Count
+  02BF: EndFunctionParms
+  02C2: Skip -> +5632
+  02C3: ??? op=0x63
+  02C8: LocalVariable ?exp561257216
+  02CD: LocalVariable None
+  02D2: LocalVariable ?exp6494208
+  02D7: LocalVariable ?exp536870942
+  02D8: ??? op=0x41
+  02DD: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.GoldValue
+  02E2: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.TypeStart
+  02E3: EmptyParm
+  02E4: EmptyParm
+  02E5: EndFunctionParms
+  02E8: JumpIfNot -> +1245
+  02E9: Native call 0x77
+  02EE: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.NewGem
+  02EF: IntOne
+  02F0: EndFunctionParms
+  02F3: JumpIfNot -> +1223
+  02F4: Native call 0x84
+  02F5: Native call 0x9A
+  02FA: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.I
+  02FF: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.HighendIndex
+  0300: EndFunctionParms
+  0301: ??? op=0x18
+  0302: ??? op=0x1D
+  0307: LocalVariable ?exp268447106
+  0308: ??? op=0x63
+  030D: LocalVariable ?exp923648
+  030E: Native call 0x96
+  0313: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.I
+  0314: EmptyParmValue
+  0319: DefaultVariable ?exp454432278
+  031A: ??? op=0x4F
+  031B: ??? op=0x13
+  0320: LocalVariable None
+  0325: LocalVariable ?exp1463330984
+  0326: Context:
+  032B: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.NewGem
+  0332:   .field=SwordInventoryConsumable.ObjectTemplateName skip=9 flag=0
+  0337: InstanceVariable SwordInventoryConsumable.ObjectTemplateName
+  0338: ??? op=0x38
+  0339: EndOfScript
+  033A: Native call 0x92
+  033F: InstanceVariable SwordPlayer.HighEndStoreMinGemTier
+  0340: Native call 0xA7
+  0341: Native call 0x92
+  0346: InstanceVariable SwordPlayer.HighEndStoreRandGemTier
+  0347: ??? op=0x26
+  0348: EndFunctionParms
+  0349: EndFunctionParms
+  034A: EndFunctionParms
+  034B: EndFunctionParms
+  034C: ??? op=0x38
+  034D: ??? op=0x55
+  034E: Native call 0xC3
+  034F: EndFunctionParms
+  0350: EndFunctionParms
+  0355: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.FixedGem
+  0356: EmptyParm
+  0357: EmptyParm
+  0358: EndFunctionParms
+  035B: Jump -> +1242
+  0364: VirtualFunction SaveGemToStoreList (name 15296)
+  0369: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.NewGem
+  036A: EndFunctionParms
+  036D: Jump -> +1261
+  036E: Native call 0x9F
+  0373: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.RewardLevel
+  0374: ??? op=0x1E
+  0379: LocalVariable ?exp373243904
+  037A: Native call 0xA1
+  037F: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.RewardLevel
+  0380: Native call 0x92
+  0385: InstanceVariable SwordPlayer.StoreRewardLevelIncreaseMin
+  0386: Native call 0xA7
+  038B: InstanceVariable SwordPlayer.StoreRewardLevelIncreaseMax
+  038C: EndFunctionParms
+  038D: EndFunctionParms
+  038E: EndFunctionParms
+  0391: JumpIfNot -> +1338
+  0392: BoolVariable
+  0397: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.bHighEndGems
+  0398: Native call 0xA1
+  039D: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.RewardLevel
+  039E: ??? op=0x38
+  039F: ??? op=0x44
+  03A0: Native call 0xAB
+  03A1: ??? op=0x38
+  03A2: ??? op=0x3F
+  03A7: InstanceVariable SwordPlayer.StoreRewardLevelIncreaseMin
+  03A8: ??? op=0x1E
+  03AD: LocalVariable ?exp373227520
+  03AE: EndFunctionParms
+  03AF: Native call 0xA5
+  03B4: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.TypeStart
+  03B5: EndFunctionParms
+  03B8: Skip -> +6656
+  03B9: ??? op=0x63
+  03BE: LocalVariable ?exp1946625280
+  03BF: ??? op=0x05
+  03C0: Native call 0x97
+  03C5: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.TypeStart
+  03C6: ??? op=0x38
+  03C7: ??? op=0x3A
+  03CC: LocalVariable SwordPlayer.SetPlayerCreateNewListOfStoreGems.MaxGemType
+  03CD: EndFunctionParms
+  03D0: Skip -> +6400
+  03D1: ??? op=0x63
+  03D6: LocalVariable ?exp10692096
+  03DB: ObjConst ?exp369098851
+  03DE: Jump -> +984
+  03DF: LetBool
+  03E0: BoolVariable
+  03E5: InstanceVariable SwordPlayer.bCreatingStoreGems
+  03E6: False
+  03E7: Return
+  03E8: Nothing
+  03E9: EndOfScript
+
