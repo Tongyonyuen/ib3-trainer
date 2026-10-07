@@ -19,6 +19,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Ib3Trainer2 {
@@ -175,6 +176,12 @@ static class UpdateUI {
   }
 
   static void StartDownload(MainForm f, string dir, UpdateInfo info) {
+    UpdateState st = Updater.LoadState(dir);
+
+    // swaptest=1：不下载，直接用程序目录里已有的 .new.exe 走一遍替换流程 ——
+    // 用于在本地验证"改名替换 + 重启"这段，不需要真的去发一个新版本。
+    if (st.SwapTest == 1) { StartSwapTest(f, dir, info); return; }
+
     f.BusyShow("正在下载新版本");
     f.Log("更新：开始下载 " + info.AssetName + "（" + info.AssetSize + " 字节）");
 
@@ -200,6 +207,13 @@ static class UpdateUI {
         }
         if (hashSkipped) f.Log("更新：⚠ 远端未提供 sha256 摘要（旧资产），已跳过哈希校验");
 
+        // devnodl=1：走完下载与校验但不落盘 —— 用来验证"下载 + 校验"链路而不真的替换
+        if (st.DevNoDownload == 1) {
+          f.BusyHide();
+          f.Log("更新[devnodl]：下载与校验均通过（" + data.Length + " 字节），按开关未写入");
+          return;
+        }
+
         staged = Updater.StagePayload(dir, data, out err);
         if (staged == null) {
           f.BusyHide();
@@ -220,6 +234,28 @@ static class UpdateUI {
     });
     th.IsBackground = true;
     th.Start();
+  }
+
+  // swaptest=1 专用：把程序目录里**已经存在**的载荷当作"已校验的下载结果"，直接走替换。
+  // 用途 = 在本地验证 .old 改名 / 助手等待父进程 / 重启这一段，不需要真去发一个新版本。
+  // 仍然要求 MZ 头与最小体积 —— 免得拿一个垃圾文件把正在运行的自己换掉。
+  static void StartSwapTest(MainForm f, string dir, UpdateInfo info) {
+    string staged = Path.Combine(dir, Updater.NEW_NAME);
+    if (!File.Exists(staged)) {
+      f.Log("更新[swaptest]：程序目录里没有 " + Updater.NEW_NAME + "，请先放一份 exe 进去");
+      ToastMgr.Warn("更新助手启动失败");
+      return;
+    }
+    byte[] d;
+    try { d = File.ReadAllBytes(staged); }
+    catch (Exception ex) { f.Log("更新[swaptest]：读取载荷失败 — " + ex.Message); return; }
+    if (d.Length < 100 * 1024 || d[0] != (byte)'M' || d[1] != (byte)'Z') {
+      f.Log("更新[swaptest]：载荷不是可执行文件（" + d.Length + " 字节），已拒绝");
+      ToastMgr.Warn("下载的文件校验失败，已放弃更新");
+      return;
+    }
+    f.Log("更新[swaptest]：用本地载荷走替换流程（" + d.Length + " 字节；跳过下载与 sha256 核对）");
+    Handoff(f, dir, info, staged);
   }
 
   // UI 线程：起助手 → 本程序退出 → 助手替换并重启
