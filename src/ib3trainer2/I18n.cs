@@ -34,9 +34,19 @@ using System.Windows.Forms;   // Register 的 key 是 Control（Retranslate 要�
 namespace Ib3Trainer2 {
 
 static class BuildInfo {
-  // 目前全项目没有版本号常量（app.manifest 里的 1.0.0.0 不显示）。
-  // 与发布包标记对齐；改发布包时这里一起改。
-  public const string Version = "r4 · 2026-10-07";
+  // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
+  public const string Version = "v1.1.0 · 2026-10-08";
+
+  // ② 机器可比的版本三元组：**发版时必须与 git tag `v1.1.0` 严格一致**（三处一起改）。
+  //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
+  public const int Major = 1, Minor = 1, Patch = 0;
+
+  // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
+  //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；
+  //    更新器看到远端 DATA_REV 更大就**不自动替换**，改为打开下载页。
+  public const int DataRev = 1;
+
+  public static string SemVer { get { return Major + "." + Minor + "." + Patch; } }
 }
 
 static class I18n {
@@ -848,6 +858,31 @@ static class I18n {
     d["已执行："] = "Done: ";
     d["执行失败："] = "Failed: ";
     d["部分失败："] = "Partly failed: ";
+
+    // ---- 自动更新 + 项目主页（Updater.cs / UpdateForm.cs / AboutForm.cs）----
+    // 凡是会走到 ToastMgr.Show/Warn（Toast.cs:27 翻译整串）或 BusyShow（BusyOverlay.cs:84）
+    // 的文案都必须在表里。只进 Log() 的按惯例留中文（排障用）。
+    d["发现新版本"] = "Update available";
+    d["当前版本"] = "Current";
+    d["最新版本"] = "Latest";
+    d["更新说明"] = "What's new";
+    d["（此版本没有写更新说明）"] = "(no release notes)";
+    d["现在更新"] = "Update now";            // 按钮 100×28，≈65px ✓
+    d["跳过此版本"] = "Skip this";           // 版本号就在上面两行，不必再写 version
+    d["以后再说"] = "Later";
+    d["打开下载页"] = "Open page";
+    d["检查更新"] = "Check update";          // 「关于」里的按钮 100×28，≈78px ✓
+    d["项目主页"] = "Project";
+    d["更新会重启修改器，当前锁定与地址表会丢失（游戏本身不受影响）"] =
+      "Update restarts the trainer; locks are lost (the game is unaffected).";
+    d["此版本无法自动更新，将为你打开下载页"] = "Cannot auto-update here - opening the download page";
+    d["正在下载新版本"] = "Downloading update";       // BusyOverlay 固定 380×98 / 标签 344px
+    d["已是最新版本"] = "Up to date";                // Toast 自适应宽高
+    d["检查更新失败"] = "Update check failed";
+    d["新版本下载失败"] = "Download failed";
+    d["下载的文件校验失败，已放弃更新"] = "Downloaded file failed verification - update aborted";
+    d["更新助手启动失败"] = "Updater helper failed to start";
+    d["打开浏览器失败"] = "Could not open browser";
 
     return d;
   }

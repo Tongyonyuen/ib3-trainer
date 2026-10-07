@@ -131,6 +131,18 @@ releases/            Points at the GitHub Releases page (no zips in the repo)
 
 ---
 
+## How this was built
+
+This project was developed with the help of **AI coding assistants**, **primarily DeepSeek**.
+Their role was code and documentation work — the bilingual UI, the auto-update module, and
+organising the reverse-engineering data.
+
+A tool is still a tool: **every design decision, every in-game test, and the final release are the
+author's responsibility**, and all AI-generated content was reviewed by the author.
+This note is here so readers don't assume it was all typed by hand.
+
+---
+
 ## License
 
 The **source code and documentation authored by the project owner** are released under the

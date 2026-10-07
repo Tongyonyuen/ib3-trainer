@@ -45,6 +45,7 @@ partial class MainForm : Form {
   public long FreezeWrites = 0;
   Button btnLang;            // 标题条里的语言切换
   Label lblAuthor;           // 标题条右侧署名（点开「关于」）
+  bool updateScheduled;      // 自动更新检查只排一次（OnShown 可能被多次触发）
 
   // ---- 控件 ----
   PictureBox picBanner;
@@ -62,7 +63,11 @@ partial class MainForm : Form {
   const uint LVS_EX_DOUBLEBUFFER = 0x00010000;
 
   [STAThread]
-  static void Main() {
+  static void Main(string[] args) {
+    // ★ 更新助手模式必须在**最前面**分流：助手绝不能构造 MainForm、不附着游戏、
+    //   不起定时器、也不碰 ib3_ui.ini —— 它只负责等父进程退出、改名替换、重启。
+    if (Updater.IsApplyMode(args)) { Environment.Exit(Updater.RunApply(args)); return; }
+
     try { Console.OutputEncoding = Encoding.UTF8; } catch { }
     // DPI 感知必须早于任何窗口/句柄创建：否则高缩放屏上 Windows 会把整个窗体位图拉伸，
     // 既糊又会撑大（低分辨率/高缩放倍率下装不下的根因之一）。
@@ -101,10 +106,15 @@ partial class MainForm : Form {
     BusyShow("正在初始化（加载数据库 / 构建界面）");
     AddrIni = Path.Combine(ExeDir, "ib3_addrs.ini");
     Launcher.LoadConfig(ExeDir);
+    // 上一轮更新的遗留物（.old / .new / 完成标记）。纯文件 I/O，早于任何 UI，
+    // 也必须在读 ib3_update.ini 之前 —— 它可能清掉过期的完成标记。
+    string updateLeftover = Updater.CleanupLeftovers(ExeDir);
     BuildChrome();
     BuildAddressDock();
     BuildBottom();
     Log("游戏目录: " + (Launcher.LauncherDir == null ? "未设置（点「游戏目录…」选择启动器所在文件夹）" : Launcher.LauncherDir));
+    if (updateLeftover != null) Log(updateLeftover);
+    Log("版本 v" + BuildInfo.SemVer + "　项目主页 " + Updater.REPO_URL);
     // 地址簿先于 Tab 构建（Tab 里的「定位」状态要读它）
     int ac = AddrBook.Load(AddrIni);
     tabs.TabPages.Add(BuildTabCombat());   // 战斗·商店（并页）
@@ -208,6 +218,10 @@ partial class MainForm : Form {
   protected override void OnShown(EventArgs e) {
     base.OnShown(e);
     ReinforceTaskbar();
+    // 自动更新检查：挂在 OnShown 而不是 ctor —— OnShown 晚于 ctor 末尾的 BusyHideAll()
+    // （Ib3Trainer2.cs:152），此刻弹任何东西都不会叠在"正在初始化"浮窗上。
+    // 内部再延 3 秒，避开附着/自检那一波日志。
+    if (!updateScheduled) { updateScheduled = true; UpdateUI.ScheduleAutoCheck(this); }
   }
 
   void BuildChrome() {
@@ -271,7 +285,10 @@ partial class MainForm : Form {
 
   void ShowAbout() {
     try {
-      using (AboutForm f = new AboutForm(this)) f.ShowDialog(this);
+      using (AboutForm f = new AboutForm(this)) {
+        f.ShowDialog(this);
+        if (f.CheckUpdateRequested) UpdateUI.CheckNow(this, false);   // 手动检查：不受 6h 节流
+      }
     } catch (Exception ex) { Log("关于窗口打开失败: " + ex.Message); }
   }
 
@@ -901,6 +918,7 @@ partial class MainForm : Form {
 
   protected override void OnFormClosing(FormClosingEventArgs e) {
     try { AddrBook.Save(AddrIni); } catch { }
+    UpdateUI.StopTimer();      // 别让一次性定时器在窗体拆掉后再触发
     base.OnFormClosing(e);
   }
 }
