@@ -77,8 +77,12 @@ cd src/ib3trainer2
 sh build.sh            # main program -> IB3训练器2.exe
 sh build.sh test       # engine self-test (enginetest2.exe); live checks skip if the game isn't running
 sh build.sh gemtest    # gem-locating self-test (gemselftest.exe); read-only, never writes the target process
+sh build.sh updatetest # updater self-test (updatetest.exe); inline fixtures, no network, no release needed
 sh build.sh probe      # read-only address probe (addrprobe.exe)
 ```
+
+> `gemtest` needs `ib3_gems.ini` next to the exe, otherwise 3 cases FAIL with `ib3_gems.ini 未加载`.
+> That is **expected** — this repo deliberately does not ship that file. Grab it from the Release package to get 10/10.
 
 `build.sh` invokes `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe` (bundled with Windows).
 The language level is capped at **C# 5**, so the sources use no string interpolation, no `?.`, no `out var`

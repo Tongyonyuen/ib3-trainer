@@ -68,8 +68,12 @@ cd src/ib3trainer2
 sh build.sh            # 主程序 → IB3训练器2.exe
 sh build.sh test       # 引擎自检（enginetest2.exe），游戏未运行时会跳过实况项
 sh build.sh gemtest    # 宝石定位自检（gemselftest.exe），只读，不写目标进程
+sh build.sh updatetest # 更新器离线自测（updatetest.exe），夹具内联，不联网、不发 release
 sh build.sh probe      # 只读地址探针（addrprobe.exe）
 ```
+
+> `gemtest` 需要 `ib3_gems.ini` 在 exe 同目录，否则记 3 项 FAIL（`ib3_gems.ini 未加载`）——
+> 那是**预期的**，仓库按设计不含该文件。先把它从 Release 包取来再跑即可 10/10。
 
 `build.sh` 调用 `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe`（Windows 内置）。语言级别上限为 **C# 5**，
 所以源码里不能用字符串插值、`?.`、`out var`、表达式体成员 —— 这不是疏忽，见 `I18n.cs` 头部的约束注释。
