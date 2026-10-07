@@ -19,6 +19,14 @@
 - **新增文档**：[README](README.md) / [README.en.md](README.en.md) / [LICENSE](LICENSE)（MIT）/ 本更新日志 /
   [tools/README](tools/README.md)
 - **二进制与 r13 完全一致**：`IB3训练器2.exe` md5 `42620cbc456b61ee1d5b69c22beb6bf6`（521,728 字节）
+- **成品包清理**：r13 包里混进了三份**每台机器各自生成**的本机状态文件，已从成品包剔除 ——
+  - `ib3_paths.ini` 会暴露打包者的本机游戏路径（实测为 `E:\Infinity Blade\Ⅲ\Binaries`）
+  - `ib3_addrs.ini` 存的是**打包者机器上的内存地址**。使用说明原本就写明「不需要在两个用户之间传递…
+    发给别人反而会写坏内存」，随包分发等于把这个隐患送给每个用户
+  - `ib3_mailbox.json` 是构建时刻的 `pid` / `tramp`，早已失效
+  三者都不影响使用：首次运行时会自动重新生成。成品包现在只含 exe / `items.csv` / `ib3_gems.ini` /
+  `SwordGame.upk` / 使用说明
+- 使用说明改名 `docs/使用说明_r13.md` → `docs/使用说明.md`（当前版），版本头更新为 v1.0.0 并加上项目主页
 
 ---
 

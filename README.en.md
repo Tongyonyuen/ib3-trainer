@@ -20,7 +20,7 @@
   save first**: `Documents\My Games\Infinity Blade III\SwordGame\Cloud`
 - The "mastery upgrade" feature **only raises item levels, never lowers them**. Test on a throwaway save first.
 - Some changes **persist** (item level/XP, gold, gem tier and the fused flag); others (stats, player level,
-  HP) are **temporary** and get recomputed by the game on reload. See the [manual](docs/使用说明_r13.md) (Chinese).
+  HP) are **temporary** and get recomputed by the game on reload. See the [manual](docs/使用说明.md) (Chinese).
 - This project is **not affiliated with or endorsed by** Epic Games or Chair Entertainment.
   *Infinity Blade* is their trademark.
 - **Make sure you own a legitimate copy of the game.**
@@ -64,7 +64,7 @@ anywhere (avoid special characters in the path), then:
 3. Click **「启动游戏（中文）」 (Launch game, Chinese)** → the trainer **auto-attaches** once the game is up
    (the status bar shows 「已附着」) and you're ready to go
 
-The full per-feature manual, hard constraints and FAQ are in **[docs/使用说明_r13.md](docs/使用说明_r13.md)** (Chinese).
+The full per-feature manual, hard constraints and FAQ are in **[docs/使用说明.md](docs/使用说明.md)** (Chinese).
 
 ---
 
@@ -123,7 +123,7 @@ releases/            Points at the GitHub Releases page (no zips in the repo)
 
 | Document | Contents |
 |---|---|
-| [使用说明 (manual)](docs/使用说明_r13.md) | Per-feature guide, hard constraints, FAQ, tester feedback guide *(Chinese)* |
+| [使用说明 (manual)](docs/使用说明.md) | Per-feature guide, hard constraints, FAQ, tester feedback guide *(Chinese)* |
 | [IB3 项目总参考](docs/IB3_项目总参考.md) | Master index: environment map, mechanics conclusions, tool list, **correction log** *(Chinese)* |
 | [宝石研究](docs/宝石研究/README.md) | Gem number formulas, fusion mechanics, grant chains, save migration *(Chinese)* |
 | [控制台手册](docs/控制台手册/IB3_控制台命令手册.md) | 621 game console commands with Chinese descriptions *(Chinese)* |
