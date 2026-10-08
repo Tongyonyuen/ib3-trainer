@@ -49,6 +49,27 @@
 
 ---
 
+## Screenshots
+
+Bilingual UI, **auto-detected from your system language**, with a one-click toggle in the title bar. These are real screenshots of the six tabs and the About window (**v1.1.2**).
+
+| | |
+|---|---|
+| ![Combat · Store](docs/images/tab-combat.jpg) | ![Item Grant](docs/images/tab-items.jpg) |
+| **Combat · Store** — god mode / fill meters / kill current boss, direct gold & chip write, refresh the store with rare gems | **Item Grant** — browse every item by category, granted through the correct channel per type |
+| ![Growth](docs/images/tab-growth.jpg) | ![Discovery Mode](docs/images/tab-scan.jpg) |
+| **Growth** — read / write / lock stats, level, skill points and HP; mastery upgrade | **Discovery Mode** — general-purpose memory-scan workbench (scan / filter / snapshot / diff / test write) |
+| ![Gems · Inventory](docs/images/tab-gems.jpg) | ![Save Export/Import](docs/images/tab-save.jpg) |
+| **Gems · Inventory** — lists every gem in the inventory and portable store; retarget tier or displayed value | **Save Export/Import** — `.ib3save` packaging with automatic integrity checking |
+
+![About window](docs/images/about.png)
+
+**About window** — project link, update check, version and disclaimer.
+
+> Screenshots are from v1.1.2. If the UI changes again the images get updated with it — if what you see differs, trust the build in your hands.
+
+---
+
 ## Download & install
 
 Grab the latest package from **[Releases](https://github.com/Tongyonyuen/ib3-trainer/releases)**, extract it
