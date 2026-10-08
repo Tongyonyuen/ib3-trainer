@@ -1677,6 +1677,20 @@ partial class MainForm {
           "要**存进存档**有两条路：① 切一次场景立即落盘；② 等游戏约 50s 的自动存档。" +
           "两者都必须满足：中途**别打开宝石界面** —— 那会让该数组卸载重载，未落盘的改动被冲掉" +
           "（2026-10-07 实测：训练器那次写入就是这么丢的）");
+      // ★★ 让**内存快照**与刚写进去的值保持一致（2026-10-08，批量功能的关键）。
+      //   批量的下一颗要经过 RemapCopiesLive 的"地址复核"，而它判定"这一组还是不是活数组的
+      //   版本"用的是 SameGroup —— **整组逐条内容比对**（NameIdx/Number/Tier/Cook/Pct）。
+      //   若快照不跟着改：刚改过的那条在快照里仍是旧 Tier、活数组里已是新 Tier
+      //   ⇒ SameGroup 必然 false ⇒ 整组被判"已失效" ⇒ **后面每一颗都报"地址已失效"**。
+      //   （作者实测现象：三颗里只有第一颗成功，后两颗都提示地址改变无法修改。）
+      //   同步之后，无论数组有没有被游戏重新分配（重分配会连内容一起搬走），内容都能对上：
+      //   没搬家 → 直接匹配；搬了家 → SameGroup 仍匹配，再由 RemapCopiesLive 把地址搬过去。
+      foreach (GemRec c in copies) {
+        c.Tier = newTier;
+        if (r.Kind == GemTierKind.Additive && newTier > 0) c.Cook = 50;
+        if (r.Kind == GemTierKind.Indexed) c.Pct = (float)newPct;
+      }
+
       if (!quiet) RefreshGems();         // 批量时外层统一刷一次，避免 N 次重扫
       return null;                       // 成功
     }
