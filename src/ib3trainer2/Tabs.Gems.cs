@@ -1574,15 +1574,31 @@ partial class MainForm {
       newTier = (int)target; newPct = r.Pct;
     }
 
-    // 所有“同内容拷贝”一起写：同名索引 / Number / 原 tier / 原 cook / 原 pct
-    // ★ 必须限定在「与被改数组同样规模」的数组里：商店里有一堆同名同状态的宝石
-    //   （42 颗暗火里就有 7 颗 T0 cook0 pct0），不加这道闸会把商店一起改掉。
+    // 要写的记录集合 = 「选中的那一颗」+「它在其它内存镜像里的同一位置那一颗」。
+    //
+    // ★ 2026-10-08 重写。原来按**内容相等**（同名索引/Number/tier/cook/pct）筛选，本意是
+    //   "同一颗宝石在 2~3 个镜像数组里各有一份，要一起写，否则很可能白改"（见本文件头部说明）。
+    //   但"同一颗的另一个镜像"与"同一数组里另一颗恰好状态相同的宝石"**用内容分不开** ——
+    //   而后者恰恰是常态：未融合的加法型宝石永远是 tier=0/cook=0，且 pct 对它不参与数值
+    //   ⇒ 同模板的两颗**必然**内容相同。实测后果：背包里 3 颗 Tier0 的 UberAttackGem，
+    //   改一颗会把三颗一起改掉（且因为写完状态仍相同，之后每次改都会继续连坐）。
+    //   ⇒ 改用**位置**认镜像：同数组内只认选中那一行；其它数组必须是
+    //     「整组与选中数组逐条相同」(SameGroup —— 比单条内容比较强得多，已在 RemapCopiesLive
+    //      里跑熟) **且同一下标**。
+    //   附带修掉一个同源的窄问题：原来防商店只靠"数组条数相同"，商店与背包条数相同时照样会
+    //   连坐；SameGroup 要求整组逐条相同，天然排除。
     var copies = new List<GemRec>();
+    List<GemRec> refG = GroupOf(r.ArrId);
+    int ord = refG.FindIndex(delegate(GemRec x) { return x.RecAddr == r.RecAddr; });
     foreach (GemRec o in gemRecs) {
-      if (o.NameIdx != r.NameIdx || o.Number != r.Number || o.Tier != r.Tier) continue;
-      if (o.Cook != r.Cook || Math.Abs(o.Pct - r.Pct) >= 1e-6) continue;
-      if (o.ArrId >= gemArrSize.Length || r.ArrId >= gemArrSize.Length) continue;
-      if (gemArrSize[o.ArrId] != gemArrSize[r.ArrId]) continue;
+      if (o.ArrId == r.ArrId) {
+        if (o.RecAddr == r.RecAddr) copies.Add(o);   // 同数组：只认选中那一行，不再看内容
+        continue;
+      }
+      if (ord < 0) continue;
+      List<GemRec> g = GroupOf(o.ArrId);
+      if (!SameGroup(g, refG)) continue;             // 只认真正的镜像组
+      if (g[ord].RecAddr != o.RecAddr) continue;     // 且必须是同一下标
       copies.Add(o);
     }
     if (copies.Count == 0) copies.Add(r);
