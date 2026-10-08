@@ -12,8 +12,16 @@
 //   +0x14 u8  Boost + 3 字节填充
 //
 // 两条必须守的规矩（来自 2026-10-07 实测，详见 E:\ib3_re\宝石研究\README.md）：
-//   1) 同一份背包在内存里有 2~3 份拷贝，只有一份权威 → 本页把 tier **写进所有同内容拷贝**。
-//      写错拷贝实测无害；只写一份则有很高概率白改。
+//   1) 同一份背包在内存里有 2~3 份拷贝，只有一份权威。
+//      ★ 2026-10-08 修正本条。旧表述是"把 tier 写进**所有同内容拷贝**；只写一份则有很高概率白改"。
+//        两句都有问题，作者实测已证伪后一句：
+//        · "同内容拷贝"这个判据分不开"同一颗的另一个镜像"与"同数组里另一颗恰好状态相同的宝石"
+//          —— 未融合的加法型宝石永远 tier=0/cook=0，同模板必然内容相同 ⇒ 改一颗连坐三颗。
+//          现在按**数组内位置**认镜像（见 RemapCopiesLive / BatchRejectReason 一带）。
+//        · "只写一份很可能白改"不成立：RemapCopiesLive 会把每个镜像组的 RecAddr **整组搬到
+//          活数组地址**上，所以"写 2/2 份拷贝"实际是**同一地址写两遍**（日志里能看到同一地址
+//          出现两次）。即真正落笔的**只有活数组那一份**，而作者实测单份写入是生效的。
+//        ⇒ 结论：写活数组那一份就够了；镜像机制现在的实际作用只是"把活数组找出来"。
 //   2) tier 必须按 **单字节** 写。写 Int32 会把 +0x09 的 CookedGemVar 清零。
 //
 // Tier 语义分两类，绝不能混：
@@ -1701,7 +1709,15 @@ partial class MainForm {
 
     long preview = r.ValueAt(newTier, newPct);
     if (okTier == copies.Count && verified == copies.Count) {
-      BookPut("gem." + r.Tpl + ".tier", r.Tpl + " Tier", r.TierAddr, ScanType.I8, newTier.ToString(), "gemscan");
+      // ⚠ 键里**必须**带实例标识（记录地址），不能只按模板名。
+      //   旧写法 `gem.<模板>.tier` 每个模板只存**一个**地址，而背包里同模板可以有多颗
+      //   （未融合的加法型宝石尤其常见，实测就有 3 颗 Tier0 的 UberAttackGem）。
+      //   那个键**根本无法表示 3 颗同类宝石** —— 将来谁要是拿它去解析"该写哪个地址"，
+      //   就会把三颗塌缩成一个地址，重现 2026-10-08 修掉的连坐 bug。
+      //   目前本键**只写不读**（全项目只读 misc.gold / misc.chip），纯调试面包屑；
+      //   加上地址后它才是一份不会误导人的记录。
+      BookPut("gem." + r.Tpl + "." + r.RecAddr.ToString("X") + ".tier",
+              r.Tpl + " Tier", r.TierAddr, ScanType.I8, newTier.ToString(), "gemscan");
       // 批量时由外层汇总，这里不弹（Toast 最多叠 3 个，逐颗弹会把汇总淹掉）
       if (!quiet)
         ToastMgr.Show(I18n.T("已改 ") + r.Tpl + " → Tier " + newTier +

@@ -74,6 +74,7 @@ partial class MainForm {
     pbScan = new ProgressBar();
     pbScan.SetBounds(14, 132, 560, 14);
     pbScan.Style = ProgressBarStyle.Continuous;
+    Theme.StyleProgress(pbScan, Theme.CardSolid, Theme.Gold);   // 深底金条，与整体风格一致
     p.Controls.Add(pbScan);
     lblScanStat = Theme.MkLabel("", 584, 130, 230);
     lblScanStat.ForeColor = Theme.Ink;

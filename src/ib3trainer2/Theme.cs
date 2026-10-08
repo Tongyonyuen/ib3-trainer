@@ -75,6 +75,26 @@ static class Theme {
     if (c.IsHandleCreated) apply(c, EventArgs.Empty);
   }
 
+  // 把原生 ProgressBar 画成我们的深色风格。
+  //
+  // ★ 为什么需要专门一招：**开着视觉样式时原生 ProgressBar 会忽略 BackColor/ForeColor**
+  //   （主题引擎自己画那条灰槽）。必须先 `SetWindowTheme(h, " ", " ")` 去掉视觉样式，
+  //   颜色才会生效 —— 与 StyleTab（Theme.cs:176）用的是同一招。
+  //   去掉视觉样式后必须保持 Continuous：分段式布局在深色底上很难看。
+  //
+  // 2026-10-08：发现模式那条"空白灰条"就是它 —— 原生灰槽(230,230,230)压在象牙底色上，
+  //   与整体手绘风格不搭（作者反馈"看起来没有实际意义"，但它其实是扫描进度条，真在用）。
+  public static void StyleProgress(ProgressBar pb, Color track, Color fill) {
+    if (pb == null) return;
+    try { pb.Style = ProgressBarStyle.Continuous; } catch { }
+    EventHandler apply = delegate {
+      try { SetWindowTheme(pb.Handle, " ", " "); } catch { }
+      try { pb.BackColor = track; pb.ForeColor = fill; } catch { }
+    };
+    pb.HandleCreated += apply;                 // 句柄重建（换 DPI/缩放）后要重新去样式
+    if (pb.IsHandleCreated) apply(pb, EventArgs.Empty);
+  }
+
   public static Button MkButton(string text, int x, int y, int w, int h, EventHandler onClick) {
     RButton b = new RButton();
     // 文案走 I18n：建的时候按当前语言贴一次，并登记下来供切换时重设（key = 控件本身）
