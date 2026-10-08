@@ -72,7 +72,11 @@ partial class MainForm {
 
     // （原先这里有一条扫描进度条 pbScan。2026-10-08 删除：与 RunBackground 的浮窗重复，
     //   且实测进度只在末段可见 —— 前几秒停在 0、然后一下充满，信息价值低。）
-    lblScanStat = Theme.MkLabel("", 584, 130, 230);
+    // 状态文字挪进刚空出来的那一行（进度条原来在 (14,132,560,14)，状态在它右边 y=130）。
+    // 为什么不让 lvScan 上移吸收这块：lvScan 在 y=154、横跨 x 14..804，上移到 132 会**压住**
+    // 原位置的状态标签；两个控件一起挪、又是手写绝对定位的页面，改完我没法肉眼验证重叠。
+    // 让状态文字占回进度条那一格更稳 —— 它本来就是"正在做什么"的指示器，接替进度条最自然。
+    lblScanStat = Theme.MkLabel("", 14, 132, 560);
     lblScanStat.ForeColor = Theme.Ink;
     p.Controls.Add(lblScanStat);
 
