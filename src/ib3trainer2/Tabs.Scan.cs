@@ -28,14 +28,14 @@ partial class MainForm {
     TabPage p = new TabPage("发现模式");
     p.BackColor = Theme.BG; p.ForeColor = Theme.Text;
 
-    p.Controls.Add(Theme.MkLabel("类型", 14, 12, 34));
+    p.Controls.Add(Theme.MkLabelInk("类型", 14, 12, 34));
     cboScanType = new ComboBox();
     cboScanType.SetBounds(52, 9, 92, 23);
     Theme.StyleCombo(cboScanType);
     cboScanType.Items.AddRange(new object[] { "Int32", "Int64", "Float", "Double", "Int16", "Int8" });
     cboScanType.SelectedIndex = 0;
     p.Controls.Add(cboScanType);
-    p.Controls.Add(Theme.MkLabel("值 / 参照值", 152, 12, 76));
+    p.Controls.Add(Theme.MkLabelInk("值 / 参照值", 152, 12, 76));
     txtScanVal = Theme.MkText(232, 9, 130, "");
     p.Controls.Add(txtScanVal);
     Label h1 = Theme.MkHint("唯一命中可直接入表锁定；多命中就改值后再筛选。", 372, 6, 400);
@@ -63,7 +63,7 @@ partial class MainForm {
     p.Controls.Add(btnSnapChg); p.Controls.Add(btnSnapEq); p.Controls.Add(btnStable);
     p.Controls.Add(btnProbe); p.Controls.Add(btnBook);
 
-    p.Controls.Add(Theme.MkLabel("条目描述", 448, 79, 64));
+    p.Controls.Add(Theme.MkLabelInk("条目描述", 448, 79, 64));
     txtScanDesc = Theme.MkText(514, 76, 130, "");
     p.Controls.Add(txtScanDesc);
     Label hFlow = Theme.MkHint("流程: 快照 → 游戏内做动作/打探针 → 变化 → 1.5s稳定化。", 14, 104, 500);

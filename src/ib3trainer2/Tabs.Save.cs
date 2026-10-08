@@ -580,7 +580,7 @@ partial class MainForm {
     p.BackColor = Theme.BG; p.ForeColor = Theme.Text;
 
     // ---- 槽位行 ----
-    p.Controls.Add(Theme.MkLabel("槽位", 14, 13, 40));
+    p.Controls.Add(Theme.MkLabelInk("槽位", 14, 13, 40));
     cboSaveSlot = new ComboBox(); cboSaveSlot.SetBounds(56, 10, 200, 23);
     Theme.StyleCombo(cboSaveSlot);
     cboSaveSlot.SelectedIndexChanged += delegate { OnSlotChanged(); };
@@ -604,7 +604,7 @@ partial class MainForm {
     lblExportInfo = Theme.MkHint("导出会带上该槽的 4 个文件 + 本机的 LocalFileHeaderCache + _CurrentSlot，" +
                                  "导入方靠缓存里的 contentLen 做校验。", 308, 28, 478);
     lblExportInfo.Height = 46;
-    lblExportInfo.ForeColor = Theme.Ink;
+    lblExportInfo.ForeColor = Theme.Text;
     g1.Controls.Add(lblExportInfo);
     p.Controls.Add(g1);
 
@@ -635,7 +635,7 @@ partial class MainForm {
     g2.Controls.Add(btnForceImport);
     lblBundleInfo = Theme.MkHint("尚未选择存档包。", 484, 28, 302);
     lblBundleInfo.Height = 48;
-    lblBundleInfo.ForeColor = Theme.Ink;
+    lblBundleInfo.ForeColor = Theme.Text;
     g2.Controls.Add(lblBundleInfo);
 
     btnBackupDir = Theme.MkButton("备份位置…", 16, 62, 104, 24, delegate { PickBackupDir(); });
@@ -654,11 +654,11 @@ partial class MainForm {
 
     lblBackup = Theme.MkHint("", 374, 62, 412);
     lblBackup.Height = 24;
-    lblBackup.ForeColor = Theme.Ink;
+    lblBackup.ForeColor = Theme.Text;
     g2.Controls.Add(lblBackup);
     lblSaveInfo = Theme.MkHint("", 16, 92, 770);
     lblSaveInfo.Height = 34;
-    lblSaveInfo.ForeColor = Theme.Ink;
+    lblSaveInfo.ForeColor = Theme.Text;
     g2.Controls.Add(lblSaveInfo);
     p.Controls.Add(g2);
 

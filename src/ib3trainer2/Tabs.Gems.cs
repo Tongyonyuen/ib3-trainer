@@ -187,7 +187,7 @@ partial class MainForm {
 
     LoadGemIndex();
 
-    p.Controls.Add(Theme.MkLabel("候选数组", 14, 13, 62));
+    p.Controls.Add(Theme.MkLabelInk("候选数组", 14, 13, 62));
     cboGemArr = new ComboBox(); cboGemArr.SetBounds(78, 10, 264, 23);
     Theme.StyleCombo(cboGemArr);
     cboGemArr.SelectedIndexChanged += delegate { ShowArr(); };
@@ -252,7 +252,7 @@ partial class MainForm {
 
     lblGemInfo = Theme.MkHint("", 16, 66, 766);
     lblGemInfo.Height = 82;
-    lblGemInfo.ForeColor = Theme.Ink;
+    lblGemInfo.ForeColor = Theme.Text;
     g.Controls.Add(lblGemInfo);
     p.Controls.Add(g);
 

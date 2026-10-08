@@ -18,19 +18,19 @@ partial class MainForm {
     TabPage p = new TabPage("物品发放");
     p.BackColor = Theme.BG; p.ForeColor = Theme.Text;
 
-    p.Controls.Add(Theme.MkLabel("主分类", 14, 13, 50));
+    p.Controls.Add(Theme.MkLabelInk("主分类", 14, 13, 50));
     cboCat = new ComboBox(); cboCat.SetBounds(66, 10, 100, 23);
     Theme.StyleCombo(cboCat);
     cboCat.SelectedIndexChanged += delegate { RebuildSubs(); ApplyItemFilter(); };
     p.Controls.Add(cboCat);
 
-    p.Controls.Add(Theme.MkLabel("子分类", 178, 13, 50));
+    p.Controls.Add(Theme.MkLabelInk("子分类", 178, 13, 50));
     cboSub = new ComboBox(); cboSub.SetBounds(230, 10, 120, 23);
     Theme.StyleCombo(cboSub);
     cboSub.SelectedIndexChanged += delegate { ApplyItemFilter(); };
     p.Controls.Add(cboSub);
 
-    p.Controls.Add(Theme.MkLabel("搜索", 362, 13, 36));
+    p.Controls.Add(Theme.MkLabelInk("搜索", 362, 13, 36));
     txtItemSearch = Theme.MkText(400, 10, 150, "");
     txtItemSearch.TextChanged += delegate { ApplyItemFilter(); };
     p.Controls.Add(txtItemSearch);

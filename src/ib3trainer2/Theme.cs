@@ -86,6 +86,15 @@ static class Theme {
   }
   public static void StyleButton(Button b) { /* RButton 自绘；保留兼容空实现 */ }
 
+  // ★★ 浅底还是深底，不能看父控件的 BackColor 属性 ★★
+  //   MkLabel 会设 l.BackColor = Color.Transparent，而透明控件显示的是**父控件实际画出来的
+  //   像素**，不是父控件的 BackColor 属性值。FlatGroupBox 的 BackColor 写着 Theme.BG（浅），
+  //   但它的 OnPaint 把卡片区域整块填成深色（Card / CardGold），只有顶部 Theme.TitleH
+  //   那一条是浅的。所以「这个标签该用浅字还是深字」取决于**它被 Add 到哪个容器**：
+  //     页面 / 窗体 / 标题条（真浅底）      → 用 MkLabelInk（Ink）
+  //     FlatGroupBox 内部（y > TitleH）     → 用 MkLabel 默认（Text）
+  //   2026-10-08 逐像素审计 42 个调用点的结果：9 个在浅底、12 个在深卡、5 个已显式覆盖。
+  //   正因如此**默认值不能改**——改了会坏 12 处、只修 9 处。
   public static Label MkLabel(string text, int x, int y, int w) {
     Label l = new Label();
     // MkHint 走的就是这里，所以两处只需改这一处
@@ -94,6 +103,17 @@ static class Theme {
     l.ForeColor = Text;
     l.Font = UI;
     l.BackColor = Color.Transparent;
+    return l;
+  }
+
+  // 放在**真·浅色背景**上的字段标题（TabPage 页首那排「主分类 / 搜索 / 槽位…」、
+  // 窗体级别的标题条署名）。默认的 Theme.Text 在这个背景上只有 **1.15:1**，等于看不见。
+  //
+  // 需要它而不是 MkLabel 的场合很具体：**直接 Add 到 TabPage / Form / TitleBar**。
+  // 只要标签是 Add 进 FlatGroupBox（深卡）的，就用 MkLabel 默认值，别用这个。
+  public static Label MkLabelInk(string text, int x, int y, int w) {
+    Label l = MkLabel(text, x, y, w);
+    l.ForeColor = Ink;
     return l;
   }
 

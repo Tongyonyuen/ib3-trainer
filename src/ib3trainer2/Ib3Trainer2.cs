@@ -246,7 +246,7 @@ partial class MainForm : Form {
     //   两个自绘命中区，中间一大段是空的，放这里不动既有布局。
     btnLang = Theme.MkButton(I18n.ToggleLabel, 1020, 6, 92, 28, delegate { ToggleLang(); });
     tb.Controls.Add(btnLang);
-    lblAuthor = Theme.MkLabel("by Andrew Tong", 560, 11, 448);
+    lblAuthor = Theme.MkLabelInk("by Andrew Tong", 560, 11, 448);
     lblAuthor.TextAlign = ContentAlignment.MiddleRight;
     lblAuthor.Cursor = Cursors.Hand;
     lblAuthor.Click += delegate { ShowAbout(); };
