@@ -131,12 +131,19 @@ static class EngineCall {
       return boundLive;
     }
   }
-  // 绑定是否仍然有效（换存档→旧对象被释放→vt 变垃圾）
+  // 绑定是否仍然有效。
+  // ★ 2026-10-08 收紧：判据从"vtable 还在"改成"**真身分仍 ≥4**（背包或商店至少一组装载）"。
+  //   旧判据是这次"金币/筹码错值、四维未定位"整条故障链的最后一环：
+  //   空壳影子与真身**同 vtable**，所以一旦绑上空壳，vtable 永远不会变 ⇒ LiveSane 永远 true ⇒
+  //   ProbeRebind（AttachTick 里每 2 秒轮询一次）**再也不会重绑** ⇒ 错一次 = 整场都错。
+  //   新判据下空壳分数不足 ⇒ LiveSane 立刻转 false ⇒ 下一个 2 秒 tick 自动重绑，
+  //   玩家走进藏身地（数组装载）之后最多 2 秒就自愈，不需要手动重新附着。
   public static bool LiveSane(IntPtr h) {
     lock (gate) {
       if (boundLive == 0) return false;
       long vt = ReadQ(h, boundLive);
-      return vt != long.MinValue && Array.IndexOf(KNOWN_VTABLES, vt) >= 0;
+      if (vt == long.MinValue || Array.IndexOf(KNOWN_VTABLES, vt) < 0) return false;
+      return BodyScore(h, boundLive) >= 4;
     }
   }
   // 对象是否为活着的合法宿主（注入前必查——防打已释放对象崩溃）
@@ -228,13 +235,26 @@ static class EngineCall {
     return blob;
   }
 
+  // 换了目标进程：清掉上一场遗留的全部缓存。
+  // ★ 2026-10-08 新增。原来这三处（Prepare / ExecuteOn / Execute）只清
+  //   classHosts / hostScore / cmdHostMemo / lastWinner，**漏了 goldAnchor 与 boundLive** ——
+  //   关掉游戏再开、而训练器不关的话，上一场的金币锚点会留到新进程里。
+  //   实践中旧堆已解除映射，旧 ValidAnchor 多半会失败，所以没炸；但那是"靠运气"，
+  //   新进程的第一次绑定不该受上一场影响（现在 ValidAnchor 变强了，这个口子更要堵死）。
+  static void ResetProcessCaches(IntPtr h) {
+    H = h; page = 0;
+    classHosts.Clear(); hostScore.Clear(); cmdHostMemo.Clear(); lastWinner = 0;
+    goldAnchor = 0; boundLive = 0;
+  }
+
   // ---------------- 安装 / 复用 ----------------
   // 复用条件：Tick 入口已是跳转 且 目标页前 160 字节与我们的构建逐字节一致（绝不覆盖未知补丁）
   public static bool Prepare(IntPtr h, int pid, Action<string> log) {
     lock (gate) {
       if (Ready && H == h) return true;
-      if (H != h) { classHosts.Clear(); hostScore.Clear(); cmdHostMemo.Clear(); lastWinner = 0; }
-      H = h; procPid = pid; page = 0;
+      bool newProc = (H != h);
+      if (newProc) ResetProcessCaches(h); else { H = h; page = 0; }
+      procPid = pid;
       ResolveBase(pid, log);   // 必须先解析基址：下面所有 HOOK_SITE/vtable 都按它换算
       byte[] site = new byte[16]; int rd;
       if (!Win32.ReadProcessMemory(h, (IntPtr)HOOK_SITE, site, 16, out rd) || rd != 16) {
@@ -308,47 +328,70 @@ static class EngineCall {
     }
     return true;
   }
-  // "真身分"：真玩家持有真实金币/筹码/商店数组；影子实例全为 0
-  static int CurrencyScore(IntPtr h, long o) {
-    int s = 0;
+  // TArray 头 {int64 Data, int32 Count, int32 Max} 的"已装载"判据。
+  // 与 Tabs.Gems.cs 的 ArrayLoaded 同源 —— 那边的版本是 MainForm 的私有静态，EngineCall 够不着，
+  // 所以这里复制一份；**改判据时两处要一起改**。
+  static bool ArrayLoaded(IntPtr h, long headerAddr, out int count) {
+    count = 0;
+    byte[] hdr = new byte[16]; int r;
+    if (!Win32.ReadProcessMemory(h, (IntPtr)headerAddr, hdr, 16, out r) || r != 16) return false;
+    long data = BitConverter.ToInt64(hdr, 0);
+    count = BitConverter.ToInt32(hdr, 8);
+    int max = BitConverter.ToInt32(hdr, 12);
+    if (count <= 0 || count > 4096) return false;
+    if (max < count || max > 65536) return false;
+    if (data < 0x10000 || data > 0x7FFFFFFFFFFF) return false;
+    return true;
+  }
+
+  // "真身分"：背包装载 4 / 商店装载 4 / 金币 2 / 筹码 1。
+  // ★ 2026-10-08 重写（原 CurrencyScore）。旧版只算 金币 + 筹码 + **商店**数组，
+  //   **完全不看背包（+0x1FEC）** —— 而背包才是"这个对象真的装着状态"的最强证据。
+  //   权重必须让**数组装载(4+4) 压过 金币(2)**：实测同进程 8 个带玩家 vtable 的对象里，
+  //   有一个"金币非 0 但背包/商店都 Count=0"的空壳；旧评分会把它与真身判成同分甚至更高，
+  //   一旦被选中，金币/筹码读到错的值、四维自动绑定因全 0 而放弃（= 用户看到的"未定位"）。
+  //   判据与 Tabs.Gems.cs 的 BodyScore 同源，改这里时那边要一起看。
+  static int BodyScore(IntPtr h, long o) {
+    int s = 0, c;
+    if (ArrayLoaded(h, o + 0x1FEC, out c)) s += 4;   // 背包
+    if (ArrayLoaded(h, o + 0x1FFC, out c)) s += 4;   // 商店
     long gold = ReadQ(h, o + 0x2070);
-    long chip = ReadQ(h, o + 0x2094);
     if (gold > 0 && gold < 1000000000000000L) s += 2;
-    if (chip > 0 && chip < 1000000000000000L) s += 1;
-    long sp = ReadQ(h, o + 0x1FFC);
-    if (sp > 0x10000 && sp < 0x7FFFFFFFFFFF) {
-      byte[] b8 = new byte[8]; int r;
-      if (Win32.ReadProcessMemory(h, (IntPtr)(o + 0x2004), b8, 8, out r) && r == 8) {
-        uint cnt = BitConverter.ToUInt32(b8, 0), mx = BitConverter.ToUInt32(b8, 4);
-        if (cnt <= 128 && mx >= cnt && mx <= 512) s += 1;
-      }
+    byte[] b4 = new byte[4]; int r;
+    if (Win32.ReadProcessMemory(h, (IntPtr)(o + 0x2094), b4, 4, out r) && r == 4) {
+      if (BitConverter.ToInt32(b4, 0) > 0) s += 1;   // 筹码是 I32，别按 I64 读
     }
     return s;
   }
+
+  // 锚点是否可信。
+  // ★ 2026-10-08 收紧。旧实现只验「vtable ∈ 白名单 + 金币 ∈ (0,1e15)」：
+  //   空壳影子与真身**同 vtable**、金币也可能非 0，于是一个陈旧或被复用的堆地址照样"通过校验"，
+  //   然后被当成真身用一整场。现在必须**真身分 ≥4**，即至少一组数组真的装着。
   static bool ValidAnchor(IntPtr h, long o) {
+    if (o == 0) return false;
     long vt = ReadQ(h, o);
     if (vt == long.MinValue || Array.IndexOf(KNOWN_VTABLES, vt) < 0) return false;
-    long g = ReadQ(h, o + 0x2070);   // 真身必有合理金币值（防陈旧锚点撞上复用的堆对象）
-    return g > 0 && g < 1000000000000000L;
+    return BodyScore(h, o) >= 4;
   }
   static bool AnyHost(long o) {
     for (int i = 0; i < classHosts.Count; i++) if (classHosts[i].Contains(o)) return true;
     return false;
   }
-  // 玩家类执行顺序：金币锚定第一 → 真身分降序 → 地址升序
+  // 玩家类执行顺序：真身分降序（同分时金币锚点优先）→ 地址升序。
+  // ★ 2026-10-08：不再"金币锚定第一"。锚定只在**同分**时打破平局 ——
+  //   否则一个金币非 0 的空壳仅凭锚定身份就会排到真身前面（见 ValidAnchor / PickExecutor）。
   static List<long> OrderPlayerClass(IntPtr h, List<long> group) {
     List<long> g = new List<long>(group);
+    Dictionary<long, int> sc = new Dictionary<long, int>();
+    for (int i = 0; i < g.Count; i++) sc[g[i]] = BodyScore(h, g[i]);
     g.Sort(delegate(long a, long b) {
-      int sa = 0, sb = 0;
-      hostScore.TryGetValue(a, out sa);
-      hostScore.TryGetValue(b, out sb);
+      int sa = sc[a], sb = sc[b];
       if (sa != sb) return sb - sa;
-      return a < b ? -1 : (a > b ? 1 : 0);
+      bool aa = (a == goldAnchor), ba = (b == goldAnchor);
+      if (aa != ba) return aa ? -1 : 1;
+      return a < b ? -1 : (a > b ? 1 : 0);   // 同分取地址小的：结果可复现，不随扫描顺序漂移
     });
-    if (goldAnchor != 0 && ValidAnchor(h, goldAnchor)) {
-      int idx = g.IndexOf(goldAnchor);
-      if (idx > 0) { g.RemoveAt(idx); g.Insert(0, goldAnchor); }
-    }
     return g;
   }
 
@@ -386,7 +429,7 @@ static class EngineCall {
       }
       foreach (long vt in KNOWN_VTABLES) classHosts.Add(found[vt]);
       if (classHosts.Count > 1) {
-        foreach (long o in classHosts[1]) hostScore[o] = CurrencyScore(h, o);
+        foreach (long o in classHosts[1]) hostScore[o] = BodyScore(h, o);
       }
       int total = 0;
       foreach (List<long> g in classHosts) total += g.Count;
@@ -395,22 +438,30 @@ static class EngineCall {
         List<long> og = OrderPlayerClass(h, classHosts[1]);
         long pick = og[0];
         int sc = 0; hostScore.TryGetValue(pick, out sc);
-        bool anchored = (goldAnchor != 0 && pick == goldAnchor && ValidAnchor(h, goldAnchor));
-        extra = "；玩家真身优先 0x" + pick.ToString("X") + "（分" + sc + (anchored ? "·金币锚定" : "") + "）";
+        // 真身分 <4 表示**没有任何一组数组装载** —— 此时不会被选作执行器（见 PickExecutor）。
+        // 「玩家在关卡里 / 商店熔接室界面时背包数组为空」是正常状态，日志要说清以免误判为故障。
+        extra = "；玩家真身优先 0x" + pick.ToString("X") + "（真身分 " + sc +
+                (sc >= 4 ? "" : "·不足，暂不可用：数组未装载，回藏身地主界面即可") + "）";
       }
       if (log != null) log("注入器自检：候选宿主 " + KNOWN_VTABLES.Length + " 类共 " + total + " 个实例已定位" + extra);
       return total;
     }
   }
 
-  // 执行器：金币锚定优先，其次玩家类真身分最高者（作弊/发放类命令必需）
+  // 执行器：玩家类里**真身分最高**者（作弊/发放类命令必需）。
+  // ★ 2026-10-08 重写：删掉了"金币锚点一票通过"的短路。
+  //   旧实现第一行就是 `if (goldAnchor != 0 && ValidAnchor(h, goldAnchor)) return goldAnchor;`，
+  //   而旧 ValidAnchor 只验 vtable + 金币区间 —— 这正是"金币/筹码读到错值、四维未定位"的直接成因。
+  //   现在锚点只在**同分**时作偏好（见 OrderPlayerClass）。
+  //   并且：**没有任何实例真身分 ≥4 时返回 0**（拒绝执行），而不是退回一个空壳。
+  //   这是本项目一贯的取舍 —— 宁可让命令明确失败，也不在一个错对象上执行
+  //   （在空壳上跑 giveitemonce 之类不是"没效果"，而是可能把状态写进错的对象）。
   static long PickExecutor(IntPtr h) {
-    if (goldAnchor != 0 && ValidAnchor(h, goldAnchor)) return goldAnchor;
-    if (classHosts.Count > 1 && classHosts[1].Count > 0) {
-      List<long> og = OrderPlayerClass(h, classHosts[1]);
-      return og[0];
-    }
-    return 0;
+    if (classHosts.Count <= 1) return 0;
+    List<long> g = classHosts[1];
+    if (g.Count == 0) return 0;
+    long pick = OrderPlayerClass(h, g)[0];
+    return BodyScore(h, pick) >= 4 ? pick : 0;
   }
 
   // 按 vtable 找对象实例（CheatManager 等非白名单类；先扫玩家堆区快速通道）
@@ -452,7 +503,7 @@ static class EngineCall {
   public static bool ExecuteOn(IntPtr h, string cmd, long host, out string err) {
     err = null;
     lock (gate) {
-      if (H != h) { H = h; page = 0; classHosts.Clear(); hostScore.Clear(); cmdHostMemo.Clear(); lastWinner = 0; }
+      if (H != h) ResetProcessCaches(h);
       if (page == 0) { err = "注入器未就绪"; return false; }
       {
         long c1 = ReadQ(h, page + S_CNT);
@@ -507,9 +558,7 @@ static class EngineCall {
   public static bool Execute(IntPtr h, string cmd, out string err) {
     err = null;
     lock (gate) {
-      if (H != h) {
-        H = h; page = 0; classHosts.Clear(); hostScore.Clear(); cmdHostMemo.Clear(); lastWinner = 0;
-      }
+      if (H != h) ResetProcessCaches(h);
       if (page == 0) { err = "注入器未就绪（请重新附着：训练器会自动安装信箱挂钩）"; return false; }
       if (HostCount == 0) Discover(h, null);
       if (HostCount == 0) { err = "未找到候选宿主对象（版本可能不符）"; return false; }
@@ -530,6 +579,13 @@ static class EngineCall {
 
       string tok = cmd.Split(' ')[0];
       if (tok == "killboss") ex = 0;   // killboss 例外：带执行器会崩（实测），历史成功配置 = 无执行器
+      else if (ex == 0) {
+        // ★ 2026-10-08 新增留痕。真身分不足时 PickExecutor 会返回 0 —— 这是**有意的**
+        //   （拒绝在一个空壳对象上执行命令）。但它表现为"点了没反应"，所以必须留一行痕，
+        //   否则用户/排查者分不清是"命令没送到"还是"根本没找到真身"。
+        Trace("注入：" + tok + " 未找到可用的真身执行器（背包与商店数组都未装载）——" +
+              "该命令很可能无效。回藏身地主界面让数组装载后重试。");
+      }
       List<long> order = new List<long>();
       long memo;
       if (cmdHostMemo.TryGetValue(tok, out memo) && AnyHost(memo)) order.Add(memo);

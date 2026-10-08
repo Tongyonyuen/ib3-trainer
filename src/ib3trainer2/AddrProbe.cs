@@ -323,7 +323,9 @@ static class AddrProbe {
     return r;
   }
 
-  // ---- 真身分：金币/筹码非 0（影子实例为 0），与 EngineCall.CurrencyScore 同义 ----
+  // ---- 真身分（本工具自己的简化版）：金币/筹码非 0（影子实例为 0）。
+     //      训练器主体已改为更强的一套（EngineCall.BodyScore：背包装载 4 / 商店装载 4 / 金币 2 / 筹码 1），
+     //      本探针保持简单版即可 —— 它只做只读比对，不参与选真身。 ----
   static int Score(IntPtr h, long o) {
     int s = 0;
     long g = ReadI64(h, o + OFF_GOLD);

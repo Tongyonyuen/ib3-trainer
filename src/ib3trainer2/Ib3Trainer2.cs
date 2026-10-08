@@ -719,7 +719,15 @@ partial class MainForm : Form {
   // 真身绑定 + 金币/筹码结构自动绑定（附着时与"世界切换检测"后共用）
   void EngineBindAndLog() {
     long live = EngineCall.BindLive(H);
-    if (live == 0) return;
+    if (live == 0) {
+      // ★ 2026-10-08：以前这里是**静默 return** —— 用户只看到"四维未定位"却不知原因。
+      //   现在"真身分不足（没有任何数组装载）"会明确拒绝绑定，所以必须说清这是
+      //   **正常状态**而不是故障：AttachTick 每 2 秒重试一次，走进藏身地后会自动绑上。
+      Log("未绑定真身：当前没有找到装着背包/商店数组的玩家对象。" +
+          "若游戏还在读档中、或你正在关卡/商店熔接室界面，这是正常状态 —— " +
+          "回到藏身地主界面后会自动绑定（每 2 秒重试一次，无需手动操作）。");
+      return;
+    }
     long ga = live + 0x2070, ca = live + 0x2094;
     BookPut("misc.gold", "金币", ga, ScanType.I64, "", "engine");
     BookPut("misc.chip", "筹码", ca, ScanType.I32, "", "engine");

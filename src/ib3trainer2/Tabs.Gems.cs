@@ -527,7 +527,9 @@ partial class MainForm {
     return true;
   }
 
-  // 玩家类实例的"真身分"。判据与 EngineCall.CurrencyScore / AddrProbe.Score 同源
+  // 玩家类实例的"真身分"。★ 2026-10-08 起本判据已**上移进 EngineCall.BodyScore**，
+  //   成为全局选真身的依据（PickExecutor / ValidAnchor / LiveSane 都用它）。
+  //   两处必须保持一致 —— 改这里就要改 EngineCall.cs 的同名函数。
   //   （那边的注释：「真玩家持有真实金币/筹码/商店数组；影子实例全为 0」）。
   // ★ 权重必须是「数组装载(4+4) > 金币(2) > 筹码(1)」：
   //   实测同进程 8 个带 PLAYER_VT 的地址里，有一个是「金币非 0 但背包/商店都 Count=0」
