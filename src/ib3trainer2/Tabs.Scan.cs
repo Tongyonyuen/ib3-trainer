@@ -15,7 +15,6 @@ namespace Ib3Trainer2 {
 partial class MainForm {
   ComboBox cboScanType;
   TextBox txtScanVal, txtScanDesc;
-  ProgressBar pbScan;
   Label lblScanStat;
   ListView lvScan;
   Button btnFirst, btnInc, btnDec, btnChg, btnUnch, btnEq, btnSnap, btnSnapChg, btnSnapEq, btnStable, btnCancel, btnProbe, btnBook;
@@ -71,11 +70,8 @@ partial class MainForm {
     hFlow.ForeColor = Theme.Ink;
     p.Controls.Add(hFlow);
 
-    pbScan = new ProgressBar();
-    pbScan.SetBounds(14, 132, 560, 14);
-    pbScan.Style = ProgressBarStyle.Continuous;
-    Theme.StyleProgress(pbScan, Theme.CardSolid, Theme.Gold);   // 深底金条，与整体风格一致
-    p.Controls.Add(pbScan);
+    // （原先这里有一条扫描进度条 pbScan。2026-10-08 删除：与 RunBackground 的浮窗重复，
+    //   且实测进度只在末段可见 —— 前几秒停在 0、然后一下充满，信息价值低。）
     lblScanStat = Theme.MkLabel("", 584, 130, 230);
     lblScanStat.ForeColor = Theme.Ink;
     p.Controls.Add(lblScanStat);
@@ -120,7 +116,6 @@ partial class MainForm {
         BeginInvoke((MethodInvoker)delegate {
           ScanBusy = false;
           SetScanStatus("");
-          pbScan.Value = 0;
           BusyHide();
           if (result != null && result.Trim().Length > 0) Log(result.TrimEnd());
         });
@@ -176,7 +171,7 @@ partial class MainForm {
       try { pat = TypeUtil.Encode(t, seed); } catch (Exception ex) { return "值无效: " + ex.Message; }
       List<ScanHit> hits = ScanCore.FirstScanKnown(H, t, pat, ScanCore.MAX_HITS,
         delegate { return scanCancel; },
-        delegate(long a, long b) { SetPb(a, b); });
+        null);
       scanHits = hits;
       try { BeginInvoke((MethodInvoker)delegate {
         ShowHits(I18n.T("首扫 ") + seed);
@@ -214,7 +209,7 @@ partial class MainForm {
       long total; bool capped; int skipped;
       DateTime t0 = DateTime.Now;
       List<SnapRegion> snap = ScanCore.SnapshotUnknown(H, t, delegate { return scanCancel; },
-        delegate(long a, long b) { SetPb(a, b); }, out total, out capped, out skipped);
+        null, out total, out capped, out skipped);
       scanSnap = snap;
       return "快照完成: " + snap.Count + " 区 / " + (total / 1048576) + " MB" + (capped ? "（超上限，部分跳过）" : "") +
              " / 跳过 " + skipped + " / 用时 " + (int)(DateTime.Now - t0).TotalSeconds + "s";
@@ -231,7 +226,7 @@ partial class MainForm {
       RunBackground(I18n.T("快照筛:等于") + " " + refText, delegate {
         bool cap2;
         List<ScanHit> keep = ScanCore.FilterSnapshotExact(H, t, scanSnap, FilterKind.Equal, refText,
-          delegate { return scanCancel; }, delegate(long a, long b) { SetPb(a, b); }, out cap2);
+          delegate { return scanCancel; }, null, out cap2);
         scanHits = keep;
         try { BeginInvoke((MethodInvoker)delegate {
           ShowHits(I18n.T("快照:等于") + refText);
@@ -243,7 +238,7 @@ partial class MainForm {
       RunBackground(I18n.T("快照筛:变化"), delegate {
         bool cap2;
         List<ScanHit> keep = ScanCore.FilterSnapshot(H, t, scanSnap, FilterKind.Changed, 0,
-          delegate { return scanCancel; }, delegate(long a, long b) { SetPb(a, b); }, out cap2);
+          delegate { return scanCancel; }, null, out cap2);
         scanHits = keep;
         try { BeginInvoke((MethodInvoker)delegate {
           ShowHits(I18n.T("快照:变化"));
@@ -303,14 +298,6 @@ partial class MainForm {
     ToastMgr.Show(I18n.T("已加入右侧地址表（未锁定）"));
   }
 
-  void SetPb(long done, long total) {
-    try {
-      if (pbScan == null || total <= 0) return;
-      int v = (int)(done * 100 / total);
-      if (v < 0) v = 0; if (v > 100) v = 100;
-      BeginInvoke((MethodInvoker)delegate { pbScan.Value = v; });
-    } catch { }
-  }
 }
 
 } // namespace
