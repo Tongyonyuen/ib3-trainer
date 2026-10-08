@@ -912,6 +912,8 @@ static class I18n {
     d["（显示值="] = " (value=";
     d["（Tier="] = " (Tier=";
     d["  ★ 界面会立刻变；存进存档请切一次场景"] = "  UI updates at once; change scene to persist";
+    d["正在刷新宝石列表，请等它结束（约几秒）再点「应用」"] =
+      "Refreshing the gem list — wait a few seconds, then click Apply";
 
     return d;
   }

@@ -1494,6 +1494,22 @@ partial class MainForm {
   //   再 setsave 0 看哪个标记进了明文 —— 内存里同内容拷贝很多，只有一份会被序列化。
   // 规则：某组若与当前活数组「同条数 且 逐条四字段一致」，就按同下标搬到活地址；
   //   对不上就整组丢弃；连选中的那颗都丢了就拒绝写入（宁可不动，也不乱写）。
+  // 两组为何不"相同"——给失败分支用的诊断串（与 SameGroup 的判据逐项对应，别单独改）
+  static string GroupDiff(List<GemRec> a, List<GemRec> b) {
+    if (a == null || b == null) return "有一组为空";
+    if (a.Count != b.Count) return "条数不同 " + a.Count + " vs " + b.Count;
+    for (int i = 0; i < a.Count; i++) {
+      if (a[i].NameIdx != b[i].NameIdx || a[i].Number != b[i].Number)
+        return "第 " + i + " 条 名索引/Number 不同（" + a[i].NameIdx.ToString("X") + "/" + a[i].Number +
+               " vs " + b[i].NameIdx.ToString("X") + "/" + b[i].Number + "）";
+      if (a[i].Tier != b[i].Tier) return "第 " + i + " 条 Tier 不同（" + a[i].Tier + " vs " + b[i].Tier + "）";
+      if (a[i].Cook != b[i].Cook) return "第 " + i + " 条 Cook 不同（" + a[i].Cook + " vs " + b[i].Cook + "）";
+      float d = a[i].Pct - b[i].Pct; if (d < 0) d = -d;
+      if (d >= 0.002f) return "第 " + i + " 条 pct 不同（" + a[i].Pct + " vs " + b[i].Pct + "）";
+    }
+    return "两项都相同（不应走到这里）";
+  }
+
   bool RemapCopiesLive(IntPtr h, List<GemRec> copies, GemRec sel, out string note) {
     note = null;
     List<GemRec> bag, shop; int bagC, shopC; string ls;
@@ -1509,6 +1525,14 @@ partial class MainForm {
       long found = 0;
       if (SameGroup(g, bag)) found = bag[0].RecAddr;
       else if (SameGroup(g, shop)) found = shop[0].RecAddr;
+      else {
+        // ★ 2026-10-08 新增诊断。原来这里只有一句笼统的"数组已全部失效"，而它至少有三种成因：
+        //   ① 两组条数不同（背包内容变了）② 逐条内容不同（某条被改过）③ 真的没装载/形状坏。
+        //   三者处置完全不同，光看那句提示只能靠猜 —— 用户实测就卡在这里（三颗全失败、0 成功）。
+        //   只在失败分支打，正常路径无开销。
+        Log("地址复核诊断：组#" + c.ArrId + "（" + g.Count + " 条）与活数组不同 ⇒ 背包: " +
+            GroupDiff(g, bag) + "；商店: " + GroupDiff(g, shop));
+      }
       groupLive[c.ArrId] = found;
     }
     foreach (KeyValuePair<int, long> kv in groupLive) {
@@ -1746,6 +1770,15 @@ partial class MainForm {
   }
 
   void ApplyGemEdit() {
+    // ★★ 挡住"刷新进行中"这个时间窗（2026-10-08，作者实测"第二次批量失败"的真因）。
+    //   RefreshGems 走 RunBackground ⇒ **异步**，实测要 ~6 秒（②序列扫描要遍历内存），
+    //   而它期间 gemRecs **仍是旧快照**；BusyShow 的浮窗按项目设计不抢焦点，
+    //   所以「应用」按钮在那 6 秒里是可点的。此时写下去，RemapCopiesLive 会拿旧快照
+    //   与活数组做**内容比对**（SameGroup）—— 刚改过的那条必然对不上 ⇒ 被判"数组已失效"。
+    //   作者观察到的"第二次批量失败、切场景重扫后才行 / 等一会儿就行"就是这个窗口，
+    //   **不是数组真的失效**。
+    if (ScanBusy) { ToastMgr.Warn(I18n.T("正在刷新宝石列表，请等它结束（约几秒）再点「应用」")); return; }
+
     List<GemRec> sel = SelGems();
     if (sel.Count == 0) { ToastMgr.Show(I18n.T("先在列表选中一颗宝石")); return; }
     if (!RequireH()) return;
