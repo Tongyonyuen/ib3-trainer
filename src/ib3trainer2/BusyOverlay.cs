@@ -24,14 +24,18 @@ class BusyOverlay : Form {
     StartPosition = FormStartPosition.Manual;
     ShowInTaskbar = false;
     TopMost = true;
+    // ★ 配色（2026-10-08 修正）：原来是 BackColor=Theme.BG（浅羊皮纸 244,238,223）配
+    //   ForeColor=Theme.Text（浅 232,222,202）—— 对比度只有 **1.15:1**。而这是用户启动时
+    //   第一眼看到的东西（"正在初始化…"），文字几乎不可见。改为 Theme.Ink（深棕）= **7.02:1**。
+    //   规律：**浅底(BG)配深字(Ink)，深卡(CardSolid)配浅字(Text)**。
     BackColor = Theme.BG;
-    ForeColor = Theme.Text;
+    ForeColor = Theme.Ink;
     Size = new Size(380, 98);
     SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
     lbl = new Label();
     lbl.SetBounds(18, 16, 344, 40);
-    lbl.ForeColor = Theme.Text;
+    lbl.ForeColor = Theme.Ink;
     lbl.BackColor = Color.Transparent;
     lbl.Font = new Font("Microsoft YaHei UI", 10f, FontStyle.Bold);
     lbl.TextAlign = ContentAlignment.MiddleLeft;
