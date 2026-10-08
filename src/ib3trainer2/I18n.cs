@@ -35,11 +35,18 @@ namespace Ib3Trainer2 {
 
 static class BuildInfo {
   // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
-  public const string Version = "v1.1.0 · 2026-10-08";
+  public const string Version = "v1.1.2 · 2026-10-08";
 
-  // ② 机器可比的版本三元组：**发版时必须与 git tag `v1.1.0` 严格一致**（三处一起改）。
+  // ② 机器可比的版本三元组：**发版时必须与 git tag 严格一致**（三处一起改）。
   //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
-  public const int Major = 1, Minor = 1, Patch = 0;
+  //
+  //  ⚠ 漏改的后果不是"显示错一个数字"。更新器拿**本地** SemVer 去比**远端 tag**：
+  //    本地若停留在旧值，远端新 tag 永远"更大" ⇒ **每次都提示有新版本**；
+  //    而点更新下载下来的还是同一份（它仍自称旧版本）⇒ **无限更新循环**，只有手动
+  //    选「跳过此版本」才能停。
+  //    v1.1.1 就漏改过一次（那份 exe 自称 1.1.0，而 tag 是 v1.1.1）。发版前请核对三处：
+  //      git tag  ==  Version 串里的版本号  ==  Major.Minor.Patch
+  public const int Major = 1, Minor = 1, Patch = 2;
 
   // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
   //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；

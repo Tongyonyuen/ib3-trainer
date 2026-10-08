@@ -121,6 +121,16 @@ static class UpdateUI {
       return;
     }
 
+    // ★ 防"无限更新循环"。走到这里说明远端 tag 比本地自称的版本新，但**若这个 tag 其实已经装过**，
+    //   那根因就是"二进制自称的版本与 tag 不一致"（v1.1.1 就发生过：tag=v1.1.1 而 exe 里
+    //   BuildInfo 还是 1.1.0）。此时继续提示只会让用户反复下载同一份 exe。
+    //   有了 applied 记录，无论二进制怎么自称，同一个 tag 只装一次。
+    if (!string.IsNullOrEmpty(st.Applied) && st.Applied == info.Tag) {
+      f.Log("更新检查：远端 " + info.Tag + " 本机已经装过（本地自称 v" + Updater.LocalSemVer +
+            "，与 tag 不符——那份二进制里的版本号可能写错了）——已跳过，不再反复提示");
+      return;
+    }
+
     // 只有"下载+替换"这条路才需要这些前置条件；不满足就退化成"打开下载页"
     bool manualOnly = false;
     string why = null;

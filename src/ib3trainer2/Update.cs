@@ -126,6 +126,7 @@ static class Updater {
           case "lastcheck": st.LastCheck = v; break;
           case "etag":      st.ETag = v; break;
           case "skip":      st.Skip = v; break;
+          case "applied":   st.Applied = v; break;
           case "repo":      if (v.Length > 0) st.Repo = v; break;
           case "feedurl":   st.FeedUrl = v; break;
           case "ok":        st.Ok = (v == "0") ? 0 : 1; break;
@@ -152,12 +153,26 @@ static class Updater {
         "ok=" + st.Ok,
         "etag=" + (st.ETag == null ? "" : st.ETag),
         "skip=" + (st.Skip == null ? "" : st.Skip),
+        "applied=" + (st.Applied == null ? "" : st.Applied),
         "repo=" + ((st.Repo == null || st.Repo.Length == 0) ? REPO_DEFAULT : st.Repo),
         "feedurl=" + (st.FeedUrl == null ? "" : st.FeedUrl),
         "devdump=" + st.DevDump,
         "devnodl=" + st.DevNoDownload,
         "swaptest=" + st.SwapTest
       }, new UTF8Encoding(false));
+    } catch { }
+  }
+
+  // 记下"这个 tag 已经装到本机了"。由 CleanupLeftovers 在**更新后的首次启动**时调用。
+  // 目的见 UpdateState.Applied 的注释：让更新器对"二进制自称版本比 tag 旧"这类事故免疫 ——
+  // 否则那种情况会造成**无限更新循环**（每次都提示有新版本，下载下来的又是同一份）。
+  public static void NoteApplied(string trainerDir, string tag) {
+    if (string.IsNullOrEmpty(tag)) return;
+    try {
+      UpdateState st = LoadState(trainerDir);
+      if (st.Applied == tag) return;
+      st.Applied = tag;
+      SaveState(trainerDir, st);
     } catch { }
   }
 
@@ -587,6 +602,9 @@ static class Updater {
         if (ageMin >= 0 && ageMin < 1.0) {
           msg = "已更新到 " + (string.IsNullOrEmpty(tag) ? "新版本" : tag) +
                 "（旧版本保留为 " + Path.GetFileName(bak == null ? NEW_NAME : bak) + "）";
+          // ★ 记下已装过的 tag —— 这是"更新后首次启动"这个唯一时机。
+          //   见 UpdateState.Applied 的注释：防无限更新循环。
+          NoteApplied(dir, tag);
         }
         // 5 分钟后才删 .old：留一个"改个名就能回滚"的窗口。
         // 不能用 .old 的时间戳判断 —— 它带的是**上一个 exe** 的日期，可能好几天前。
@@ -747,6 +765,11 @@ class UpdateState {
   public string LastCheck;
   public string ETag;
   public string Skip;
+  // 「已经装过的 tag」。防的是这样一类事故：某个版本的二进制**自称的版本比 tag 旧**
+  //   （v1.1.1 就发生过：tag=v1.1.1，而那份 exe 里 BuildInfo 还写着 1.1.0）。
+  //   单靠版本号比较，远端新 tag 永远"更大" ⇒ 每次都提示更新；而下载下来的还是同一份
+  //   ⇒ 无限更新循环。有了这一条，同一 tag 只会被安装一次，无论二进制怎么自称。
+  public string Applied;
   public string Repo = Updater.REPO_DEFAULT;
   public string FeedUrl;
   public int Ok = 1;

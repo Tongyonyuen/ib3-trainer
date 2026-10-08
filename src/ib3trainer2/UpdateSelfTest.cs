@@ -430,6 +430,33 @@ static class UpdateSelfTest {
       return null;
     });
 
+    // applied：防"二进制自称版本比 tag 旧"导致的无限更新循环（v1.1.1 真发生过）
+    T("state.applied", delegate {
+      string d = TempDir();
+      try {
+        if (!string.IsNullOrEmpty(Updater.LoadState(d).Applied)) return "新建状态的 applied 应为空";
+
+        Updater.NoteApplied(d, "v1.1.1");
+        if (Updater.LoadState(d).Applied != "v1.1.1") return "NoteApplied 未持久化";
+
+        Updater.NoteApplied(d, "v1.1.1");   // 同 tag 重复记
+        if (Updater.LoadState(d).Applied != "v1.1.1") return "重复 NoteApplied 后值变了";
+
+        Updater.NoteApplied(d, "v1.1.2");   // 换 tag
+        if (Updater.LoadState(d).Applied != "v1.1.2") return "换 tag 后未更新";
+
+        Updater.NoteApplied(d, null);       // 空 tag 不该覆盖已有值
+        Updater.NoteApplied(d, "");
+        if (Updater.LoadState(d).Applied != "v1.1.2") return "空 tag 不该覆盖已有值";
+
+        UpdateState c = new UpdateState();  // 确认键名往返对得上
+        c.Applied = "v9.9.9";
+        Updater.SaveState(d, c);
+        if (Updater.LoadState(d).Applied != "v9.9.9") return "applied 键未往返";
+        return null;
+      } finally { try { Directory.Delete(d, true); } catch { } }
+    });
+
     T("applymode", delegate {
       if (!Updater.IsApplyMode(new string[] { "/apply", "123", "456", "C:\\x.exe" })) return "/apply 应识别";
       if (!Updater.IsApplyMode(new string[] { "/APPLY", "1", "2", "c" })) return "大小写不敏感";
