@@ -1423,6 +1423,23 @@ partial class MainForm {
     OnGemSel();
   }
 
+  // ShowArr() 会重建全部行，选中随之丢失。按**记录对象引用**复原选中 ——
+  // 保住"连续批改"的手感（作者实测反馈：以前每次改完都要重新选一遍）。
+  void RestoreGemSelection(List<GemRec> want) {
+    if (want == null || want.Count == 0) return;
+    try {
+      lvGems.BeginUpdate();
+      lvGems.SelectedItems.Clear();
+      foreach (ListViewItem it in lvGems.Items) {
+        GemRec g = it.Tag as GemRec;
+        if (g != null && want.Contains(g)) it.Selected = true;
+      }
+      if (lvGems.SelectedItems.Count > 0) lvGems.EnsureVisible(lvGems.SelectedItems[0].Index);
+      lvGems.EndUpdate();
+      OnGemSel();                        // 选中变了，信息栏跟着更新（含批量可否的提示）
+    } catch { }
+  }
+
   GemRec SelGem() {
     if (lvGems.SelectedItems.Count == 0) return null;
     return lvGems.SelectedItems[0].Tag as GemRec;
@@ -1715,7 +1732,11 @@ partial class MainForm {
         if (r.Kind == GemTierKind.Indexed) c.Pct = (float)newPct;
       }
 
-      if (!quiet) RefreshGems();         // 批量时外层统一刷一次，避免 N 次重扫
+      // ★ 显示刷新交给调用方统一做（ShowArr 同步重画 + 复原选中）。
+      //   这里以前是 `if (!quiet) RefreshGems();` —— 那个走 RunBackground（异步、实测约 6 秒、
+      //   弹"读取背包"浮窗），而重建列表还会**清掉选中**。作者实测的
+      //   "改完有个弹窗、此时无法修改、要重新选中、中间有时间差"就是它。
+      //   现在写入已同步进 gemRecs，重画即可，不需要重新扫内存。
       return null;                       // 成功
     }
     // 写不完整：批量模式下不弹单条提示（外层汇总），但日志照留
@@ -1793,6 +1814,7 @@ partial class MainForm {
     if (sel.Count == 1) {                       // 单颗：保持原有的详细提示
       string e1 = ApplyGemOne(sel[0], byValue, target, false);
       if (e1 != null) { ToastMgr.Warn(e1); Log("宝石写入失败: " + sel[0].Tpl + " — " + e1); }
+      else { ShowArr(); RestoreGemSelection(sel); }   // 同步重画 + 复原选中（不重新扫内存）
       return;
     }
 
@@ -1804,7 +1826,9 @@ partial class MainForm {
       if (e == null) ok++;
       else if (fails.Count < 4) fails.Add(g.Tpl + " — " + e);
     }
-    if (ok > 0) RefreshGems();                  // 批量：写完统一刷一次列表
+    // 同步重画 + 复原选中。**不再** RefreshGems()：那要走 RunBackground（异步约 6 秒、
+    // 弹"读取背包"浮窗、还清掉选中），而写入已同步进 gemRecs，重画就够。
+    if (ok > 0) { ShowArr(); RestoreGemSelection(sel); }
     string head = I18n.T("批量完成：成功 ") + ok + " / " + sel.Count + " 颗";
     if (fails.Count == 0) {
       ToastMgr.Show(head + (byValue ? (I18n.T("（显示值=") + target + "）") : (I18n.T("（Tier=") + target + "）"))
