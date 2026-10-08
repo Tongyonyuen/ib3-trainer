@@ -694,7 +694,13 @@ partial class MainForm : Form {
     // 预热：后台安装/复用信箱挂钩 + 定位候选宿主（不阻塞界面）
     System.Threading.Thread th = new System.Threading.Thread(delegate() {
       try {
-        EngineCall.Prepare(H, (int)GamePid, Log);
+        // ★ 2026-10-08：原来这里**忽略返回值**，于是注入器整个没装起来时界面完全看不出来
+        //   （只有命令类按钮逐个弹"注入器未就绪"）。现在把失败明确说出来并指明出路。
+        if (!EngineCall.Prepare(H, (int)GamePid, Log)) {
+          Log("⚠ 注入器未安装成功 —— 命令类功能（物品发放 / 商店刷新 / 掌握升阶）在本会话内不可用。" +
+              "原因见上面那行「注入器： …」。多数情况**关闭游戏再重新启动**即可恢复：" +
+              "训练器会在新游戏进程里重新装挂钩，且只认自己装的挂钩、不会覆盖外来补丁。");
+        }
         AddrEntry ag = AddrBook.Get("misc.gold");
         if (ag != null && ag.Addr != 0) {
           // 先确认这条记录还真读得动再拿去锚定 —— 地址簿可能是上一局留下的过期堆地址

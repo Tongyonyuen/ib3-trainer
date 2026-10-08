@@ -195,6 +195,25 @@ static class EngineCall {
     BitConverter.GetBytes(disp).CopyTo(blob, o + op.Length);
     return o + op.Length + 4;
   }
+  // 这个注入页是不是**本训练器**（任意版本）留下的？
+  //
+  // ★ 判据刻意只用"不随版本变化"的两点，两者都在那 160 字节比对范围之内，所以**新构建看旧页时照样成立**：
+  //   ① 页尾 14 字节是 `FF 25 00 00 00 00 <HOOK_BACK>` —— 跳回本游戏的 HOOK_SITE+16。
+  //      外来补丁（Steam 叠加层 / 杀软 / 别的工具）不会恰好往那里跳。
+  //   ② 页内偏移 130 起的 16 字节 == HOOK_ORIG（BuildPage 固定在尾跳之前回填本函数的原入口字节）。
+  //   两点同时满足 ⇒ 这页只可能是我们自己某个版本写的。
+  //
+  // 偏移值来自 BuildPage 尾部的固定布局：先 16 字节原入口，再 14 字节尾跳，合计正好 160。
+  // ⚠ 若将来改 BuildPage 的**尾部布局**，这里的两个偏移要跟着改（改前面的指令流不影响尾跳起点，
+  //    因为尾跳两段是顺序写在第 o 偏移之后、总长恒为 160）。
+  static bool IsOursStalePage(byte[] got) {
+    if (got == null || got.Length < 160) return false;
+    if (got[146] != 0xFF || got[147] != 0x25) return false;
+    if (BitConverter.ToInt64(got, 148) != HOOK_BACK) return false;
+    for (int k = 0; k < 16; k++) if (got[130 + k] != HOOK_ORIG[k]) return false;
+    return true;
+  }
+
   static byte[] BuildPage(long T) {
     byte[] blob = new byte[0x1000];
     int o = 0;
@@ -262,6 +281,7 @@ static class EngineCall {
         if (log != null) log("注入器： " + LastDiag);
         return false;
       }
+      bool installed = false;
       if (site[0] == 0xFF && site[1] == 0x25) {
         long T = BitConverter.ToInt64(site, 6);
         byte[] expect = BuildPage(T);
@@ -270,13 +290,41 @@ static class EngineCall {
         if (adopt) for (int k = 0; k < 160; k++) if (got[k] != expect[k]) { adopt = false; break; }
         if (adopt) {
           page = T;
+          installed = true;
           if (log != null) log("注入器：复用已装信箱挂钩 @0x" + T.ToString("X"));
+        } else if (IsOursStalePage(got)) {
+          // ★★ 认得出是**自己人**的旧版注入页（2026-10-08，作者实测「游戏不关、换个修改器版本」失败的成因）。
+          //
+          //   为什么会有旧页：跳板页是 VirtualAllocEx 分配在**游戏进程**里的，修改器退出不会释放它
+          //   （全项目从不调 VirtualFreeEx）。于是换版本时，游戏里的 Tick 入口仍是 FF 25 指向旧页，
+          //   而旧页的指令流/槽位布局属于旧构建 ⇒ 那 160 字节比对必然失败。
+          //
+          //   为什么旧行为很糟：原代码在这里直接拒绝并把 page 留 0；而 AttachTick 在游戏存活期间
+          //   **不会再次调用 Prepare**（Ib3Trainer2.cs:678 起直接转 ProbeRebind）⇒ 整个会话都卡在
+          //   「注入器未就绪」，唯一出路是重启游戏 —— 正是作者观察到的现象。
+          //
+          //   现在：认得出就把 Tick 入口**还原成原 16 字节**，再走下面的正常安装路径。
+          //   安全性：① 只认"尾跳回本游戏的 HOOK_SITE+16 且页内嵌着本函数入口原 16 字节"的页，
+          //             外来补丁（Steam 叠加层/杀软/别的工具）不会同时满足这两点；
+          //           ② 旧页尾跳目标是 HOOK_SITE+16 而**不是** HOOK_SITE，所以即便有线程正停在页内，
+          //             还原入口之后它仍能正确返回；
+          //           ③ **不** VirtualFreeEx 旧页 —— 可能有线程正在页内执行，释放会崩。泄漏 4KB 是这里
+          //             的正确取舍。旧页就此变成孤儿，不再被引用。
+          if (log != null) log("注入器：检测到本训练器的旧版注入页 @0x" + T.ToString("X") +
+                               "（多半是换了修改器版本而游戏没重启）——还原 Tick 入口后重装挂钩");
+          if (!WritePatched(h, HOOK_SITE, HOOK_ORIG)) {
+            LastDiag = "还原 Tick 入口失败 err=" + Marshal.GetLastWin32Error();
+            if (log != null) log("注入器： " + LastDiag);
+            return false;
+          }
+          Array.Copy(HOOK_ORIG, 0, site, 0, 16);   // 本地副本同步，好让下面的校验通过
         } else {
           LastDiag = "Tick 入口已有未知补丁（非本训练器），拒绝覆盖";
           if (log != null) log("注入器： " + LastDiag);
           return false;
         }
-      } else {
+      }
+      if (!installed) {
         bool same = true;
         for (int k = 0; k < 16; k++) if (site[k] != HOOK_ORIG[k]) { same = false; break; }
         if (!same) {
