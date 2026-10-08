@@ -48,7 +48,7 @@ partial class MainForm {
     lvItems.Columns.Add("模板名", 180);
     lvItems.Columns.Add("中文名", 190);
     lvItems.Columns.Add("子分类", 110);
-    lvItems.Columns.Add("备注", 290);
+    lvItems.Columns.Add("备注", 308);
     p.Controls.Add(lvItems);
     lvItems.HandleCreated += delegate {
       SendMessage(lvItems.Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, (IntPtr)0, (IntPtr)LVS_EX_DOUBLEBUFFER);

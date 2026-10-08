@@ -891,6 +891,28 @@ static class I18n {
     d["更新助手启动失败"] = "Updater helper failed to start";
     d["打开浏览器失败"] = "Could not open browser";
 
+    // ---- 宝石批量（2026-10-08）----
+    // ⚠ 批量提示是**拼出来**的，所以按片段登记（T() 整串查表，拼出来的串不会命中）。
+    //   少数几个纯标点连接词（如「）与 」）故意不收 —— 在英文界面里它们会保持中文，
+    //   这是本字典一贯的取舍（漏翻显示中文，不出空白或键名）。
+    d["批量取消："] = "Batch rejected: ";
+    d["批量完成：成功 "] = "Batch done: ";
+    d[" 颗"] = " gem(s)";
+    d["。失败："] = ". Failed: ";
+    d["；"] = "; ";
+    d["已选 "] = "Selected ";
+    d[" 颗 —— 可批量：下面这个目标值会应用到全部选中项。"] =
+      " gem(s) — batchable: the target below applies to all selected.";
+    d[" 是未知类型（不可修改）—— 请把它排除后再批量"] = " is an unknown type (not editable) — exclude it to batch";
+    d["Tier 上限不同——"] = "Tier ranges differ — ";
+    d["）不能一起批改，请分开选"] = ") cannot be batched together; select them separately";
+    d[" 的显示值算不出来——「显示数值」模式下不能批量。"] =
+      " has no computable displayed value — cannot batch in Value mode. ";
+    d["可改用 Tier 模式，或把它排除"] = "Use Tier mode, or exclude it";
+    d["（显示值="] = " (value=";
+    d["（Tier="] = " (Tier=";
+    d["  ★ 界面会立刻变；存进存档请切一次场景"] = "  UI updates at once; change scene to persist";
+
     return d;
   }
 }

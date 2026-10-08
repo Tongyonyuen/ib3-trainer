@@ -85,7 +85,7 @@ partial class MainForm {
     Theme.StyleList(lvScan);
     lvScan.Columns.Add("地址", 170);
     lvScan.Columns.Add("值", 160);
-    lvScan.Columns.Add("说明", 430);
+    lvScan.Columns.Add("说明", 460);
     p.Controls.Add(lvScan);
     lvScan.HandleCreated += delegate {
       SendMessage(lvScan.Handle, LVM_SETEXTENDEDLISTVIEWSTYLE, (IntPtr)0, (IntPtr)LVS_EX_DOUBLEBUFFER);

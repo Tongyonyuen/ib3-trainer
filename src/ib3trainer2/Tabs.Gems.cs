@@ -206,7 +206,7 @@ partial class MainForm {
     lvGems.Columns.Add("pct", 84);
     lvGems.Columns.Add("当前显示值", 106);
     lvGems.Columns.Add("记录地址", 140);
-    lvGems.Columns.Add("可改", 150);
+    lvGems.Columns.Add("可改", 168);
     lvGems.SelectedIndexChanged += delegate { OnGemSel(); };
     p.Controls.Add(lvGems);
 
@@ -222,6 +222,8 @@ partial class MainForm {
     cboGemField.Items.Add("Tier");
     cboGemField.Items.Add("显示数值");
     cboGemField.SelectedIndex = 0;
+    // 「显示数值」与 Tier 两个模式下批量合法性不同（值算不算得出），切模式时重评一次
+    cboGemField.SelectedIndexChanged += delegate { OnGemSel(); };
     g.Controls.Add(cboGemField);
 
     g.Controls.Add(Theme.MkLabel("目标值", 198, 34, 52));
@@ -1461,6 +1463,24 @@ partial class MainForm {
       sb.Append(I18n.T("类型：未知（无 RecipeBoostAmount 也无 UpgradeTier）→ 本页拒绝写入，避免写坏。")).AppendLine();
     }
     sb.Append(I18n.T("改完必须回游戏切一次场景（进/出熔接室）才会写进存档。"));
+
+    // ---- 批量选择状态（2026-10-08 新增）----
+    // 列表本就是 MultiSelect（ListView 默认 true），而旧代码只取 SelectedItems[0] ——
+    // 所以"多选"以前是**静默地只改第一颗**。这里当场把能不能批量说清楚。
+    // 不在这里改 btnGemApply.Enabled：那由 SetGemControls() 统一管（扫描成功才启用），
+    // 这里抢着改会把它的状态弄乱。真正的拦截在 ApplyGemEdit 里（拒绝并给出原因）。
+    List<GemRec> sel = SelGems();
+    if (sel.Count > 1) {
+      bool byValue = (cboGemField.SelectedIndex == 1);
+      string why = BatchRejectReason(sel, byValue);
+      sb.AppendLine();
+      if (why == null)
+        sb.Append(I18n.T("已选 ")).Append(sel.Count)
+          .Append(I18n.T(" 颗 —— 可批量：下面这个目标值会应用到全部选中项。"));
+      else
+        sb.Append("⚠ ").Append(why);
+    }
+
     lblGemInfo.Text = sb.ToString();
     cboGemField.Enabled = r.CanEditValue;
   }
@@ -1541,15 +1561,11 @@ partial class MainForm {
   }
 
   // ================= 应用 =================
-  void ApplyGemEdit() {
-    GemRec r = SelGem();
-    if (r == null) { ToastMgr.Show(I18n.T("先在列表选中一颗宝石")); return; }
-    if (!RequireH()) return;
-    if (r.Kind == GemTierKind.Unknown) { ToastMgr.Warn(I18n.T("该宝石类型未知，拒绝写入")); return; }
-
-    bool byValue = (cboGemField.SelectedIndex == 1);
-    long target;
-    if (!long.TryParse(txtGemTarget.Text.Trim(), out target)) { ToastMgr.Warn(I18n.T("目标值不是整数")); return; }
+  // 单颗写入。返回 null = 成功；否则返回失败原因（中文，调用方决定怎么呈现）。
+  // ★ 2026-10-08：原来这里就是 ApplyGemEdit 的全部方法体，逻辑一字未改，
+  //   只是把"弹窗 + return"换成"return 原因串"，好让外层能循环、能把 N 颗的结果汇总。
+  string ApplyGemOne(GemRec r, bool byValue, long target, bool quiet) {
+    if (r.Kind == GemTierKind.Unknown) return I18n.T("该宝石类型未知，拒绝写入");
 
     int newTier; double newPct;
     if (byValue) {
@@ -1557,20 +1573,14 @@ partial class MainForm {
       //   旧版会一路走到 Solve 再报「目标 N 无法达成（受基数/增量/档位/pct 上限约束）」——
       //   把"本页算不出这颗的值"说成了"你选的数不行"，用户只会反复试别的数。改为如实说明，
       //   并指一条走得通的路：改用 Tier 模式直接改档位。
-      if (!r.ValueComputable) {
-        ToastMgr.Warn(I18n.T("这颗宝石的显示值算不出来（") + r.MaxUnknownWhy(true) +
-                      I18n.T("）—— 请把「修改项」改成 Tier 来改档位"));
-        return;
-      }
-      if (!r.Solve(target, out newTier, out newPct)) {
-        ToastMgr.Warn(I18n.T("目标 ") + target + I18n.T(" 无法达成（受基数/增量/档位/pct 上限约束）"));
-        return;
-      }
+      if (!r.ValueComputable)
+        return I18n.T("这颗宝石的显示值算不出来（") + r.MaxUnknownWhy(true) +
+               I18n.T("）—— 请把「修改项」改成 Tier 来改档位");
+      if (!r.Solve(target, out newTier, out newPct))
+        return I18n.T("目标 ") + target + I18n.T(" 无法达成（受基数/增量/档位/pct 上限约束）");
     } else {
-      if (target < r.TierMin || target > r.TierMax) {
-        ToastMgr.Warn(I18n.T("Tier 必须在 ") + r.TierMin + " ~ " + r.TierMax + I18n.T("（该宝石类型限制）"));
-        return;
-      }
+      if (target < r.TierMin || target > r.TierMax)
+        return I18n.T("Tier 必须在 ") + r.TierMin + " ~ " + r.TierMax + I18n.T("（该宝石类型限制）");
       newTier = (int)target; newPct = r.Pct;
     }
 
@@ -1612,9 +1622,8 @@ partial class MainForm {
     if (!RemapCopiesLive(h, copies, r, out remapNote)) {
       // 提示语一律由 remapNote 自带：它已经知道是"游戏界面不对（数组没装载）"还是"地址失效"，
       // 旧版在这里硬接一句"请重新点「读取背包」"，对前者是**改不动**的空话（问题在游戏那侧）。
-      ToastMgr.Warn(I18n.T("写入取消：") + remapNote);
-      Log("宝石写入取消（地址复核未过）：" + remapNote);
-      return;
+      Log("宝石写入取消（地址复核未过）：" + r.Tpl + " — " + remapNote);
+      return I18n.T("写入取消：") + remapNote;
     }
 
     int okTier = 0, okPct = 0, okCook = 0; string lastErr = "";
@@ -1652,7 +1661,9 @@ partial class MainForm {
     long preview = r.ValueAt(newTier, newPct);
     if (okTier == copies.Count && verified == copies.Count) {
       BookPut("gem." + r.Tpl + ".tier", r.Tpl + " Tier", r.TierAddr, ScanType.I8, newTier.ToString(), "gemscan");
-      ToastMgr.Show(I18n.T("已改 ") + r.Tpl + " → Tier " + newTier +
+      // 批量时由外层汇总，这里不弹（Toast 最多叠 3 个，逐颗弹会把汇总淹掉）
+      if (!quiet)
+        ToastMgr.Show(I18n.T("已改 ") + r.Tpl + " → Tier " + newTier +
                     (preview >= 0 ? (I18n.T("（显示值 ") + preview + I18n.T("）")) : "") +
                     I18n.T("，写 ") + okTier + I18n.T(" 份拷贝") + (okCook > 0 ? (I18n.T(" + 融合标记×") + okCook) : "") +
                     (okPct > 0 ? (" + pct×" + okPct) : "") + I18n.T("  ★ 界面会立刻变；存进存档请切一次场景"));
@@ -1666,9 +1677,96 @@ partial class MainForm {
           "要**存进存档**有两条路：① 切一次场景立即落盘；② 等游戏约 50s 的自动存档。" +
           "两者都必须满足：中途**别打开宝石界面** —— 那会让该数组卸载重载，未落盘的改动被冲掉" +
           "（2026-10-07 实测：训练器那次写入就是这么丢的）");
-      RefreshGems();
+      if (!quiet) RefreshGems();         // 批量时外层统一刷一次，避免 N 次重扫
+      return null;                       // 成功
+    }
+    // 写不完整：批量模式下不弹单条提示（外层汇总），但日志照留
+    Log("宝石写入不完整: " + r.Tpl + " " + okTier + "/" + copies.Count + " — " + lastErr);
+    return I18n.T("写入不完整（") + okTier + "/" + copies.Count + I18n.T("）：") + lastErr;
+  }
+
+  // ==================== 批量应用（2026-10-08 新增）====================
+  // 列表本就是 MultiSelect（ListView 默认 true），旧代码只取 SelectedItems[0]，
+  // 所以"选中多颗"以前是静默地只改第一颗。这里把选中集取全并按规则批量。
+
+  List<GemRec> SelGems() {
+    var list = new List<GemRec>();
+    foreach (ListViewItem it in lvGems.SelectedItems) {
+      GemRec g = it.Tag as GemRec;
+      if (g != null) list.Add(g);
+    }
+    return list;
+  }
+
+  // 批量是否被允许。返回 null = 允许；否则返回**给用户看的拒绝理由**。
+  //
+  // 规则由作者定（2026-10-08）：
+  //   ① 算不出目标值的**不许批量选** —— 仅在「显示数值」模式下有意义
+  //      （Tier 模式改的是档位号，值与算不算得出无关，所以那种模式不因此拒绝）
+  //   ② Tier 上限不同的**不许批量选** —— 上限不同意味着模板类型/档位表不同，
+  //      同一个目标值对它们不是一回事，硬批会写出越界值
+  // 另加一条固有前提：未知类型本就拒绝写入，故整批一并拒绝。
+  string BatchRejectReason(List<GemRec> sel, bool byValue) {
+    if (sel == null || sel.Count <= 1) return null;
+
+    foreach (GemRec g in sel) {
+      if (g.Kind == GemTierKind.Unknown)
+        return I18n.T("批量取消：") + g.Tpl + I18n.T(" 是未知类型（不可修改）—— 请把它排除后再批量");
+    }
+    // ② Tier 上限（含下限）必须一致
+    GemRec a = sel[0];
+    foreach (GemRec g in sel) {
+      if (g.TierMin != a.TierMin || g.TierMax != a.TierMax)
+        return I18n.T("批量取消：Tier 上限不同——") + a.Tpl + "（" + a.TierMin + "~" + a.TierMax + I18n.T("）与 ")
+             + g.Tpl + "（" + g.TierMin + "~" + g.TierMax + I18n.T("）不能一起批改，请分开选");
+    }
+    // ① 值算不出来
+    if (byValue) {
+      foreach (GemRec g in sel) {
+        if (!g.ValueComputable)
+          return I18n.T("批量取消：") + g.Tpl + I18n.T(" 的显示值算不出来——「显示数值」模式下不能批量。")
+               + I18n.T("可改用 Tier 模式，或把它排除");
+      }
+    }
+    return null;
+  }
+
+  void ApplyGemEdit() {
+    List<GemRec> sel = SelGems();
+    if (sel.Count == 0) { ToastMgr.Show(I18n.T("先在列表选中一颗宝石")); return; }
+    if (!RequireH()) return;
+
+    bool byValue = (cboGemField.SelectedIndex == 1);
+    long target;
+    if (!long.TryParse(txtGemTarget.Text.Trim(), out target)) { ToastMgr.Warn(I18n.T("目标值不是整数")); return; }
+
+    string why = BatchRejectReason(sel, byValue);
+    if (why != null) { ToastMgr.Warn(why); Log(why); return; }
+
+    if (sel.Count == 1) {                       // 单颗：保持原有的详细提示
+      string e1 = ApplyGemOne(sel[0], byValue, target, false);
+      if (e1 != null) { ToastMgr.Warn(e1); Log("宝石写入失败: " + sel[0].Tpl + " — " + e1); }
+      return;
+    }
+
+    // 多颗：逐颗写，汇总成一句（Toast 最多叠 3 个，逐颗弹会淹掉）
+    int ok = 0;
+    var fails = new List<string>();
+    foreach (GemRec g in sel) {
+      string e = ApplyGemOne(g, byValue, target, true);
+      if (e == null) ok++;
+      else if (fails.Count < 4) fails.Add(g.Tpl + " — " + e);
+    }
+    if (ok > 0) RefreshGems();                  // 批量：写完统一刷一次列表
+    string head = I18n.T("批量完成：成功 ") + ok + " / " + sel.Count + " 颗";
+    if (fails.Count == 0) {
+      ToastMgr.Show(head + (byValue ? (I18n.T("（显示值=") + target + "）") : (I18n.T("（Tier=") + target + "）"))
+                     + I18n.T("  ★ 界面会立刻变；存进存档请切一次场景"));
+      Log("宝石批量写入: " + sel.Count + " 颗全部成功，目标=" + (byValue ? ("显示值 " + target) : ("Tier " + target)));
     } else {
-      ToastMgr.Warn(I18n.T("写入不完整（") + okTier + "/" + copies.Count + I18n.T("）：") + lastErr);
+      string detail = string.Join(I18n.T("；"), fails.ToArray());
+      ToastMgr.Warn(head + I18n.T("。失败：") + detail);
+      Log("宝石批量写入: " + head + "｜失败明细: " + detail);
     }
   }
 }
