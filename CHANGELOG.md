@@ -25,6 +25,19 @@
 > 相应修正了界面提示 / 使用说明 / 本文件
 > 删除：无
 
+- **纠正：`setupcollector <k>` 的 k **不被任何校验** —— 决定"能不能刷"的是**每个角色各自的遭遇计数上限**
+  - 门 = `SwordPC.CollectorCanSpawn()` 的第 5 条：`GetCollectorItemsTakenThisPlaythrough() <=
+    MaxCollectorItemsPerPlaythrough(=1)`；该计数按 `eCurrentPlayerType` 从 **`SirisCollectorItems` /
+    `IsaCollectorItems` 两个独立整数**里取，`UpdateCollectorSavedData`（每次收藏家战斗结算）给**当前角色** +1
+  - ⇒ **每个角色每 playthrough 上限 2 次**（0→1→2；`<=1` 只放行前两次）⇒ 作者实测的
+    "Siris 填 2/3/4 全部失败、Isa 同一个 2 成功、Isa 打完 5 还能触发 2" **全部由此解释**（与 k 无关）
+  - ⇒ **连刷的正确做法 = 换角色（Isa ↔ Siris）各 2 次，或点「清零收藏家进度」**（该按钮正是写这两个计数）
+  - **k 真正的作用 = 选收藏家用哪把武器 / 给哪一档奖励**，且更像索引 `CollectorInfiniteUse`
+    （`Sword_1000…6000`，因为 `CollectorInfiniteMode=7 ≠ 0` 走 infinite 分支）：
+    **k=0/1/2 → Siris、k=3 → 两角色通用、k=4/5 → Isa**（武器归属由 `SwordInventoryItem.IsSirisItem/IsIsaItem`
+    按 `ItemSubType` 判定：<3 Siris、>3 Isa、==3 通用）—— 这解释了"填 5 时出战角色被切成 Isa" ✓
+  - 两个角色看到的是**同一份**奖励列表（`GetCollectorInventoryList` 不按角色过滤 ✓，与作者观察一致）
+
 - **更正一条错误说法：`setupcollector` 的参数不是“可选默认值”，而是奖励阶梯的起点**
   - 证据链：`setupcollector` 把参数写进 `PersistentBossSavedData[0].CurrentHealth`；而
     `SwordBoss.SetupCollectorClassAndItems` 算奖励阶梯时读的正是这个槽（`CollectorItemsLen = fa(该槽, 0)`）

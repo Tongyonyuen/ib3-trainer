@@ -130,6 +130,18 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
     ⇒ 参数落点是收藏家的**存档槽**（语义 = 起始武器/进度索引；`0`＝默认），**字节码里没有任何等级字段**。
     `SetGameFlag` 的参数解出 **0x3A = 58**，对 `DefaultGameFlags.ini` = **`58_IB3_CollectorIntro`** ✓
     （与龙无关 —— 龙是 `26_IB3_Dragon`；另有 `43_IB3_TheCollector`）。
+  - **门 ⑤ 与"连刷上限"（2026-10-09 子代理字节码核验）**：`CollectorCanSpawn()` 末尾要求
+    `GetCollectorItemsTakenThisPlaythrough() <= MaxCollectorItemsPerPlaythrough(=1)`，该计数按
+    `eCurrentPlayerType` 从 **`SirisCollectorItems` / `IsaCollectorItems` 两个独立整数**取
+    （`AddCollectorItemsTakenThisPlaythrough` 在 `UpdateCollectorSavedData` 里给**当前角色** +1）
+    ⇒ **每个角色每 playthrough 上限 2 次**；`setupcollector` 的 k **不参与任何校验**（作者实测的
+    "Siris 2/3/4 失败 / Isa 2 成功 / Isa 打完 5 还能触发 2" 全由此解释）
+  - **k 的作用 = 选武器/奖励档**，更像索引 `CollectorInfiniteUse`（`Sword_1000…6000`；
+    `CollectorInfiniteMode=7≠0` 走 infinite 分支）：k=0/1/2→Siris、k=3→通用、k=4/5→Isa；
+    归属判定 = `SwordInventoryItem.IsSirisItem/IsIsaItem`（按 `ItemSubType`：<3 Siris、>3 Isa、==3 通用）
+    ⇒ 解释"k=5 时出战角色被切成 Isa"（`SwordPC.SetIsa` 被 `SwordCollectorInventoryScene` 调用）
+  - 附：`ItemState==3` = "Collector 战利品"（不可装备，`CantEquipItemCollector`）；
+    奖励列表由 `GetCollectorInventoryList` 拼（`SavedItems` + `CollectorItemList`），**不按角色过滤** ⇒ 两角色同一份
   - **解除门 ④ 的办法（2026-10-09 与作者共同定位，已实机验证）**：
     · 计数器 = `SwordPlayer.IsaCollectorItems`(Isa) / `SirisCollectorItems`(Siris)，按 `eCurrentPlayerType` 取
     · **内存偏移 = 真身 + 0x3E6C（Siris）**；Isa 的按导出顺序推断在 +0x3E68（**未验证**）
