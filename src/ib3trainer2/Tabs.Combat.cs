@@ -10,7 +10,6 @@ namespace Ib3Trainer2 {
 partial class MainForm {
   bool godOnWired = false;
   NumericUpDown numCollectorWeapon;   // 收藏家「起始武器索引」= setupcollector 的参数（留空/0 = 默认）
-  CheckBox chkSyncLevel;              // 勾选后：触发时一并把「当前怪物等级」发给当前 Boss
 
   // 当前「怪物等级」= [[映像基址 + 0xCE3588] + 0x7B0]（Int32）—— 一条**固定指针链**，
   // 不需要扫描、也不需要用户填参数。
@@ -145,31 +144,31 @@ partial class MainForm {
     //   该值写进收藏家的存档槽；0 = 默认）。所以"选哪把武器/哪个奖励"由这个数字决定，
     //   1.x 有这个输入框、2.0 重写时丢了（写死 0）——现在补回来。
     //   ★ 等级**不归这条命令管**：等级来自原版 ini 的 CollectorLevel[]。
-    //   勾选「同步等级」时一次做完两件事（省一步）：先 setupcollector 置位，再 setbosslevel 把
-    //   收藏家等级设成**当前怪物等级**。
-    //   ★ 为什么不是玩家等级（作者 2026-10-09 定）：玩家等级一般不代表战斗难度 —— 高周目下真正
-    //     抬高敌人等级的是身上带的 UberBossBoostGem（每颗可加数万级），而玩家每周目等级上限
-    //     只加三位数。取"怪物等级"才对得上你实际面对的难度。
+    //   等级由**独立按钮**在"收藏家出场后"发（见右边「设置当前敌人等级」）—— 不在触发时发：
+    //   `setbosslevel` 只作用于**当前 Boss**，而触发那一刻收藏家还没出场（作者 2026-10-09 实测：
+    //   触发后连打几场都没见到他，反而在兽形场景把面前那只怪换成了**黑模型** —— 说明替换确实
+    //   响应了，只是该场景的刷怪位装不下人形怪；所以"何时发"必须等到他真的出场）。
     Button bColl = Theme.MkButton("触发收藏家战斗", 354, 34, 150, 30, delegate {
       int ci = 0;                                       // 留空 / 非数字 → 0 = 默认（走游戏自身进度）
       int.TryParse(numCollectorWeapon.Text.Trim(), out ci);
       if (ci < 0) ci = 0;
-      if (!chkSyncLevel.Checked) {
-        InjectCmd("setupcollector " + ci, I18n.T("触发收藏家战斗") + " · #" + ci);
-        return;
-      }
+      InjectCmd("setupcollector " + ci, I18n.T("触发收藏家战斗") + " · #" + ci);
+    });
+
+    // 「设置当前敌人等级」= 发 setbosslevel <当前场景怪物等级>（值由固定指针链实时读取）。
+    //   · 用它把**当前在场的敌人/Boss**（也就是收藏家，等他出场后）设成本场景怪物等级
+    //   · 为什么不是玩家等级（作者定）：玩家等级不代表战斗难度 —— 高周目真正抬敌人等级的是
+    //     身上带的 UberBossBoostGem（每颗可加数万级），玩家每周目等级上限只加三位数
+    //   · 读不到怪物等级（停在标题/加载界面）就**明确提示且不发**，绝不拿玩家等级或猜的值顶替
+    Button bSetLv = Theme.MkButton("设置当前敌人等级", 660, 34, 140, 30, delegate {
       int lv = EnemyLevel();
       if (lv <= 0) {
-        // 未定位/读失败：**照常置位**（用户点的是"触发"），但把"没发等级"写进 desc ——
-        // 由 InjectCmd 按真实结果报一条就够，不叠第二条提示（本文件 96-100 行的教训）；
-        // 也绝不拿玩家等级或猜的值顶替（那会把难度改错方向）。
-        InjectCmd("setupcollector " + ci,
-                  I18n.T("触发收藏家战斗") + " · #" + ci + " " + I18n.T("（没读到怪物等级，未发等级）"));
+        ToastMgr.Warn(I18n.T("没读到怪物等级（停在标题/加载界面？），未发等级"));
         return;
       }
-      InjectCmds(new string[] { "setupcollector " + ci, "setbosslevel " + lv },
-                 I18n.T("触发收藏家战斗") + " · #" + ci + " + " + I18n.T("同步等级") + " " + lv);
+      InjectCmd("setbosslevel " + lv, I18n.T("设置当前敌人等级") + " = " + lv);
     });
+    b3.Controls.Add(bSetLv);
     b3.Controls.Add(bGem); b3.Controls.Add(bDragon); b3.Controls.Add(bColl);
 
     // 起始武器索引（0–99，0=默认）
@@ -180,17 +179,8 @@ partial class MainForm {
     numCollectorWeapon.BackColor = Theme.PanelLight; numCollectorWeapon.ForeColor = Theme.Text;
     b3.Controls.Add(numCollectorWeapon);
 
-    // 「同步等级」：勾上后点触发按钮＝一条链做完（置位 + 发等级）。
-    chkSyncLevel = new CheckBox();
-    // 直接 new 的控件不走 Theme.Mk* 的内部登记，必须自己 Register，否则运行期切语言它不跟着变。
-    I18n.Register(chkSyncLevel, delegate(string s) { chkSyncLevel.Text = s; }, "同步等级");
-    chkSyncLevel.SetBounds(660, 36, 138, 22);
-    chkSyncLevel.ForeColor = Theme.Text;
-    chkSyncLevel.BackColor = Color.Transparent;
-    b3.Controls.Add(chkSyncLevel);
-
-    b3.Controls.Add(Theme.MkHint("索引留空/0＝默认（走游戏自身进度）；☑同步等级＝触发时把收藏家等级设成当前怪物等级。", 14, 74, 790));
-    b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步读当前场景怪物等级（掷点+宝石加成）。", 14, 106, 790));
+    b3.Controls.Add(Theme.MkHint("索引留空/0＝默认（走游戏自身进度）；「设置当前敌人等级」把当前敌人设成本场景怪物等级。", 14, 74, 790));
+    b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；该按钮＝setbosslevel，须战斗中（收藏家出场后）点、仅当前这场。", 14, 106, 790));
     p.Controls.Add(b3);
     return p;
   }

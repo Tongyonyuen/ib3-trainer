@@ -128,6 +128,18 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
     `PlayerPawn.SavedPersistentBossData[0].CurrentHealth ← ForceWeaponStart`、
     `[0].NumBattleAttempts ← 0`、`PlayerPawn.SetGameFlag(...)`、`PlayerPawn.FightsUntilCollector ← 0`，然后 return。
     ⇒ 参数落点是收藏家的**存档槽**（语义 = 起始武器/进度索引；`0`＝默认），**字节码里没有任何等级字段**。
+    `SetGameFlag` 的参数解出 **0x3A = 58**，对 `DefaultGameFlags.ini` = **`58_IB3_CollectorIntro`** ✓
+    （与龙无关 —— 龙是 `26_IB3_Dragon`；另有 `43_IB3_TheCollector`）。
+  - **它只在"能刷人形怪"的场合才会真的替换出收藏家**：作者实测在**兽形怪场景**触发后，
+    面前那只怪的模型被替换成**黑模型**（形状还在、贴图全黑）⇒ 替换已响应但该刷怪位装不下人形怪；
+    之后连打几场也没见到他。⇒ 触发后要走到能刷人形怪的区域、等符合条件的战斗。
+  - **"怪物等级"的读法（2026-10-09 与作者共同差分定位，已在训练器 v1.1.5 实现）**：
+    显示等级 = **原始掷点 + 宝石加成**，且**加载时固化**（拆掉一颗 `UberBossBoostGem` 后已加载的怪
+    不变，只有下一只变：实测 194378 − 64750 = 129628，下一只 129602 —— 差的 26 即掷点波动）。
+    可读的是**当前场景的等级数据对象**：随场景换堆块，但指向它的两个全局在**游戏映像内**
+    （`0xCE3588` / `0xD20388`，无 ASLR）⇒ 固定链 **`[[映像基址+0xCE3588]+0x7B0]`（Int32）**，
+    零扫描零参数。该对象前两个槽位（+0x7B0 / +0xDC0）实测同值。
+    等级→属性的正规入口仍是 `setbosslevel`（写当前 Boss 的 PawnLevel + 调 SetupLevelData）。
   - **等级**：全包**只有** `SwordBoss.SetupCollectorClassAndItems` 读 `CollectorLevel`（同一函数独占
     `CollectorInfiniteLevel/CollectorInfiniteMode/CollectorInfiniteIndex/CollectorItemList`），并把结果写进
     **`SwordBoss.PawnLevel`**。输入 = `DefaultGame.ini [SwordGame.SwordBoss]` 的固定阶梯

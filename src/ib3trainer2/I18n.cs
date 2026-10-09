@@ -336,13 +336,13 @@ static class I18n {
     // 收藏家：起始武器索引 + 同步等级（2026-10-09 新增。英文按"可用字符≈中文2倍"写，
     // 与中文共用同一套几何，见本文件头部③）
     d["起始武器索引"] = "Weapon idx";
-    d["同步等级"] = "Sync lvl";
-    d["（没读到怪物等级，未发等级）"] =
-      "(monster level unreadable - level not sent)";
-    d["索引留空/0＝默认（走游戏自身进度）；☑同步等级＝触发时把收藏家等级设成当前怪物等级。"] =
-      "Empty/0 = default progression; Sync lvl = set the collector to the current monster level.";
-    d["等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步读当前场景怪物等级（掷点+宝石加成）。"] =
-      "Level = stock config (50..15000); setbosslevel = in-battle only, one fight; sync reads the area monster level.";
+    d["设置当前敌人等级"] = "Set enemy lvl";
+    d["没读到怪物等级（停在标题/加载界面？），未发等级"] =
+      "Monster level unreadable (title/loading screen?) - nothing sent";
+    d["索引留空/0＝默认（走游戏自身进度）；「设置当前敌人等级」把当前敌人设成本场景怪物等级。"] =
+      "Empty/0 = default progression; Set enemy lvl = apply the area monster level to the current enemy.";
+    d["等级＝原版 config 表（50…15000）；该按钮＝setbosslevel，须战斗中（收藏家出场后）点、仅当前这场。"] =
+      "Level = stock config (50..15000); the button = setbosslevel: in-battle only, one fight.";
     // 每版首次运行的「开发者信息 + 本版更新说明」窗（WhatsNewForm）
     d["开发者信息"] = "Developer info";
     d["本版更新说明"] = "Release notes";
