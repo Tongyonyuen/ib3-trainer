@@ -136,10 +136,13 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
     （`AddCollectorItemsTakenThisPlaythrough` 在 `UpdateCollectorSavedData` 里给**当前角色** +1）
     ⇒ **每个角色每 playthrough 上限 2 次**；`setupcollector` 的 k **不参与任何校验**（作者实测的
     "Siris 2/3/4 失败 / Isa 2 成功 / Isa 打完 5 还能触发 2" 全由此解释）
-  - **k 的作用 = 选武器/奖励档**，更像索引 `CollectorInfiniteUse`（`Sword_1000…6000`；
-    `CollectorInfiniteMode=7≠0` 走 infinite 分支）：k=0/1/2→Siris、k=3→通用、k=4/5→Isa；
-    归属判定 = `SwordInventoryItem.IsSirisItem/IsIsaItem`（按 `ItemSubType`：<3 Siris、>3 Isa、==3 通用）
-    ⇒ 解释"k=5 时出战角色被切成 Isa"（`SwordPC.SetIsa` 被 `SwordCollectorInventoryScene` 调用）
+  - **k 的作用 = 选武器/奖励档**（0 = 第 1 档…），**不限制角色、不参与触发判定** ✓
+    ⚠ 修正（2026-10-09，作者实测）：先前记过"k=0/1/2→Siris、k=4/5→Isa 的归属会决定能否触发"——**错误** ✗。
+    清零额度后 **Siris 同样能触发 k=2** ⇒ 之前的失败**纯粹是额度**。武器归属
+    （`SwordInventoryItem.IsSirisItem/IsIsaItem` 按 `ItemSubType`：<3 Siris、>3 Isa、==3 通用）
+    只决定"谁能装备/使用"，**不进 `CollectorCanSpawn` 的判定** ✓
+    "填 5 时出战角色被切成 Isa" 的来由**仍存疑**（`SwordPC.SetIsa` 确实被 `SwordCollectorInventoryScene` 调用，
+    但无法证明它在门判定之前执行）✓
   - 附：`ItemState==3` = "Collector 战利品"（不可装备，`CantEquipItemCollector`）；
     奖励列表由 `GetCollectorInventoryList` 拼（`SavedItems` + `CollectorItemList`），**不按角色过滤** ⇒ 两角色同一份
   - **解除门 ④ 的办法（2026-10-09 与作者共同定位，已实机验证）**：

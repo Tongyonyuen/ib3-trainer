@@ -31,11 +31,14 @@
     `IsaCollectorItems` 两个独立整数**里取，`UpdateCollectorSavedData`（每次收藏家战斗结算）给**当前角色** +1
   - ⇒ **每个角色每 playthrough 上限 2 次**（0→1→2；`<=1` 只放行前两次）⇒ 作者实测的
     "Siris 填 2/3/4 全部失败、Isa 同一个 2 成功、Isa 打完 5 还能触发 2" **全部由此解释**（与 k 无关）
-  - ⇒ **连刷的正确做法 = 换角色（Isa ↔ Siris）各 2 次，或点「清零收藏家进度」**（该按钮正是写这两个计数）
-  - **k 真正的作用 = 选收藏家用哪把武器 / 给哪一档奖励**，且更像索引 `CollectorInfiniteUse`
-    （`Sword_1000…6000`，因为 `CollectorInfiniteMode=7 ≠ 0` 走 infinite 分支）：
-    **k=0/1/2 → Siris、k=3 → 两角色通用、k=4/5 → Isa**（武器归属由 `SwordInventoryItem.IsSirisItem/IsIsaItem`
-    按 `ItemSubType` 判定：<3 Siris、>3 Isa、==3 通用）—— 这解释了"填 5 时出战角色被切成 Isa" ✓
+  - ⇒ **连刷的正确做法 = 点「清零收藏家进度」**（该按钮正是写这两个计数；额度是**按角色独立**的，
+    所以换角色也能各拿 2 次 ✓）。**序号顺序不重要**（作者直接跳过 2/3/4 触发 5 成功、
+    清零后 Siris 也能触发 2 ✓）—— 想拿哪档就填哪档 ✓
+  - **k 真正的作用 = 选收藏家用哪把武器 / 给哪一档奖励**（0 = 第 1 档、1 = 第 2 档…），
+    **它不限制角色、也不影响能否触发** —— 作者实测：清零额度后 **Siris 同样可以触发 k=2**
+    （⇒ 先前"k=2 专属 Isa 所以 Siris 刷不了"的说法**是错的**，已撤回；"填 5 时切成 Isa" 的来由**仍存疑**）。
+    武器归属（`SwordInventoryItem.IsSirisItem/IsIsaItem` 按 `ItemSubType`：<3 Siris、>3 Isa、==3 通用）
+    只影响"能不能装备/谁用"，**不参与触发判定** ✓
   - 两个角色看到的是**同一份**奖励列表（`GetCollectorInventoryList` 不按角色过滤 ✓，与作者观察一致）
 
 - **更正一条错误说法：`setupcollector` 的参数不是“可选默认值”，而是奖励阶梯的起点**
