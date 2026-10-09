@@ -183,7 +183,9 @@ partial class MainForm {
     b3.Controls.Add(bSetLv);
     b3.Controls.Add(bGem); b3.Controls.Add(bDragon); b3.Controls.Add(bColl);
 
-    // 起始武器索引（0–99，0=默认）
+    // 起始武器索引（0–99）：它写进收藏家的存档槽，是**奖励阶梯的起点** ⇒ 每次触发都从它开始。
+    // ★ 2026-10-09 作者实测修正：以前这里写的"0＝默认（走游戏自身进度）"是**错的** —— 发 0 就是
+    //   每次都强制从列表第一件开始（他实测"第二个收藏家还是初始装备"）。想要哪一件就填哪个序号。
     b3.Controls.Add(Theme.MkLabel("起始武器索引", 512, 40, 80));
     numCollectorWeapon = new NumericUpDown();
     numCollectorWeapon.SetBounds(596, 35, 56, 23);
@@ -216,7 +218,7 @@ partial class MainForm {
       Log("收藏家进度清零: " + cur + " → 0 @0x" + a.ToString("X") + "（真身 0x" + host.ToString("X") + " + 0x3E6C）");
     }));
 
-    b3.Controls.Add(Theme.MkHint("索引留空/0＝默认；「设置当前敌人等级」设当前敌人等级；「清零收藏家进度」解他本血脉的封锁。", 172, 74, 632));
+    b3.Controls.Add(Theme.MkHint("「起始武器索引」＝每次触发都从这里开始（0＝列表第一件，1/2/3…依次往后）；「设置当前敌人等级」「清零收藏家进度」见说明。", 172, 74, 632));
     b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；该按钮＝setbosslevel，须战斗中（收藏家出场后）点、仅当前这场。", 14, 106, 790));
     p.Controls.Add(b3);
     return p;
