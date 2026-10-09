@@ -184,19 +184,17 @@ partial class MainForm {
       int ci = 0;                                       // 留空 / 非数字 → 0 = 默认（走游戏自身进度）
       int.TryParse(numCollectorWeapon.Text.Trim(), out ci);
       if (ci < 0) ci = 0;
-      // ★ 触发前预检（2026-10-09 作者要求）：先看两个角色本周目的收藏家计数，满了就别傻点
+      // ★ 触发前预检（2026-10-09 作者要求）：读"本周目收藏家计数"并提示
+      // ⚠ 只把 **Siris 的计数**（真身 +0x3E6C，哨兵法实测过）当准数；Isa 那个字段的偏移**尚未定位**
+      //   （原以为在 +0x3E68 —— 实测否证 ✗：存档写 Isa=4 而该处读 0），所以它的值只当"未验证"参考、
+      //   绝不据此阻断发送（宁可多发一条命令，也不能因为一个没验证的数字什么都不做）。
       int cS, cI; string tail = "";
       if (CollectorCounts(out cS, out cI)) {
-        tail = "  [" + I18n.T("本周目计数：Siris ") + cS + " / " + I18n.T("Isa ") + cI + "]";
-        bool sFull = cS > COLLECTOR_CAP_RAW, iFull = cI > COLLECTOR_CAP_RAW;
-        if (sFull && iFull) {
-          ToastMgr.Warn(I18n.T("两个角色本周目的收藏家计数都已满（Siris ") + cS + " / Isa " + cI +
-                        I18n.T("）——先点「清零收藏家进度」，再触发"));
-          return;                                    // 两个都满 ⇒ 发了也刷不出，直接不发
-        }
-        if (sFull || iFull) {
-          ToastMgr.Warn((sFull ? "Siris " + cS : "Isa " + cI) + I18n.T(" 本周目计数已满 —— 用那个角色刷不出；先点「清零收藏家进度」") +
-                        I18n.T("（另一个角色仍可刷）"));
+        tail = "  [" + I18n.T("Siris 本周目计数 ") + cS + "/" + (COLLECTOR_CAP_RAW + 1) +
+               I18n.T("（Isa 偏移未验证，仅供参考 ") + cI + I18n.T("）]");
+        if (cS > COLLECTOR_CAP_RAW) {
+          ToastMgr.Warn(I18n.T("Siris 本周目计数已满（") + cS + "/" + (COLLECTOR_CAP_RAW + 1) +
+                        I18n.T("）—— 若你正在用 Siris 就刷不出，先点「清零收藏家进度」再触发"));
         }
       } else {
         tail = "  [" + I18n.T("本周目计数读取失败") + "]";

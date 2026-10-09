@@ -339,6 +339,11 @@ static class I18n {
     // 「清零收藏家进度」（2026-10-09）：解除 CollectorCanSpawn() 的门 ④
     d["清零收藏家进度"] = "Clear collector";
     // 触发前预检（2026-10-09）
+    d["Siris 本周目计数 "] = "Siris this-playthrough count ";
+    d["（Isa 偏移未验证，仅供参考 "] = " (Isa offset unverified, FYI ";
+    d["Siris 本周目计数已满（"] = "Siris this-playthrough count is FULL (";
+    d["）—— 若你正在用 Siris 就刷不出，先点「清零收藏家进度」再触发"] =
+      ") - if you are playing Siris he cannot spawn; click Clear collector first";
     d["本周目计数：Siris "] = "this-playthrough count - Siris ";
     d["Isa "] = "Isa ";
     d["两个角色本周目的收藏家计数都已满（Siris "] = "BOTH characters' collector counts are full (Siris ";
