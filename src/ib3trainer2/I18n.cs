@@ -35,7 +35,7 @@ namespace Ib3Trainer2 {
 
 static class BuildInfo {
   // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
-  public const string Version = "v1.1.7 · 2026-10-09";
+  public const string Version = "v1.1.8 · 2026-10-09";
 
   // ② 机器可比的版本三元组：**发版时必须与 git tag 严格一致**（三处一起改）。
   //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
@@ -46,7 +46,7 @@ static class BuildInfo {
   //    选「跳过此版本」才能停。
   //    v1.1.1 就漏改过一次（那份 exe 自称 1.1.0，而 tag 是 v1.1.1）。发版前请核对三处：
   //      git tag  ==  Version 串里的版本号  ==  Major.Minor.Patch
-  public const int Major = 1, Minor = 1, Patch = 7;
+  public const int Major = 1, Minor = 1, Patch = 8;
 
   // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
   //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；
@@ -368,6 +368,8 @@ static class I18n {
     d["索引留空/0＝默认；「设置当前敌人等级」设当前敌人等级；「清零收藏家进度」解他本血脉的封锁。"] =
       "Empty/0 = default; Set enemy lvl = set current enemy level; Clear collector = lift this bloodline's block.";
     d["设置当前敌人等级"] = "Set enemy lvl";
+    d["（他出场后、你去点他开打之前点；战斗中改不了）"] =
+      " (click AFTER he appears but BEFORE you tap him to start the fight; too late once the fight begins)";
     d["没读到怪物等级（停在标题/加载界面？），未发等级"] =
       "Monster level unreadable (title/loading screen?) - nothing sent";
     d["「起始武器索引」＝每次触发都从这里开始（0＝列表第一件，1/2/3…依次往后）；「设置当前敌人等级」「清零收藏家进度」见说明。"] =

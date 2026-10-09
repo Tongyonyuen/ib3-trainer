@@ -214,7 +214,7 @@ partial class MainForm {
         ToastMgr.Warn(I18n.T("没读到怪物等级（停在标题/加载界面？），未发等级"));
         return;
       }
-      InjectCmd("setbosslevel " + lv, I18n.T("设置当前敌人等级") + " = " + lv);
+      InjectCmd("setbosslevel " + lv, I18n.T("设置当前敌人等级") + " = " + lv + I18n.T("（他出场后、你去点他开打之前点；战斗中改不了）"));
     });
     b3.Controls.Add(bSetLv);
     b3.Controls.Add(bGem); b3.Controls.Add(bDragon); b3.Controls.Add(bColl);
