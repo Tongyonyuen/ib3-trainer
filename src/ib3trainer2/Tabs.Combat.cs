@@ -2,6 +2,7 @@
 // Tabs.Combat.cs — 战斗·商店（并页）：战斗按钮横向排布 + 金币/筹码 + 商店/触发
 // ============================================================================
 using System;
+using System.Text;   // StringBuilder（清零两个角色时拼提示）
 using System.Drawing;         // chkSyncLevel.BackColor = Color.Transparent
 using System.Windows.Forms;
 
@@ -20,8 +21,8 @@ partial class MainForm {
   //   更新 `LocalFileHeaderCache` 里的 SHA1，否则游戏会静默回退到 `_BackupX_*.bin`（实测踩过）——
   //   载入后在内存里扫哨兵 ⇒ 命中真身对象内 +0x3E6C。清 0 后实测收藏家立刻能再刷出（初始状态）。
   const long OFF_COLLECTOR_ITEMS_SIRIS = 0x3E6C;   // Siris 的计数器（已实测）
-  const long OFF_COLLECTOR_ITEMS_ISA   = 0x3E68;   // Isa 的计数器：按导出顺序（Isa 声明在 Siris 之前）推断；
-                                                   // 只读不写 ⇒ 即使推断错也只是显示错，不会写坏内存
+  const long OFF_COLLECTOR_ITEMS_ISA   = 0x3E70;   // Isa 的计数器：2026-10-09 用"存档哨兵法"实测（+0x3E68 是错的 ✗）
+                                                   // 布局：+0x3E6C = Siris、+0x3E70 = Isa（紧邻但顺序与导出表相反）
   // 门的实测判据：GetCollectorItemsTakenThisPlaythrough() <= MaxCollectorItemsPerPlaythrough(=1)
   // ⇒ 原始值 > 1 就是"本周目这个角色已经刷满"
   const int  COLLECTOR_CAP_RAW = 1;
@@ -190,11 +191,11 @@ partial class MainForm {
       //   绝不据此阻断发送（宁可多发一条命令，也不能因为一个没验证的数字什么都不做）。
       int cS, cI; string tail = "";
       if (CollectorCounts(out cS, out cI)) {
-        tail = "  [" + I18n.T("Siris 本周目计数 ") + cS + "/" + (COLLECTOR_CAP_RAW + 1) +
-               I18n.T("（Isa 偏移未验证，仅供参考 ") + cI + I18n.T("）]");
-        if (cS > COLLECTOR_CAP_RAW) {
-          ToastMgr.Warn(I18n.T("Siris 本周目计数已满（") + cS + "/" + (COLLECTOR_CAP_RAW + 1) +
-                        I18n.T("）—— 若你正在用 Siris 就刷不出，先点「清零收藏家进度」再触发"));
+        int cap = COLLECTOR_CAP_RAW + 1;
+        tail = "  [" + I18n.T("本周目收藏家计数 ") + "Siris " + cS + "/" + cap + " ｜ Isa " + cI + "/" + cap + "]";
+        if (cS > COLLECTOR_CAP_RAW || cI > COLLECTOR_CAP_RAW) {
+          ToastMgr.Warn(I18n.T("本周目收藏家计数：Siris ") + cS + "/" + cap + I18n.T("，Isa ") + cI + "/" + cap +
+                        I18n.T(" —— 已满的那个角色刷不出他，先点「清零收藏家进度」（一次清两个角色）再触发"));
         }
       } else {
         tail = "  [" + I18n.T("本周目计数读取失败") + "]";
@@ -238,19 +239,28 @@ partial class MainForm {
         ToastMgr.Warn(I18n.T("真身对象未绑定：等自动绑定完成（或点「立即附着」）后再试"));
         return;
       }
-      long a = host + OFF_COLLECTOR_ITEMS_SIRIS;
-      string cur; string err;
-      if (!MemIO.ReadValue(H, a, ScanType.I32, out cur, out err)) {
-        ToastMgr.Warn(I18n.T("读收藏家进度失败：") + err);
-        return;
+      // ★ 两个角色一起清（2026-10-09 起）：+0x3E6C=Siris、+0x3E70=Isa，两个偏移都用"存档哨兵法"实测过
+      long[] offs = new long[] { OFF_COLLECTOR_ITEMS_SIRIS, OFF_COLLECTOR_ITEMS_ISA };
+      string[] who = new string[] { "Siris", "Isa" };
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < offs.Length; i++) {
+        long a = host + offs[i];
+        string cur; string err;
+        if (!MemIO.ReadValue(H, a, ScanType.I32, out cur, out err)) {
+          ToastMgr.Warn(I18n.T("读收藏家进度失败：") + who[i] + " — " + err);
+          return;
+        }
+        byte[] wrote;
+        if (!MemIO.SafeWriteValue(H, a, ScanType.I32, "0", out wrote, out err)) {
+          ToastMgr.Warn(I18n.T("写收藏家进度失败：") + who[i] + " — " + err);
+          return;
+        }
+        if (sb.Length > 0) sb.Append("；");
+        sb.Append(who[i]).Append(" ").Append(cur).Append(" → 0");
+        Log("收藏家进度清零: " + who[i] + " " + cur + " → 0 @0x" + a.ToString("X") +
+            "（真身 0x" + host.ToString("X") + " + 0x" + offs[i].ToString("X") + "）");
       }
-      byte[] wrote;
-      if (!MemIO.SafeWriteValue(H, a, ScanType.I32, "0", out wrote, out err)) {
-        ToastMgr.Warn(I18n.T("写收藏家进度失败：") + err);
-        return;
-      }
-      ToastMgr.Show(I18n.T("收藏家进度已清零：") + cur + " → 0" + I18n.T("（当前角色须为 Siris；他下次就能再出场）"));
-      Log("收藏家进度清零: " + cur + " → 0 @0x" + a.ToString("X") + "（真身 0x" + host.ToString("X") + " + 0x3E6C）");
+      ToastMgr.Show(I18n.T("收藏家进度已清零（两个角色）：") + sb.ToString() + I18n.T("——下次进图就能再遇到他"));
     }));
 
     b3.Controls.Add(Theme.MkHint("「起始武器索引」＝每次触发都从这里开始（0＝列表第一件，1/2/3…依次往后）；「设置当前敌人等级」「清零收藏家进度」见说明。", 172, 74, 632));

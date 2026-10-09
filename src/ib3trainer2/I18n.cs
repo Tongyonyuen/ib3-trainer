@@ -339,6 +339,13 @@ static class I18n {
     // 「清零收藏家进度」（2026-10-09）：解除 CollectorCanSpawn() 的门 ④
     d["清零收藏家进度"] = "Clear collector";
     // 触发前预检（2026-10-09）
+    d["本周目收藏家计数 "] = "collector count this playthrough ";
+    d["本周目收藏家计数：Siris "] = "collector count this playthrough - Siris ";
+    d["，Isa "] = ", Isa ";
+    d[" —— 已满的那个角色刷不出他，先点「清零收藏家进度」（一次清两个角色）再触发"] =
+      " - the full character cannot spawn him; click Clear collector (clears BOTH) first";
+    d["收藏家进度已清零（两个角色）："] = "Collector progress cleared (both characters): ";
+    d["——下次进图就能再遇到他"] = " - he can show up on your next map load";
     d["Siris 本周目计数 "] = "Siris this-playthrough count ";
     d["（Isa 偏移未验证，仅供参考 "] = " (Isa offset unverified, FYI ";
     d["Siris 本周目计数已满（"] = "Siris this-playthrough count is FULL (";
@@ -357,8 +364,7 @@ static class I18n {
     d["读收藏家进度失败："] = "Read collector progress failed: ";
     d["写收藏家进度失败："] = "Write collector progress failed: ";
     d["收藏家进度已清零："] = "Collector progress cleared: ";
-    d["（当前角色须为 Siris；他下次就能再出场）"] =
-      " (current character must be Siris; he can spawn again next fight)";
+    
     d["索引留空/0＝默认；「设置当前敌人等级」设当前敌人等级；「清零收藏家进度」解他本血脉的封锁。"] =
       "Empty/0 = default; Set enemy lvl = set current enemy level; Clear collector = lift this bloodline's block.";
     d["设置当前敌人等级"] = "Set enemy lvl";
