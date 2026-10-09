@@ -36,7 +36,10 @@ class AboutForm : Form {
     BackColor = Theme.BG;
     ForeColor = Theme.Ink;          // ★ 浅底配深字
     Font = Theme.UI;
-    ClientSize = new Size(460, 250);
+    // 2026-10-09：本框从 460×250 长高到 560×448 —— 作者要求把**更新日志固定在开发者
+    //   信息页**里，可以反复看，不必等下次版本变化时才弹的那一次（那个弹窗还会因为
+    //   "启动瞬间点击落在它身上"被顺手关掉，见 WhatsNewForm.cs 头部）。
+    ClientSize = new Size(560, 448);
 
     int y = 16;
     Label t = new Label();
@@ -58,21 +61,53 @@ class AboutForm : Form {
     Controls.Add(LinkRow(I18n.T("项目主页"), "github.com/Tongyonyuen/ib3-trainer", y,
       delegate { OpenUrl(Updater.REPO_URL); }));
 
+    // ---- 更新日志（固定在这里，可反复看；内容 = exe 内嵌的 CHANGELOG.md 摘要）----
     y += 30;
+    Label cap = new Label();
+    cap.Text = I18n.T("更新日志");
+    cap.ForeColor = Theme.Ink;
+    cap.BackColor = Color.Transparent;
+    cap.Font = Theme.UI;
+    cap.SetBounds(20, y, 520, 18);
+    Controls.Add(cap);
+
+    TextBox log = new TextBox();
+    log.Multiline = true;
+    log.ReadOnly = true;
+    log.WordWrap = true;
+    log.ScrollBars = ScrollBars.Vertical;
+    log.TabStop = false;          // 同 WhatsNewForm：多行只读框获焦会全选，别让它拿焦点
+    log.BorderStyle = BorderStyle.None;
+    log.BackColor = Theme.CardSolid;   // 深卡配浅字
+    log.ForeColor = Theme.Text;
+    log.Font = Theme.UI;
+    log.SetBounds(20, y + 20, 520, 180);
+    string recent = WhatsNewForm.LoadRecentSummaries(5);
+    log.Text = string.IsNullOrEmpty(recent)
+      ? I18n.T("（本 exe 里没有内嵌更新日志——见仓库 CHANGELOG.md）")
+      : recent;
+    log.SelectionStart = 0;
+    log.SelectionLength = 0;
+    Controls.Add(log);
+
     Label hint = new Label();
     hint.Text = I18n.T("单机游戏修改器，仅供个人离线使用。改动会写进存档，请先自行备份。");
     hint.ForeColor = Theme.Ink;
     hint.BackColor = Color.Transparent;
     hint.Font = FontBank.Get("Microsoft YaHei", FontStyle.Regular, 8.25f);
-    hint.SetBounds(20, y, 420, 40);
+    hint.SetBounds(20, y + 208, 520, 34);
     Controls.Add(hint);
 
-    // 检查更新（100 宽，右缘 340）+ 关闭（350 起）：10px 间隙，右侧留 20px
-    Button chk = Theme.MkButton(I18n.T("检查更新"), 240, 206, 100, 28,
+    // 三个按钮一行（下方 y=404）：完整更新日志（左）／检查更新／关闭（右对齐，右侧留 20px）
+    Button all = Theme.MkButton(I18n.T("完整更新日志"), 20, 404, 130, 28,
+      delegate { OpenUrl(Updater.REPO_URL + "/blob/main/CHANGELOG.md"); });
+    Controls.Add(all);
+
+    Button chk = Theme.MkButton(I18n.T("检查更新"), 320, 404, 100, 28,
       delegate { CheckUpdateRequested = true; Close(); });
     Controls.Add(chk);
 
-    Button close = Theme.MkButton(I18n.T("关闭"), 350, 206, 90, 28,
+    Button close = Theme.MkButton(I18n.T("关闭"), 430, 404, 110, 28,
       delegate { Close(); });
     Controls.Add(close);
 
@@ -94,7 +129,7 @@ class AboutForm : Form {
     l.ForeColor = Theme.Ink;        // 浅底深字
     l.BackColor = Color.Transparent;
     l.Font = Theme.UI;
-    l.SetBounds(20, y, 420, 20);
+    l.SetBounds(20, y, 520, 20);
     return l;
   }
 

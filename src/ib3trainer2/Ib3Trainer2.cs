@@ -225,7 +225,21 @@ partial class MainForm : Form {
     // 本版更新说明：每个版本第一次运行弹一次（状态记在 ib3_update.ini 的 notesver=）。
     // ★ 放在自动更新检查**之前**：更新提示内部再延 3 秒，两者不会叠在一起；
     //   而且先看清"这一版改了什么"，再看"远端有新版本"更顺。
-    if (!notesScheduled) { notesScheduled = true; MaybeShowWhatsNew(); }
+    if (!notesScheduled) {
+      notesScheduled = true;
+      // ★ 延迟 600ms 再弹（2026-10-09 作者反馈"弹窗没出现"后加的）：那个框是**任意点击即关**，
+      //   而 OnShown 触发时"启动程序"的那一下点击往往还在路上 —— 弹出来立刻被点掉，
+      //   用户看到的就是"压根没弹"（ib3_update.ini 里 notesver 却已写上，正是这个痕迹）。
+      //   延后到主窗完全就位再弹：启动点击已被主窗吃掉，居中位置也对。
+      Timer nt = new Timer();
+      nt.Interval = 600;
+      nt.Tick += delegate(object s2, EventArgs e2) {
+        nt.Stop(); nt.Dispose();
+        if (IsDisposed || Disposing) return;
+        MaybeShowWhatsNew();
+      };
+      nt.Start();
+    }
     if (!updateScheduled) { updateScheduled = true; UpdateUI.ScheduleAutoCheck(this); }
   }
 

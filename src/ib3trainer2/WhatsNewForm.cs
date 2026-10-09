@@ -39,7 +39,11 @@ class WhatsNewForm : Form {
   public WhatsNewForm(Form owner, string versionLabel, string summary) {
     FormBorderStyle = FormBorderStyle.None;
     StartPosition = FormStartPosition.Manual;
-    ShowInTaskbar = false;
+    // ★ 进任务栏（与 AboutForm 不同）：2026-10-09 作者反馈"弹窗没出现"—— 实际是
+    //   ShowDialog 已跑完（ib3_update.ini 里 notesver 已写上），只是它**无边框不抢焦点、
+    //   启动瞬间那一下点击正好落在它身上**（本框 MouseDown 即关）就没了。
+    //   进任务栏后至少能被找到；配合 MainForm 侧"延迟 600ms 再弹"，躲开启动点击。
+    ShowInTaskbar = true;
     KeyPreview = true;
     BackColor = Theme.BG;
     ForeColor = Theme.Ink;              // 浅底配深字
@@ -126,19 +130,62 @@ class WhatsNewForm : Form {
 
   // 找不到内嵌资源 / 找不到本版段 / 本版段没写 "> " 摘要 ⇒ 返回 null（调用方给明确提示，不编内容）
   public static string LoadSummary(string semver) {
+    string md = EmbeddedChangelog();
+    return md == null ? null : ExtractSummary(md, semver);
+  }
+
+  // 内嵌的 CHANGELOG.md 全文（build.sh 的 -resource:../../CHANGELOG.md,changelog）；取不到返回 null
+  static string EmbeddedChangelog() {
     try {
       string[] names = typeof(WhatsNewForm).Assembly.GetManifestResourceNames();
       for (int i = 0; i < names.Length; i++) {
         if (names[i].IndexOf("changelog", StringComparison.OrdinalIgnoreCase) < 0) continue;
         using (Stream st = typeof(WhatsNewForm).Assembly.GetManifestResourceStream(names[i])) {
           if (st == null) continue;
-          using (StreamReader sr = new StreamReader(st, Encoding.UTF8)) {
-            return ExtractSummary(sr.ReadToEnd(), semver);
-          }
+          using (StreamReader sr = new StreamReader(st, Encoding.UTF8)) return sr.ReadToEnd();
         }
       }
     } catch { }
     return null;
+  }
+
+  // 「关于/开发者信息」页用它把更新日志**固定**在窗口里（作者 2026-10-09：要能反复看，
+  // 不必等下次版本变化时的弹窗）。列出**最近 max 个版本**各一行："v1.1.5  2026-10-09：新增…"。
+  public static string LoadRecentSummaries(int max) {
+    string md = EmbeddedChangelog();
+    if (md == null) return null;
+    string[] lines = md.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
+    StringBuilder sb = new StringBuilder();
+    int n = 0;
+    for (int i = 0; i < lines.Length && n < max; i++) {
+      string s = lines[i].Trim();
+      if (!s.StartsWith("## [", StringComparison.Ordinal)) continue;
+      int close = s.IndexOf(']');
+      if (close <= 4) continue;
+      string label = s.Substring(4, close - 4).Trim();                       // v1.1.5
+      string rest = s.Substring(close + 1).Trim().TrimStart('—', '-', ' ').Trim();   // 日期
+      // 段内取第一段 ">" 引用（与 ExtractSummary 同一约定），到下一版头为止
+      StringBuilder sum = new StringBuilder();
+      for (int j = i + 1; j < lines.Length; j++) {
+        string t = lines[j].Trim();
+        if (t.StartsWith("## [", StringComparison.Ordinal)) break;
+        if (t.StartsWith(">", StringComparison.Ordinal)) {
+          string p = t.TrimStart('>').Trim().Replace("**", "");
+          if (p.Length > 0) sum.Append(p);
+          continue;
+        }
+        if (t.Length == 0) continue;
+        break;
+      }
+      string body = sum.ToString().Trim();
+      // 老版本段没有摘要 ⇒ **跳过**（不占位：列表里一行行"没写摘要"比不显示更糟）。
+      // 往前补齐摘要只是写文档的活，随时可以在 CHANGELOG.md 里补。
+      if (body.Length == 0) continue;
+      sb.AppendLine(label + (rest.Length > 0 ? "  " + rest : "") + "：" + body);
+      n++;
+    }
+    string r = sb.ToString().Trim();
+    return r.Length == 0 ? null : r;
   }
 
   // 在 "## [v1.1.5] — 日期" 段的正文里取第一行 "> …"（约定：一句话写清新增/修改/删除）。

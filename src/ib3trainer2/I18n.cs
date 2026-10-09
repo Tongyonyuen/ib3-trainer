@@ -351,6 +351,10 @@ static class I18n {
     d["知道了"] = "Got it";
     d["（本版没写一句话摘要——详情见仓库 CHANGELOG.md）"] =
       "(No one-line summary for this version - see CHANGELOG.md)";
+    // 「关于」页固定展示的更新日志区（AboutForm）
+    d["更新日志"] = "Changelog";
+    d["（本 exe 里没有内嵌更新日志——见仓库 CHANGELOG.md）"] =
+      "(No embedded changelog in this exe - see CHANGELOG.md in the repo)";
     d["复制中文名"] = "Copy CN name";
     d["复制模板名"] = "Copy template";
     d["地址: 未定位"] = "Addr: not located";
