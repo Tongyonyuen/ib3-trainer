@@ -133,6 +133,9 @@ static class Updater {
           case "devdump":   st.DevDump = (v == "1") ? 1 : 0; break;
           case "devnodl":   st.DevNoDownload = (v == "1") ? 1 : 0; break;
           case "swaptest":  st.SwapTest = (v == "1") ? 1 : 0; break;
+          // 「本版更新说明已经给用户看过」的版本号（v1.1.5 起）。存 SemVer，比较时两边都
+          // 容忍开头那个 v —— 这一条只用于"每版只弹一次"，坏了也只是多弹/少弹一次。
+          case "notesver":  st.NotesVer = v; break;
         }
       }
     } catch { }
@@ -158,7 +161,8 @@ static class Updater {
         "feedurl=" + (st.FeedUrl == null ? "" : st.FeedUrl),
         "devdump=" + st.DevDump,
         "devnodl=" + st.DevNoDownload,
-        "swaptest=" + st.SwapTest
+        "swaptest=" + st.SwapTest,
+        "notesver=" + (st.NotesVer == null ? "" : st.NotesVer)
       }, new UTF8Encoding(false));
     } catch { }
   }
@@ -776,6 +780,8 @@ class UpdateState {
   public int DevDump;
   public int DevNoDownload;
   public int SwapTest;
+  // 「本版更新说明已展示过」的版本（SemVer 串，可带 v 前缀）。空 = 从没弹过 ⇒ 首次运行会弹。
+  public string NotesVer;
 }
 
 // WebClient 没有 Timeout 属性 —— 只能覆写 GetWebRequest 才设得上。

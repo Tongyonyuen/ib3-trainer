@@ -8,7 +8,7 @@
 set -e
 cd "$(dirname "$0")"
 CSC="C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe"
-SRC="Ib3Core.cs MemIO.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs GemDb.cs Launcher.cs Recipes.cs EngineCall.cs Ib3Trainer2.cs Tabs.Scan.cs Tabs.Combat.cs Tabs.Items.cs Tabs.Growth.cs Tabs.Gems.cs Tabs.Misc.cs Tabs.Save.cs BusyOverlay.cs AboutForm.cs Update.cs UpdateForm.cs"
+SRC="Ib3Core.cs MemIO.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs GemDb.cs Launcher.cs Recipes.cs EngineCall.cs Ib3Trainer2.cs Tabs.Scan.cs Tabs.Combat.cs Tabs.Items.cs Tabs.Growth.cs Tabs.Gems.cs Tabs.Misc.cs Tabs.Save.cs BusyOverlay.cs AboutForm.cs WhatsNewForm.cs Update.cs UpdateForm.cs"
 
 # ★ 新增 .cs 必须手工加进上面的 SRC（这里是写死的 csc 调用，没有 MSBuild 的 glob）。
 #   UpdateSelfTest.cs **故意不在 SRC 里** —— 它自带 Main，只在 updatetest 目标里编。
@@ -17,6 +17,10 @@ SRC="Ib3Core.cs MemIO.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs GemDb.cs 
 # 换个机器必然读不到（外部用户反馈的「横幅不显示」）。内嵌后单个 exe 就能携带图片。
 # 资源名 banner.<key>，与 Ib3Trainer2.LoadBannerImage() 的查找规则对应。
 RES="-resource:image/isa.jpg,banner.isa -resource:image/raidiar.jpg,banner.raidiar -resource:image/siris.jpg,banner.siris -resource:image/hideout.jpg,banner.hideout"
+# 仓库根的 CHANGELOG.md 一并内嵌：每版首次运行的「更新说明」窗（WhatsNewForm.cs）就从它切出
+# 本版那一段 —— 这样"发版要写更新说明"仍然只有 CHANGELOG.md 一处，不会两处说法不一致。
+# ⚠ 路径相对本脚本所在目录（脚本自己 cd 到 src/ib3trainer2）。
+RES="$RES -resource:../../CHANGELOG.md,changelog"
 
 if [ "$1" = "test" ]; then
   "$CSC" -target:exe -main:Ib3Trainer2.EngineTest2 -codepage:65001 -out:enginetest2.exe Ib3Core.cs MemIO.cs EngineTest2.cs

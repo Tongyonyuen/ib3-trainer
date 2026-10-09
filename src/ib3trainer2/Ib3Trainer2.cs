@@ -46,6 +46,7 @@ partial class MainForm : Form {
   Button btnLang;            // 标题条里的语言切换
   Label lblAuthor;           // 标题条右侧署名（点开「关于」）
   bool updateScheduled;      // 自动更新检查只排一次（OnShown 可能被多次触发）
+  bool notesScheduled;       // 「本版更新说明」同理：每版首次运行弹一次
 
   // ---- 控件 ----
   PictureBox picBanner;
@@ -221,7 +222,27 @@ partial class MainForm : Form {
     // 自动更新检查：挂在 OnShown 而不是 ctor —— OnShown 晚于 ctor 末尾的 BusyHideAll()
     // （Ib3Trainer2.cs:152），此刻弹任何东西都不会叠在"正在初始化"浮窗上。
     // 内部再延 3 秒，避开附着/自检那一波日志。
+    // 本版更新说明：每个版本第一次运行弹一次（状态记在 ib3_update.ini 的 notesver=）。
+    // ★ 放在自动更新检查**之前**：更新提示内部再延 3 秒，两者不会叠在一起；
+    //   而且先看清"这一版改了什么"，再看"远端有新版本"更顺。
+    if (!notesScheduled) { notesScheduled = true; MaybeShowWhatsNew(); }
     if (!updateScheduled) { updateScheduled = true; UpdateUI.ScheduleAutoCheck(this); }
+  }
+
+  // 「开发者信息 + 本版更新说明」——每版只弹一次，**关掉即算看过**（不做"不再提示"：
+  // 每版一次本来就不扰人）。更新说明从内嵌的 CHANGELOG.md 切，见 WhatsNewForm.cs。
+  void MaybeShowWhatsNew() {
+    try {
+      UpdateState st = Updater.LoadState(ExeDir);
+      string seen = st.NotesVer == null ? "" : st.NotesVer.Trim();
+      if (seen.Length > 0 && seen.TrimStart('v', 'V') == BuildInfo.SemVer) return;
+      using (WhatsNewForm f = new WhatsNewForm(this, BuildInfo.Version,
+                                               WhatsNewForm.LoadNotes(BuildInfo.SemVer))) {
+        f.ShowDialog(this);
+      }
+      st.NotesVer = BuildInfo.SemVer;
+      Updater.SaveState(ExeDir, st);
+    } catch (Exception ex) { Log("本版更新说明窗口打开失败: " + ex.Message); }
   }
 
   void BuildChrome() {

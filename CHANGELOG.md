@@ -10,6 +10,42 @@
 
 ---
 
+## [v1.1.5] — 2026-10-09
+
+- **战斗·商店：收藏家触发补上「起始武器索引」输入框**（新功能，1.x 有、2.0 重写时丢了）
+  - 参数就是 `setupcollector <ForceWeaponStart>` 那个整数：它决定收藏家用哪把武器 / 给哪个奖励。
+    **留空或 0 = 默认**（走游戏自身的进度），与 1.x 的「起始武器索引」框语义一致
+  - 之前是写死 `setupcollector 0` —— 用户无法指定进度，这条不是 bug 而是**功能缺失**
+- **战斗·商店：新增「对齐等级」+ ☑同步等级**（新功能）
+  - 「发给收藏家」= 发 `setbosslevel <值>`：解码确认其实现是
+    `GetCurrentBoss().PawnLevel = 值` 紧接 `GetCurrentBoss().SetupLevelData(this)`（游戏自己会重算该 Boss 的数据）
+  - ☑**同步等级**：勾上后点「触发收藏家战斗」= 一条链做完（`setupcollector <索引>` → `setbosslevel <等级>`），
+    省一步操作；未勾选则只置位
+  - 「读玩家等级」按钮读地址簿里 `lv.level` 的当前值填进输入框（未绑定会明确提示去「成长」页定位，不猜地址）
+  - 两条硬限制写进卡片提示：`setbosslevel` 只作用于**当前 Boss** ⇒ 须收藏家出场后（战斗中）点；
+    且只对**当前这一场**有效 —— 下一场重新生成时按原版表重算
+- **更正一条流传的说法：收藏家等级不随世界等级缩放**（字节码核验）
+  - 全包只有 `SwordBoss.SetupCollectorClassAndItems` 读 `CollectorLevel`；等级输入只有
+    `DefaultGame.ini` 的固定阶梯（`CollectorLevel[0..9]` = 50/100/**500**/1000/2500/5000/10000/10000/12500/15000，
+    另有 `CollectorInfiniteLevel=5000`）+ 收藏家自己的存档进度，**不读玩家等级、不读地图敌人等级**
+  - `setupcollector` 的 119 字节字节码里没有任何等级字段：只写 `SavedPersistentBossData[0].CurrentHealth ← 参数`、
+    `[0].NumBattleAttempts ← 0`、`PlayerPawn.FightsUntilCollector ← 0`，外加 `SetGameFlag(...)`
+  - ⇒ 「20 万级角色遇到 500 级收藏家」是原版设定，不是命令缺陷、也不是本修改器的 bug；
+    要真抬高阶梯只能改 `SwordGame\Config\DefaultGame.ini` 的 `CollectorLevel[]` 并重启游戏
+    （或战斗中 `setbosslevel`，见上）
+- **新功能：每个版本首次运行弹「开发者信息 + 本版更新说明」窗**（`WhatsNewForm.cs`）
+  - 只在**版本号变化后的第一次运行**弹一次；"看过没有"记在 `ib3_update.ini` 的 `notesver=`
+    （与更新器共用同一个状态文件，不另开第 7 个 ini；关掉即算看过）
+  - 更新说明**不另写一份**：把仓库根的 `CHANGELOG.md` 内嵌进 exe（`build.sh` 的
+    `-resource:../../CHANGELOG.md,changelog`），运行时切出本版那一段 ⇒ "发版写更新说明"
+    永远只有 `CHANGELOG.md` 一处，不会出现 exe 内文案与仓库不一致
+  - 内嵌内容切不出来时（例如单独拷一份 exe、或本版还没写说明）显示明确提示，不编内容
+  - 窗口内还带作者 / 项目主页（可点开浏览器）/「完整更新日志」按钮
+- **顺手修掉两条假成功提示**：龙战 / 收藏家按钮原来各自**无条件**再弹一句「已置位…」——
+  注入失败时也在报成功（与 v1.1.4 之前修掉的宝石按钮同一类）。现在只由 `InjectCmd` / `InjectCmds`
+  按真实结果报「已执行」/「执行失败：原因」，条件说明挂在卡片提示里
+- 数据文件（items.csv / ib3_gems.ini / SwordGame.upk / image\）未改动 ⇒ `DATA_REV` 保持 1
+
 ## [v1.1.4] — 2026-10-08
 
 - **发现模式：删掉扫描进度条** —— 与 `RunBackground` 的浮窗重复：浮窗是 TopMost 独立小窗、居中，

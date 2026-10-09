@@ -35,7 +35,7 @@ namespace Ib3Trainer2 {
 
 static class BuildInfo {
   // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
-  public const string Version = "v1.1.4 · 2026-10-08";
+  public const string Version = "v1.1.5 · 2026-10-09";
 
   // ② 机器可比的版本三元组：**发版时必须与 git tag 严格一致**（三处一起改）。
   //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
@@ -46,7 +46,7 @@ static class BuildInfo {
   //    选「跳过此版本」才能停。
   //    v1.1.1 就漏改过一次（那份 exe 自称 1.1.0，而 tag 是 v1.1.1）。发版前请核对三处：
   //      git tag  ==  Version 串里的版本号  ==  Major.Minor.Patch
-  public const int Major = 1, Minor = 1, Patch = 4;
+  public const int Major = 1, Minor = 1, Patch = 5;
 
   // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
   //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；
@@ -333,6 +333,32 @@ static class I18n {
     d["商店刷新一轮稀有宝石"] = "Refresh Rare Gems";
     d["触发龙战"] = "Trigger Dragon";
     d["触发收藏家战斗"] = "Trigger Collector";
+    // 收藏家：起始武器索引 + 等级对齐（2026-10-09 新增。英文按"可用字符≈中文2倍"写，
+    // 与中文共用同一套几何，见本文件头部③）
+    d["起始武器索引"] = "Weapon idx";
+    d["对齐等级"] = "Level";
+    d["读玩家等级"] = "Read lvl";
+    d["发给收藏家"] = "Send to boss";
+    d["收藏家等级对齐"] = "Collector level set to";
+    d["等级未绑定：先去「成长」页填当前值并「定位」"] =
+      "Level not bound: locate it on the Growth tab first";
+    d["读玩家等级失败："] = "Read player level failed: ";
+    d["先填目标等级（0–99999999）"] = "Enter a target level (0-99999999)";
+    // 每版首次运行的「开发者信息 + 本版更新说明」窗（WhatsNewForm）
+    d["开发者信息"] = "Developer info";
+    d["本版更新说明"] = "Release notes";
+    d["每版首次运行提示一次"] = "shown once per version";
+    d["完整更新日志"] = "Full changelog";
+    d["知道了"] = "Got it";
+    d["（这一版没有内嵌更新说明——见仓库根目录的 CHANGELOG.md）"] =
+      "(No embedded notes in this build - see CHANGELOG.md in the repo)";
+    d["同步等级"] = "Sync lvl";
+    d["同步等级已勾选：先填目标等级，或取消勾选"] =
+      "Sync level is on: enter a target level, or uncheck it";
+    d["同步等级＝触发时一并发 setbosslevel；须战斗中"] =
+      "Sync lvl = also send setbosslevel; in-battle only";
+    d["留空/0＝默认（走游戏自身进度）；收藏家等级＝原版 config 表（50…15000，不随世界等级），抬阶梯改 ini 并重启。"] =
+      "Empty/0 = default. Level = stock config (50..15000, not world-scaled); raise via ini + restart.";
     d["复制中文名"] = "Copy CN name";
     d["复制模板名"] = "Copy template";
     d["地址: 未定位"] = "Addr: not located";

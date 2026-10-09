@@ -430,6 +430,23 @@ static class UpdateSelfTest {
       return null;
     });
 
+    // notesver：每版首次运行弹「更新说明」的去重键（WhatsNewForm）。写坏只会多弹/少弹一次，
+    // 但它与 applied/skip 同住一个文件 ⇒ 必须确认 SaveState 没把它冲掉。
+    T("state.notesver", delegate {
+      string d = TempDir();
+      try {
+        if (!string.IsNullOrEmpty(Updater.LoadState(d).NotesVer)) return "新建状态的 notesver 应为空";
+        UpdateState st = Updater.LoadState(d);
+        st.Skip = "v9.9.9";                       // 与其它键共存，验证 SaveState 不丢字段
+        st.NotesVer = "1.1.5";
+        Updater.SaveState(d, st);
+        UpdateState back = Updater.LoadState(d);
+        if (back.NotesVer != "1.1.5") return "notesver 未持久化";
+        if (back.Skip != "v9.9.9") return "SaveState 把 skip 冲掉了";
+        return null;
+      } finally { try { Directory.Delete(d, true); } catch { } }
+    });
+
     // applied：防"二进制自称版本比 tag 旧"导致的无限更新循环（v1.1.1 真发生过）
     T("state.applied", delegate {
       string d = TempDir();

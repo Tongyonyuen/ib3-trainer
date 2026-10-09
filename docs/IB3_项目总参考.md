@@ -2,7 +2,7 @@
 
 > 本文件 = 项目唯一总索引：环境地图、已完成工作、机制结论、工具清单、修正日志、后续计划。
 > 详细数据文件（宝石列表 CSV、控制台命令表 CSV/MD）为独立文件，见文末索引。
-> **最后更新：2026-10-06**。新对话请先读本文件再引用项目记忆。
+> **最后更新：2026-10-09**。新对话请先读本文件再引用项目记忆。
 
 ---
 
@@ -123,6 +123,27 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
 - **玩家等级与技能点（2026-10-06 实证）**：玩家等级=Int32 直接存储（`0x7FF4E8F6xxxx` 族，本例 0x7FF4E8F607F0；内存写 42 → 界面显示 42 ✓）；技能点=Int32 同族 +0x178C（本例 0x7FF4E8F61F7C；写 8888 → 界面显示 ✓；升级/掌握事件会重算覆盖，且存在多处镜像副本）。定位法=用 `setplayerlevel` 造大而独特的数值（如 334级/3794点）扫描后差分
 - **持久化（2026-10-06 重启实测）**：物品等级/经验内存写入**随存档持久化** ✓；玩家等级/技能点/属性/HP 的内存注入**不持久**——重启后按真实进度重算（等级由"装备掌握产生的经验"结算，本例重启后=45级/技能点131/四维各1）。**要永久等级→喂真实来源（装备掌握经验可写且持久），让游戏自己结算**
 - **宝石发放链路（2026-10-06 实测）**：`giveitemonce`/`item`/`setplayergiveallitems` 均**不发宝石**（item 旧"可发宝石"记录系误记）；`setplayergems 0/1` = **刷新商店宝石列表**（含暗火+2000/光谱+2000 等链模板，购买=真实入袋持久 ✓）；**exec7 已部署**（md5=cbe531bb…，仅 1 字节=给 `GetRandomGem` 加 exec 位）→ `getrandomgem <6参>` 可调用但直呼静默无产出（参数语义未破译，疑内置上下文校验）；**`setplayergiverandomgem <RewardLevel> <GoldScale> <FavorSocketType>` = 可用钓鱼命令**：GoldScale=**目标成本**（GetCostCloseToValue 选成本最接近的模板，如 750000→ParryGem_2 稳定复现）、RewardLevel=世代档位、Favor=软偏好（favor=2 偏招架系）；偶发"窗口内无候选"静默失败。**按成本钓鱼=当前"近似精确发放"实用方案**（167 条宝石成本表在手）
+- **收藏家（The Collector）触发与等级（2026-10-09 字节码核验，v1.1.5）**：
+  - `SwordPC.SetupCollector(Int ForceWeaponStart)` = exec 调试命令，脚本 119 字节，**全文只有 4 条语句**：
+    `PlayerPawn.SavedPersistentBossData[0].CurrentHealth ← ForceWeaponStart`、
+    `[0].NumBattleAttempts ← 0`、`PlayerPawn.SetGameFlag(...)`、`PlayerPawn.FightsUntilCollector ← 0`，然后 return。
+    ⇒ 参数落点是收藏家的**存档槽**（语义 = 起始武器/进度索引；`0`＝默认），**字节码里没有任何等级字段**。
+  - **等级**：全包**只有** `SwordBoss.SetupCollectorClassAndItems` 读 `CollectorLevel`（同一函数独占
+    `CollectorInfiniteLevel/CollectorInfiniteMode/CollectorInfiniteIndex/CollectorItemList`），并把结果写进
+    **`SwordBoss.PawnLevel`**。输入 = `DefaultGame.ini [SwordGame.SwordBoss]` 的固定阶梯
+    （`CollectorLevel[0..9]` = 50/100/**500**/1000/2500/5000/10000/10000/12500/15000；`CollectorInfiniteLevel=5000`；
+    `MaxCollectorItemsToTake=10` 与阶梯长度 10 一致）+ 收藏家自身存档进度（`SavedPersistentBossData` 两项 + `SavedItems` 长度
+    —— `UpdateCollectorSavedData` 就是"他拿走你一件东西"的处理：`SavedItems` 追加 + `AddCollectorItemsTakenThisPlaythrough`
+    + `SetItemForCollectorUse` + `OnCollectorItemTaken`）。**不读玩家等级、不读地图敌人等级/世界缩放。**
+    ⇒ 「20 万级角色遇到 500 级收藏家」＝原版设定（阶梯上限 15000），不是命令缺陷、也不是训练器的 bug。
+  - **改等级的正规入口 = `SwordPC.SetBossLevel(iLevel)`**（exec）：`GetCurrentBoss().PawnLevel = iLevel`（名字表 8223）
+    紧接 `GetCurrentBoss().SetupLevelData(this)`（名字表 16111）。⇒ 只作用于**当前 Boss**（须战斗中）、只对**当前这一场**有效。
+    要持久抬阶梯：改 ini 的 `CollectorLevel[]` 并重启游戏。
+  - 等级→属性走 `SwordPawn.GetPawnLevelDataRange`（按 `PawnLevel` 搜 `FloorLvl/CeilLvl` 区间表）。⚠ **未实测**：
+    超出表顶端的超大等级很可能落回最后一段区间（属性被钳制），所以"把收藏家写成 20 万级"未必等于 20 万级的属性。
+  - **附带一条 RE 事实**：UE3 的包文件**不存**属性的运行时偏移（抽查 `FightsUntilCollector`/`SavedPersistentBossData` 等
+    UProperty 的序列化数据，只有 ArrayDim/Flags 一类），所以"按字段写内存"（例如只写 `FightsUntilCollector = 0`
+    以保留进度）必须在游戏内**差分定位**一次，不能从 upk 算出来。
 - **包装函数解码（字节级权威）**：`setplayergiverandomgem` 内部以 (RewardLevel, GoldScale, Unused→GoldValue, FavorSocketType→PrefGemType, 4A, 4A) 调 GetRandomGem——**paramd 输出的参数顺序与真实声明序相反**（setplayerstats 校准过：paramd=倒序）。签名全集：`GetRandomGem(bDontSaveToList, ForcedType:Byte, PrefGemType, GoldValue, GoldScale, RewardLevel)`、`CreateFixedStoreGemFromName(bPotions, bHighEndOnly, out FixedGem:Struct, GemName:Str)`、`LoadGemInstance(ForceType, InPC, GemSavedData) → 宝石对象`、`SaveGemInstanceToUnequippedList(bUpdateBadges, bAllowToFail, GemItem)`（**手术 GiveGemOnce 的全部拼图已齐**）
 
 ---
@@ -196,6 +217,7 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
 | `item` 命令可发宝石（旧记录"item uberelementalattackgem_200 直接发放"） | ✗ **误记**。2026-10-06 用户确认+复测：`item` 对宝石无效（giveitemonce 亦无效）——宝石发放需其他路径（商店购买已验证可用；按名精确发放待方案） |
 | `setplayergems` = 补宝石到背包（命令表 CSV 描述） | ✗ 实测=**刷新商店宝石列表**（进袋无效）；列表为档位抽样、含自定义链模板（暗火+2000/光谱+2000 实测在内） |
 | 使用说明.md「exec8 包 = 首次"新增导出函数"手术成功案例」 | ✗ **错误记录**。实际：自构脚本字节码被加载器原生校验拦截（v3/v6/v7/v8/v9 六变体全崩，连最小 Return Nothing 都崩；仅"指向真实数据"的克隆可过），当日已回退；现役 = exec10（exec7 + 2 个 exec 位） |
+| 收藏家等级可以靠触发命令/角色等级抬上去（"命令没生效"） | ✗ 2026-10-09 字节码核验：`setupcollector` 只写收藏家的存档槽（武器/进度）与倒计时，**不含任何等级字段**；等级来自 `DefaultGame.ini` 的固定阶梯（上限 15000），不随玩家/世界等级走。要改：`setbosslevel`（战斗中、仅当前这场）或改 ini 的 `CollectorLevel[]` + 重启 |
 | `dumpunencryptedsavefile 0 0 <名字>`（旧文档序） | ✗ 真序 = **`<名字> <Index> <bDeleteSave>`（名字在前）**；且它导出的是磁盘旧档（各状态字节实测完全相同），不能做游戏内验证——验证改用解密 `Cloud\_SwordSaveX_0-0.bin`（工具 decsave.exe） |
 
 ---
