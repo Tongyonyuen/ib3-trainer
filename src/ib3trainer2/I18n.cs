@@ -336,6 +336,17 @@ static class I18n {
     // 收藏家：起始武器索引 + 同步等级（2026-10-09 新增。英文按"可用字符≈中文2倍"写，
     // 与中文共用同一套几何，见本文件头部③）
     d["起始武器索引"] = "Weapon idx";
+    // 「清零收藏家进度」（2026-10-09）：解除 CollectorCanSpawn() 的门 ④
+    d["清零收藏家进度"] = "Clear collector";
+    d["真身对象未绑定：等自动绑定完成（或点「立即附着」）后再试"] =
+      "Player object not bound yet - wait for auto-bind, then retry";
+    d["读收藏家进度失败："] = "Read collector progress failed: ";
+    d["写收藏家进度失败："] = "Write collector progress failed: ";
+    d["收藏家进度已清零："] = "Collector progress cleared: ";
+    d["（当前角色须为 Siris；他下次就能再出场）"] =
+      " (current character must be Siris; he can spawn again next fight)";
+    d["索引留空/0＝默认；「设置当前敌人等级」设当前敌人等级；「清零收藏家进度」解他本血脉的封锁。"] =
+      "Empty/0 = default; Set enemy lvl = set current enemy level; Clear collector = lift this bloodline's block.";
     d["设置当前敌人等级"] = "Set enemy lvl";
     d["没读到怪物等级（停在标题/加载界面？），未发等级"] =
       "Monster level unreadable (title/loading screen?) - nothing sent";

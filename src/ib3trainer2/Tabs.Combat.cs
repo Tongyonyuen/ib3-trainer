@@ -11,6 +11,18 @@ partial class MainForm {
   bool godOnWired = false;
   NumericUpDown numCollectorWeapon;   // 收藏家「起始武器索引」= setupcollector 的参数（留空/0 = 默认）
 
+  // ===== 「清零收藏家进度」用的字段偏移（2026-10-09 与作者共同定位）=====
+  // 背景：`SwordPC.CollectorCanSpawn()` 的门 ④ = `GetCollectorItemsTakenThisPlaythrough() <
+  //   MaxCollectorItemsPerPlaythrough(ini=1)`，而该计数器就是 `SwordPlayer.IsaCollectorItems` /
+  //   `SirisCollectorItems`（按 `eCurrentPlayerType` 取）⇒ **他一旦在本血脉拿过你一件东西，
+  //   本血脉就再也不会被替换上场**（`setupcollector` 只置标志位 58 + 倒计时归零，改不了这条）。
+  // 定位法（可复现）：把存档里 `SirisCollectorItems` 改成唯一哨兵（123456789）——必须**同时**
+  //   更新 `LocalFileHeaderCache` 里的 SHA1，否则游戏会静默回退到 `_BackupX_*.bin`（实测踩过）——
+  //   载入后在内存里扫哨兵 ⇒ 命中真身对象内 +0x3E6C。清 0 后实测收藏家立刻能再刷出（初始状态）。
+  const long OFF_COLLECTOR_ITEMS_SIRIS = 0x3E6C;   // Siris 的计数器（已实测）
+  // Isa 的对应字段按导出顺序推断在 +0x3E68，但**未验证** ⇒ 本按钮不写它（不写没验证的内存）。
+  // 若当前角色是 Isa 而按钮无效，用同样的哨兵法把 Isa 的偏移验出来即可。
+
   // 当前「怪物等级」= [[映像基址 + 0xCE3588] + 0x7B0]（Int32）—— 一条**固定指针链**，
   // 不需要扫描、也不需要用户填参数。
   //
@@ -179,7 +191,32 @@ partial class MainForm {
     numCollectorWeapon.BackColor = Theme.PanelLight; numCollectorWeapon.ForeColor = Theme.Text;
     b3.Controls.Add(numCollectorWeapon);
 
-    b3.Controls.Add(Theme.MkHint("索引留空/0＝默认（走游戏自身进度）；「设置当前敌人等级」把当前敌人设成本场景怪物等级。", 14, 74, 790));
+    // 「清零收藏家进度」：把真身里的 SirisCollectorItems 写 0 —— 解除 `CollectorCanSpawn()` 的门 ④。
+    //   先读出来显示（透明），再写 0；用 MemIO.SafeWriteValue（项目铁律：只写可写私有页 + 回读校验）。
+    //   当前角色必须是 **Siris**（本偏移是 Siris 的；Isa 的偏移未验证，见字段注释）。
+    b3.Controls.Add(Theme.MkButton("清零收藏家进度", 14, 70, 150, 30, delegate {
+      if (!RequireH()) return;
+      long host = EngineCall.LivePlayerHint(H);
+      if (host == 0) {
+        ToastMgr.Warn(I18n.T("真身对象未绑定：等自动绑定完成（或点「立即附着」）后再试"));
+        return;
+      }
+      long a = host + OFF_COLLECTOR_ITEMS_SIRIS;
+      string cur; string err;
+      if (!MemIO.ReadValue(H, a, ScanType.I32, out cur, out err)) {
+        ToastMgr.Warn(I18n.T("读收藏家进度失败：") + err);
+        return;
+      }
+      byte[] wrote;
+      if (!MemIO.SafeWriteValue(H, a, ScanType.I32, "0", out wrote, out err)) {
+        ToastMgr.Warn(I18n.T("写收藏家进度失败：") + err);
+        return;
+      }
+      ToastMgr.Show(I18n.T("收藏家进度已清零：") + cur + " → 0" + I18n.T("（当前角色须为 Siris；他下次就能再出场）"));
+      Log("收藏家进度清零: " + cur + " → 0 @0x" + a.ToString("X") + "（真身 0x" + host.ToString("X") + " + 0x3E6C）");
+    }));
+
+    b3.Controls.Add(Theme.MkHint("索引留空/0＝默认；「设置当前敌人等级」设当前敌人等级；「清零收藏家进度」解他本血脉的封锁。", 172, 74, 632));
     b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；该按钮＝setbosslevel，须战斗中（收藏家出场后）点、仅当前这场。", 14, 106, 790));
     p.Controls.Add(b3);
     return p;
