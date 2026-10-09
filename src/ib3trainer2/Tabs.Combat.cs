@@ -10,8 +10,24 @@ namespace Ib3Trainer2 {
 partial class MainForm {
   bool godOnWired = false;
   NumericUpDown numCollectorWeapon;   // 收藏家「起始武器索引」= setupcollector 的参数（留空/0 = 默认）
-  TextBox txtCollectorLv;             // 「对齐等级」的目标值 → setbosslevel
-  CheckBox chkSyncLevel;              // 勾选后：点触发按钮时一并把该等级发给当前 Boss
+  CheckBox chkSyncLevel;              // 勾选后：触发时一并把「当前怪物等级」发给当前 Boss
+
+  // 当前「怪物等级」（地址簿 misc.enemylv，I32）。定位法见 docs/使用说明.md：
+  // 「发现模式」按游戏里显示的怪物等级首扫 → 装备/卸下 UberBossBoostGem 造成数万级跳变 → 差分收敛。
+  // 取不到就返回 0，由调用方明确提示 —— **绝不拿玩家等级或猜的值顶替**（那会把难度改错方向）。
+  int EnemyLevel() {
+    if (!RequireH()) return 0;
+    long a = GetStatAddr("misc.enemylv");
+    if (a == 0) return 0;
+    string cur; string err;
+    if (!MemIO.ReadValue(H, a, ScanType.I32, out cur, out err)) {
+      Log("怪物等级读取失败: " + err + " @0x" + a.ToString("X"));
+      return 0;
+    }
+    int v;
+    if (!int.TryParse(cur, out v)) return 0;
+    return v;
+  }
 
   TabPage BuildTabCombat() {
     TabPage p = new TabPage("战斗·商店");
@@ -113,23 +129,27 @@ partial class MainForm {
     // 收藏家触发：参数 = **起始武器索引**（原生签名 SetupCollector(Int ForceWeaponStart)，
     //   该值写进收藏家的存档槽；0 = 默认）。所以"选哪把武器/哪个奖励"由这个数字决定，
     //   1.x 有这个输入框、2.0 重写时丢了（写死 0）——现在补回来。
-    //   ★ 等级**不归这条命令管**：见下面「对齐等级」与提示（等级来自原版 ini 的 CollectorLevel[]）。
-    //   勾选「同步等级」时一次做完两件事（省一步）：先 setupcollector 置位，再 setbosslevel 发等级。
+    //   ★ 等级**不归这条命令管**：等级来自原版 ini 的 CollectorLevel[]。
+    //   勾选「同步等级」时一次做完两件事（省一步）：先 setupcollector 置位，再 setbosslevel 把
+    //   收藏家等级设成**当前怪物等级**。
+    //   ★ 为什么不是玩家等级（作者 2026-10-09 定）：玩家等级一般不代表战斗难度 —— 高周目下真正
+    //     抬高敌人等级的是身上带的 UberBossBoostGem（每颗可加数万级），而玩家每周目等级上限
+    //     只加三位数。取"怪物等级"才对得上你实际面对的难度。
     Button bColl = Theme.MkButton("触发收藏家战斗", 354, 34, 150, 30, delegate {
       int ci = 0;                                       // 留空 / 非数字 → 0 = 默认（走游戏自身进度）
       int.TryParse(numCollectorWeapon.Text.Trim(), out ci);
       if (ci < 0) ci = 0;
-      if (chkSyncLevel.Checked) {
-        int lv;
-        if (!int.TryParse(txtCollectorLv.Text.Trim(), out lv) || lv < 0 || lv > 99999999) {
-          ToastMgr.Warn(I18n.T("同步等级已勾选：先填目标等级，或取消勾选"));
-          return;
-        }
-        InjectCmds(new string[] { "setupcollector " + ci, "setbosslevel " + lv },
-                   I18n.T("触发收藏家战斗") + " · #" + ci + " + " + I18n.T("对齐等级") + " " + lv);
-      } else {
+      if (!chkSyncLevel.Checked) {
         InjectCmd("setupcollector " + ci, I18n.T("触发收藏家战斗") + " · #" + ci);
+        return;
       }
+      int lv = EnemyLevel();
+      if (lv <= 0) {                                    // 未定位/读失败：明说，不拿别的值顶替
+        ToastMgr.Warn(I18n.T("怪物等级未定位：先用「发现模式」定位，并记入地址簿 misc.enemylv"));
+        return;
+      }
+      InjectCmds(new string[] { "setupcollector " + ci, "setbosslevel " + lv },
+                 I18n.T("触发收藏家战斗") + " · #" + ci + " + " + I18n.T("同步等级") + " " + lv);
     });
     b3.Controls.Add(bGem); b3.Controls.Add(bDragon); b3.Controls.Add(bColl);
 
@@ -150,35 +170,8 @@ partial class MainForm {
     chkSyncLevel.BackColor = Color.Transparent;
     b3.Controls.Add(chkSyncLevel);
 
-    // 等级对齐 = 发 setbosslevel <值>（SwordPC.SetBossLevel：GetCurrentBoss().PawnLevel = 值，
-    //   紧接着游戏自己调 SetupLevelData 重算该 Boss 的数据）。
-    //   两个硬限制写在提示里：① 只作用于"当前 Boss"⇒ 必须收藏家出场后（战斗中）点；
-    //   ② 只对当前这场有效 —— 下一场收藏家重新生成时按原版表重算。
-    b3.Controls.Add(Theme.MkLabel("对齐等级", 14, 78, 58));
-    txtCollectorLv = Theme.MkText(76, 74, 86, "");
-    b3.Controls.Add(txtCollectorLv);
-    b3.Controls.Add(Theme.MkButton("读玩家等级", 168, 70, 96, 30, delegate {
-      if (!RequireH()) return;
-      long a = GetStatAddr("lv.level");
-      if (a == 0) { ToastMgr.Warn(I18n.T("等级未绑定：先去「成长」页填当前值并「定位」")); return; }
-      string cur; string err;
-      if (!MemIO.ReadValue(H, a, ScanType.I32, out cur, out err)) {
-        ToastMgr.Warn(I18n.T("读玩家等级失败：") + err);
-        return;
-      }
-      txtCollectorLv.Text = cur;
-      Log("玩家等级 = " + cur + " @0x" + a.ToString("X"));
-    }));
-    b3.Controls.Add(Theme.MkButton("发给收藏家", 270, 70, 106, 30, delegate {
-      int lv;
-      if (!int.TryParse(txtCollectorLv.Text.Trim(), out lv) || lv < 0 || lv > 99999999) {
-        ToastMgr.Warn(I18n.T("先填目标等级（0–99999999）"));
-        return;
-      }
-      InjectCmd("setbosslevel " + lv, I18n.T("收藏家等级对齐") + " " + lv);
-    }));
-    b3.Controls.Add(Theme.MkHint("同步等级＝触发时一并发 setbosslevel；须战斗中", 384, 74, 420));
-    b3.Controls.Add(Theme.MkHint("留空/0＝默认（走游戏自身进度）；收藏家等级＝原版 config 表（50…15000，不随世界等级），抬阶梯改 ini 并重启。", 14, 106, 790));
+    b3.Controls.Add(Theme.MkHint("索引留空/0＝默认（走游戏自身进度）；☑同步等级＝触发时把收藏家等级设成当前怪物等级。", 14, 74, 790));
+    b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步前需定位怪物等级（见使用说明）。", 14, 106, 790));
     p.Controls.Add(b3);
     return p;
   }

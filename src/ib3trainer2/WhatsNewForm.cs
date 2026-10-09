@@ -1,18 +1,24 @@
 // ============================================================================
-// WhatsNewForm.cs — 「开发者信息 + 本版更新说明」弹窗（2026-10-09 新增）
+// WhatsNewForm.cs — 「开发者信息 + 本版更新」弹窗（2026-10-09 新增）
 //
 // 触发时机：**每个版本第一次运行**弹一次（MainForm.OnShown → MaybeShowWhatsNew）。
 //   "看过没有"记在 ib3_update.ini 的 notesver= —— 与更新器共用同一个状态文件（它本来
 //   就是"非破坏式 key=value + SaveState 自带全套键"的写法，见 Update.cs:109-166），
 //   不为这一条另开第 7 个 ini。
 //
-// 更新说明**不另写一份**：把仓库根的 CHANGELOG.md 内嵌进 exe（build.sh 的
-//   -resource:../../CHANGELOG.md,changelog），运行时切出本版那一段。这样"发版写更新
-//   说明"仍然只有**一处**（CHANGELOG.md），不会出现 exe 内文案与仓库里不一致。
-//   切不出来（例如单独拷一份 exe 出来、或版本段还没写）就退回一句明确提示 —— 不装懂。
+// ★ 只显示**一句话摘要**，不显示整段 changelog（作者 2026-10-09 定：弹窗要短）。
+//   摘要的来源仍是仓库根的 CHANGELOG.md（build.sh 把它内嵌进 exe：
+//   -resource:../../CHANGELOG.md,changelog），**约定**：每个版本段的正文第一行写成
+//   > 新增…；修改…；删除…
+//   本框只取这一行。这样"发版写说明"依旧只有 CHANGELOG.md 一处，不会两处说法不一致；
+//   想看细节点「完整更新日志」（开浏览器）。
+//   老版本段没有这行就显示一句明确提示，不编内容。
 //
-// 排版沿用 AboutForm：无边框 + 浅底(BG)配深字(Ink) + 左侧金线；说明区是
-//   **深卡(CardSolid)配浅字(Text)** —— 这条对比度规律见 AboutForm 头部注释的实测数据。
+// ★ 不默认全选：多行只读 TextBox 拿到焦点时会**自动全选**，一进来整片高亮很难看
+//   （作者反馈）。这里 TabStop=false + OnShown 里把选区清零并把焦点交给「知道了」按钮。
+//
+// 排版沿用 AboutForm：无边框 + 浅底(BG)配深字(Ink) + 左侧金线；摘要区是
+//   **深卡(CardSolid)配浅字(Text)** —— 对比度规律见 AboutForm 头部注释的实测数据。
 //
 // C# 5：不能用字符串插值 / ?. / out var / 表达式体成员。
 // ============================================================================
@@ -27,7 +33,10 @@ namespace Ib3Trainer2 {
 
 class WhatsNewForm : Form {
 
-  public WhatsNewForm(Form owner, string versionLabel, string notes) {
+  TextBox box;          // 摘要区（只读）
+  Button ok;
+
+  public WhatsNewForm(Form owner, string versionLabel, string summary) {
     FormBorderStyle = FormBorderStyle.None;
     StartPosition = FormStartPosition.Manual;
     ShowInTaskbar = false;
@@ -35,7 +44,7 @@ class WhatsNewForm : Form {
     BackColor = Theme.BG;
     ForeColor = Theme.Ink;              // 浅底配深字
     Font = Theme.UI;
-    ClientSize = new Size(600, 540);
+    ClientSize = new Size(600, 256);
 
     Label t = new Label();
     t.Text = I18n.T("开发者信息") + " · " + versionLabel;
@@ -48,35 +57,50 @@ class WhatsNewForm : Form {
     int y = 52;
     Controls.Add(Row(I18n.T("作者"), "Andrew Tong", y));
     y += 24;
-    Controls.Add(Row(I18n.T("本版更新说明"), I18n.T("每版首次运行提示一次"), y));
-    y += 24;
     // 项目主页：金色 = 可点（与正文的深棕区分）。点它开浏览器。
     Controls.Add(LinkRow(I18n.T("项目主页"), "github.com/Tongyonyuen/ib3-trainer", y,
       delegate { OpenUrl(Updater.REPO_URL); }));
-    y += 30;
 
-    // 说明区：只读多行 + 纵向滚动条 + 自动换行（滚动条 + WordWrap 同时成立，超长行会折）
-    TextBox box = new TextBox();
+    y += 30;
+    Label cap = new Label();
+    cap.Text = I18n.T("本版更新说明");
+    cap.ForeColor = Theme.Ink;
+    cap.BackColor = Color.Transparent;
+    cap.Font = Theme.UI;
+    cap.SetBounds(20, y, 560, 18);
+    Controls.Add(cap);
+
+    box = new TextBox();
     box.Multiline = true;
     box.ReadOnly = true;
-    box.ScrollBars = ScrollBars.Vertical;
     box.WordWrap = true;
+    box.ScrollBars = ScrollBars.None;    // 只放一句话，不需要滚动条
+    box.TabStop = false;                 // ★ 别让它拿焦点（见文件头：多行框获焦会全选）
     box.BorderStyle = BorderStyle.None;
     box.BackColor = Theme.CardSolid;     // 深卡配浅字
     box.ForeColor = Theme.Text;
     box.Font = Theme.UI;
-    box.SetBounds(20, y, 560, 306);
-    box.Text = string.IsNullOrEmpty(notes)
-      ? I18n.T("（这一版没有内嵌更新说明——见仓库根目录的 CHANGELOG.md）")
-      : notes;
+    box.SetBounds(20, y + 20, 560, 62);
+    box.Text = string.IsNullOrEmpty(summary)
+      ? I18n.T("（本版没写一句话摘要——详情见仓库 CHANGELOG.md）")
+      : summary;
+    box.SelectionStart = 0;              // 光标/选区归零，进来就是干净的一片
+    box.SelectionLength = 0;
     Controls.Add(box);
 
-    Button all = Theme.MkButton(I18n.T("完整更新日志"), 320, 496, 140, 30,
+    Label hint = new Label();
+    hint.Text = I18n.T("每版首次运行提示一次");
+    hint.ForeColor = Theme.TextDim;
+    hint.BackColor = Color.Transparent;
+    hint.Font = FontBank.Get("Microsoft YaHei", FontStyle.Regular, 8.25f);
+    hint.SetBounds(20, 196, 560, 18);
+    Controls.Add(hint);
+
+    Button all = Theme.MkButton(I18n.T("完整更新日志"), 320, 214, 140, 30,
       delegate { OpenUrl(Updater.REPO_URL + "/blob/main/CHANGELOG.md"); });
     Controls.Add(all);
 
-    Button ok = Theme.MkButton(I18n.T("知道了"), 470, 496, 110, 30,
-      delegate { Close(); });
+    ok = Theme.MkButton(I18n.T("知道了"), 470, 214, 110, 30, delegate { Close(); });
     Controls.Add(ok);
 
     KeyDown += delegate(object s, KeyEventArgs e) { if (e.KeyCode == Keys.Escape) Close(); };
@@ -89,10 +113,19 @@ class WhatsNewForm : Form {
     }
   }
 
-  // ---------- 内嵌 CHANGELOG.md → 本版那一段 ----------
+  // 焦点给按钮、摘要区选区清零 —— 双保险，防止"一进来整片全选"（TabStop 只管 Tab 路径）
+  protected override void OnShown(EventArgs e) {
+    base.OnShown(e);
+    try {
+      if (ok != null && ok.CanSelect) ok.Select();
+      if (box != null) { box.SelectionStart = 0; box.SelectionLength = 0; }
+    } catch { }
+  }
 
-  // 找不到内嵌资源 / 找不到本版段 ⇒ 返回 null（调用方给一句明确提示，不编内容）
-  public static string LoadNotes(string semver) {
+  // ---------- 内嵌 CHANGELOG.md → 本版那一句话摘要 ----------
+
+  // 找不到内嵌资源 / 找不到本版段 / 本版段没写 "> " 摘要 ⇒ 返回 null（调用方给明确提示，不编内容）
+  public static string LoadSummary(string semver) {
     try {
       string[] names = typeof(WhatsNewForm).Assembly.GetManifestResourceNames();
       for (int i = 0; i < names.Length; i++) {
@@ -100,7 +133,7 @@ class WhatsNewForm : Form {
         using (Stream st = typeof(WhatsNewForm).Assembly.GetManifestResourceStream(names[i])) {
           if (st == null) continue;
           using (StreamReader sr = new StreamReader(st, Encoding.UTF8)) {
-            return ExtractSection(sr.ReadToEnd(), semver);
+            return ExtractSummary(sr.ReadToEnd(), semver);
           }
         }
       }
@@ -108,9 +141,9 @@ class WhatsNewForm : Form {
     return null;
   }
 
-  // 取 "## [v1.1.5] — 日期" 到下一个 "## [" 之间的正文。
+  // 在 "## [v1.1.5] — 日期" 段的正文里取第一行 "> …"（约定：一句话写清新增/修改/删除）。
   // 版本匹配容忍开头的 v（CHANGELOG 一律写 vX.Y.Z，而传进来的是 SemVer）。
-  static string ExtractSection(string md, string semver) {
+  static string ExtractSummary(string md, string semver) {
     if (md == null || semver == null) return null;
     string want = "## [v" + semver;
     string want2 = "## [" + semver;
@@ -123,21 +156,22 @@ class WhatsNewForm : Form {
     }
     if (start < 0) return null;
 
+    // ★ 摘要可能被排版成**连续多行**引用块（作者写起来更好读），所以第一行 ">" 只是开始：
+    //   把紧随其后的 ">" 行一路拼起来，遇到非空非 ">" 行就收工。
     StringBuilder sb = new StringBuilder();
     for (int i = start; i < lines.Length; i++) {
-      string s = lines[i];
-      if (s.TrimStart().StartsWith("## [", StringComparison.Ordinal)) break;   // 下一版开始
-      sb.AppendLine(Clean(s));
+      string s = lines[i].Trim();
+      if (s.StartsWith("## [", StringComparison.Ordinal)) break;         // 到下一版了
+      if (s.StartsWith(">", StringComparison.Ordinal)) {
+        string part = s.TrimStart('>').Trim().Replace("**", "");
+        if (part.Length > 0) sb.Append(part);
+        continue;
+      }
+      if (s.Length == 0) continue;      // 引用块内部的空行/行尾空行：跳过
+      break;                            // 摘要后面的正文（"- …"）→ 收工
     }
-    string body = sb.ToString().Trim();
-    return body.Length == 0 ? null : body;
-  }
-
-  // 极简 markdown 去噪：只去掉 ** 强调（本项目 CHANGELOG 只用到这一种行内标记），
-  // 其余（"- " 列表、缩进、空行）原样保留 —— 不追求渲染，只求读得顺、不显示星号。
-  static string Clean(string s) {
-    if (s == null) return "";
-    return s.Replace("**", "");
+    string sum = sb.ToString().Trim();
+    return sum.Length == 0 ? null : sum;
   }
 
   // ---------- 排版小工具（与 AboutForm 同款） ----------

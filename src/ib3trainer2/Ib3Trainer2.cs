@@ -237,7 +237,7 @@ partial class MainForm : Form {
       string seen = st.NotesVer == null ? "" : st.NotesVer.Trim();
       if (seen.Length > 0 && seen.TrimStart('v', 'V') == BuildInfo.SemVer) return;
       using (WhatsNewForm f = new WhatsNewForm(this, BuildInfo.Version,
-                                               WhatsNewForm.LoadNotes(BuildInfo.SemVer))) {
+                                               WhatsNewForm.LoadSummary(BuildInfo.SemVer))) {
         f.ShowDialog(this);
       }
       st.NotesVer = BuildInfo.SemVer;

@@ -333,32 +333,24 @@ static class I18n {
     d["商店刷新一轮稀有宝石"] = "Refresh Rare Gems";
     d["触发龙战"] = "Trigger Dragon";
     d["触发收藏家战斗"] = "Trigger Collector";
-    // 收藏家：起始武器索引 + 等级对齐（2026-10-09 新增。英文按"可用字符≈中文2倍"写，
+    // 收藏家：起始武器索引 + 同步等级（2026-10-09 新增。英文按"可用字符≈中文2倍"写，
     // 与中文共用同一套几何，见本文件头部③）
     d["起始武器索引"] = "Weapon idx";
-    d["对齐等级"] = "Level";
-    d["读玩家等级"] = "Read lvl";
-    d["发给收藏家"] = "Send to boss";
-    d["收藏家等级对齐"] = "Collector level set to";
-    d["等级未绑定：先去「成长」页填当前值并「定位」"] =
-      "Level not bound: locate it on the Growth tab first";
-    d["读玩家等级失败："] = "Read player level failed: ";
-    d["先填目标等级（0–99999999）"] = "Enter a target level (0-99999999)";
+    d["同步等级"] = "Sync lvl";
+    d["怪物等级未定位：先用「发现模式」定位，并记入地址簿 misc.enemylv"] =
+      "Monster level not located: scan it in Discover mode, save as misc.enemylv";
+    d["索引留空/0＝默认（走游戏自身进度）；☑同步等级＝触发时把收藏家等级设成当前怪物等级。"] =
+      "Empty/0 = default progression; Sync lvl = set the collector to the current monster level.";
+    d["等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步前需定位怪物等级（见使用说明）。"] =
+      "Level = stock config (50..15000); setbosslevel = in-battle only, one fight; locate monster level first (see manual).";
     // 每版首次运行的「开发者信息 + 本版更新说明」窗（WhatsNewForm）
     d["开发者信息"] = "Developer info";
     d["本版更新说明"] = "Release notes";
     d["每版首次运行提示一次"] = "shown once per version";
     d["完整更新日志"] = "Full changelog";
     d["知道了"] = "Got it";
-    d["（这一版没有内嵌更新说明——见仓库根目录的 CHANGELOG.md）"] =
-      "(No embedded notes in this build - see CHANGELOG.md in the repo)";
-    d["同步等级"] = "Sync lvl";
-    d["同步等级已勾选：先填目标等级，或取消勾选"] =
-      "Sync level is on: enter a target level, or uncheck it";
-    d["同步等级＝触发时一并发 setbosslevel；须战斗中"] =
-      "Sync lvl = also send setbosslevel; in-battle only";
-    d["留空/0＝默认（走游戏自身进度）；收藏家等级＝原版 config 表（50…15000，不随世界等级），抬阶梯改 ini 并重启。"] =
-      "Empty/0 = default. Level = stock config (50..15000, not world-scaled); raise via ini + restart.";
+    d["（本版没写一句话摘要——详情见仓库 CHANGELOG.md）"] =
+      "(No one-line summary for this version - see CHANGELOG.md)";
     d["复制中文名"] = "Copy CN name";
     d["复制模板名"] = "Copy template";
     d["地址: 未定位"] = "Addr: not located";
