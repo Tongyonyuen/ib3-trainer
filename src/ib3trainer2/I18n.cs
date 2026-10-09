@@ -35,7 +35,7 @@ namespace Ib3Trainer2 {
 
 static class BuildInfo {
   // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
-  public const string Version = "v1.1.6 · 2026-10-09";
+  public const string Version = "v1.1.7 · 2026-10-09";
 
   // ② 机器可比的版本三元组：**发版时必须与 git tag 严格一致**（三处一起改）。
   //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
@@ -46,7 +46,7 @@ static class BuildInfo {
   //    选「跳过此版本」才能停。
   //    v1.1.1 就漏改过一次（那份 exe 自称 1.1.0，而 tag 是 v1.1.1）。发版前请核对三处：
   //      git tag  ==  Version 串里的版本号  ==  Major.Minor.Patch
-  public const int Major = 1, Minor = 1, Patch = 6;
+  public const int Major = 1, Minor = 1, Patch = 7;
 
   // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
   //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；
@@ -338,6 +338,15 @@ static class I18n {
     d["起始武器索引"] = "Weapon idx";
     // 「清零收藏家进度」（2026-10-09）：解除 CollectorCanSpawn() 的门 ④
     d["清零收藏家进度"] = "Clear collector";
+    // 触发前预检（2026-10-09）
+    d["本周目计数：Siris "] = "this-playthrough count - Siris ";
+    d["Isa "] = "Isa ";
+    d["两个角色本周目的收藏家计数都已满（Siris "] = "BOTH characters' collector counts are full (Siris ";
+    d["）——先点「清零收藏家进度」，再触发"] = ") - click Clear collector first, then trigger";
+    d[" 本周目计数已满 —— 用那个角色刷不出；先点「清零收藏家进度」"] =
+      " is full this playthrough - that character cannot spawn him; click Clear collector first";
+    d["（另一个角色仍可刷）"] = " (the other character still can)";
+    d["本周目计数读取失败"] = "counters unreadable";
     d["真身对象未绑定：等自动绑定完成（或点「立即附着」）后再试"] =
       "Player object not bound yet - wait for auto-bind, then retry";
     d["读收藏家进度失败："] = "Read collector progress failed: ";

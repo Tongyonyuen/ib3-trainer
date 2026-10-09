@@ -20,6 +20,26 @@ partial class MainForm {
   //   更新 `LocalFileHeaderCache` 里的 SHA1，否则游戏会静默回退到 `_BackupX_*.bin`（实测踩过）——
   //   载入后在内存里扫哨兵 ⇒ 命中真身对象内 +0x3E6C。清 0 后实测收藏家立刻能再刷出（初始状态）。
   const long OFF_COLLECTOR_ITEMS_SIRIS = 0x3E6C;   // Siris 的计数器（已实测）
+  const long OFF_COLLECTOR_ITEMS_ISA   = 0x3E68;   // Isa 的计数器：按导出顺序（Isa 声明在 Siris 之前）推断；
+                                                   // 只读不写 ⇒ 即使推断错也只是显示错，不会写坏内存
+  // 门的实测判据：GetCollectorItemsTakenThisPlaythrough() <= MaxCollectorItemsPerPlaythrough(=1)
+  // ⇒ 原始值 > 1 就是"本周目这个角色已经刷满"
+  const int  COLLECTOR_CAP_RAW = 1;
+
+  // 读两个角色的"本周目收藏家计数"（任意一步失败都返回 false，调用方据此显示"读不到"）
+  bool CollectorCounts(out int siris, out int isa) {
+    siris = isa = -1;
+    if (!RequireH()) return false;
+    long host = EngineCall.LivePlayerHint(H);
+    if (host == 0) return false;
+    string cur; string err;
+    if (!MemIO.ReadValue(H, host + OFF_COLLECTOR_ITEMS_SIRIS, ScanType.I32, out cur, out err)) return false;
+    if (!int.TryParse(cur, out siris)) return false;
+    if (!MemIO.ReadValue(H, host + OFF_COLLECTOR_ITEMS_ISA, ScanType.I32, out cur, out err)) return false;
+    if (!int.TryParse(cur, out isa)) return false;
+    if (siris < 0 || siris > 999 || isa < 0 || isa > 999) return false;   // 读飞了就当读不到
+    return true;
+  }
   // Isa 的对应字段按导出顺序推断在 +0x3E68，但**未验证** ⇒ 本按钮不写它（不写没验证的内存）。
   // 若当前角色是 Isa 而按钮无效，用同样的哨兵法把 Isa 的偏移验出来即可。
 
@@ -164,7 +184,24 @@ partial class MainForm {
       int ci = 0;                                       // 留空 / 非数字 → 0 = 默认（走游戏自身进度）
       int.TryParse(numCollectorWeapon.Text.Trim(), out ci);
       if (ci < 0) ci = 0;
-      InjectCmd("setupcollector " + ci, I18n.T("触发收藏家战斗") + " · #" + ci);
+      // ★ 触发前预检（2026-10-09 作者要求）：先看两个角色本周目的收藏家计数，满了就别傻点
+      int cS, cI; string tail = "";
+      if (CollectorCounts(out cS, out cI)) {
+        tail = "  [" + I18n.T("本周目计数：Siris ") + cS + " / " + I18n.T("Isa ") + cI + "]";
+        bool sFull = cS > COLLECTOR_CAP_RAW, iFull = cI > COLLECTOR_CAP_RAW;
+        if (sFull && iFull) {
+          ToastMgr.Warn(I18n.T("两个角色本周目的收藏家计数都已满（Siris ") + cS + " / Isa " + cI +
+                        I18n.T("）——先点「清零收藏家进度」，再触发"));
+          return;                                    // 两个都满 ⇒ 发了也刷不出，直接不发
+        }
+        if (sFull || iFull) {
+          ToastMgr.Warn((sFull ? "Siris " + cS : "Isa " + cI) + I18n.T(" 本周目计数已满 —— 用那个角色刷不出；先点「清零收藏家进度」") +
+                        I18n.T("（另一个角色仍可刷）"));
+        }
+      } else {
+        tail = "  [" + I18n.T("本周目计数读取失败") + "]";
+      }
+      InjectCmd("setupcollector " + ci, I18n.T("触发收藏家战斗") + " · #" + ci + tail);
     });
 
     // 「设置当前敌人等级」= 发 setbosslevel <当前场景怪物等级>（值由固定指针链实时读取）。
