@@ -130,6 +130,17 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
     ⇒ 参数落点是收藏家的**存档槽**（语义 = 起始武器/进度索引；`0`＝默认），**字节码里没有任何等级字段**。
     `SetGameFlag` 的参数解出 **0x3A = 58**，对 `DefaultGameFlags.ini` = **`58_IB3_CollectorIntro`** ✓
     （与龙无关 —— 龙是 `26_IB3_Dragon`；另有 `43_IB3_TheCollector`）。
+  - **解除门 ④ 的办法（2026-10-09 与作者共同定位，已实机验证）**：
+    · 计数器 = `SwordPlayer.IsaCollectorItems`(Isa) / `SirisCollectorItems`(Siris)，按 `eCurrentPlayerType` 取
+    · **内存偏移 = 真身 + 0x3E6C（Siris）**；Isa 的按导出顺序推断在 +0x3E68（**未验证**）
+    · 定位法（可复现）：存档里把该字段改成唯一哨兵（如 123456789）→ **必须同时更新
+      `Cloud/LocalFileHeaderCache` 里该文档的 40 位 SHA1 = `SHA1(解密体[0:contentLen])` 小写**，
+      否则游戏**静默回退**到 `_BackupX_*.bin`（实测：只改内容不改哈希 ⇒ 启动瞬间被顶回原值 ✗）
+      → 载入后在内存扫哨兵 ⇒ 命中真身内 +0x3E6C → 写 0
+    · 实测效果：写 0 后触发 `setupcollector 0` ⇒ **收藏家立刻从下一场战斗走出，且为初始状态**
+      （⇒ 该计数器语义 = “他拿了你几件东西”的进度，清零 = 进度归零）
+    · 存档改写三条铁律（旧记录，本次再次踩中②）：① 内容对；② `LocalFileHeaderCache` 的 SHA1
+      与 contentLen 对；③ `_SwordSaveSlotX_N.bin` 的 CloudDocIndex = 本机文档列表下标
   - **★ 真正的"能不能刷"门 = `SwordPC.CollectorCanSpawn()`（2026-10-09 字节码核验）**，它按顺序检查：
     ① `PlayerPawn.GetGameFlag(58)` = **`58_IB3_CollectorIntro`** 必须已置位（`setupcollector` 会置 ✓）；
     ② `SwordPlayer.BossesGeneratedThisBloodline`（本血脉已生成 Boss 数）；
