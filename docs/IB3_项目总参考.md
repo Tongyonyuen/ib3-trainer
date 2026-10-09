@@ -130,6 +130,17 @@ DefaultGems.ini 已加：暗火/彩虹的 base→_100→_200 MPParent 链 + _200
     ⇒ 参数落点是收藏家的**存档槽**（语义 = 起始武器/进度索引；`0`＝默认），**字节码里没有任何等级字段**。
     `SetGameFlag` 的参数解出 **0x3A = 58**，对 `DefaultGameFlags.ini` = **`58_IB3_CollectorIntro`** ✓
     （与龙无关 —— 龙是 `26_IB3_Dragon`；另有 `43_IB3_TheCollector`）。
+  - **★ 真正的"能不能刷"门 = `SwordPC.CollectorCanSpawn()`（2026-10-09 字节码核验）**，它按顺序检查：
+    ① `PlayerPawn.GetGameFlag(58)` = **`58_IB3_CollectorIntro`** 必须已置位（`setupcollector` 会置 ✓）；
+    ② `SwordPlayer.BossesGeneratedThisBloodline`（本血脉已生成 Boss 数）；
+    ③ `SwordPlayer.FightsUntilCollector <= 0`（倒计时到点；`setupcollector` 会归零 ✓）；
+    ④ **`GetCollectorItemsTakenThisPlaythrough() < SwordBoss.MaxCollectorItemsPerPlaythrough`（ini = 1）**
+       —— 该计数器的实现是 `SwordPlayer.IsaCollectorItems` / `SirisCollectorItems`（按 `eCurrentPlayerType` 取）✓
+       ⇒ **他一旦在本血脉拿过你一件东西，本血脉就再也不会刷**；
+    ⑤ 非 ClashMob（联机）场次等；还有一条比较涉及收藏家 Boss 武器名 `6ft_SnS_Collector`（应为"已拥有就不再刷"）。
+    ⇒ **所以"点和控制台都刷不出来"是设计使然，不是命令/训练器的问题**：`setupcollector` 只能置 ①③ 两处，
+    改不了 ④⑤。要再遇他：换血脉（NG+，这些计数器随血脉重置），或用内存写把 ④ 的字段清零
+    （`IsaCollectorItems`/`SirisCollectorItems` = SwordPlayer 上的普通 IntProperty，做法同 `FightsUntilCollector`）。
   - **它只在"能刷人形怪"的场合才会真的替换出收藏家**：作者实测在**兽形怪场景**触发后，
     面前那只怪的模型被替换成**黑模型**（形状还在、贴图全黑）⇒ 替换已响应但该刷怪位装不下人形怪；
     之后连打几场也没见到他。⇒ 触发后要走到能刷人形怪的区域、等符合条件的战斗。
