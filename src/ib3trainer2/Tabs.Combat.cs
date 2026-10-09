@@ -144,8 +144,12 @@ partial class MainForm {
         return;
       }
       int lv = EnemyLevel();
-      if (lv <= 0) {                                    // 未定位/读失败：明说，不拿别的值顶替
-        ToastMgr.Warn(I18n.T("怪物等级未定位：先用「发现模式」定位，并记入地址簿 misc.enemylv"));
+      if (lv <= 0) {
+        // 未定位/读失败：**照常置位**（用户点的是"触发"），但把"没发等级"写进 desc ——
+        // 由 InjectCmd 按真实结果报一条就够，不叠第二条提示（本文件 96-100 行的教训）；
+        // 也绝不拿玩家等级或猜的值顶替（那会把难度改错方向）。
+        InjectCmd("setupcollector " + ci,
+                  I18n.T("触发收藏家战斗") + " · #" + ci + " " + I18n.T("（怪物等级未定位，未发等级）"));
         return;
       }
       InjectCmds(new string[] { "setupcollector " + ci, "setbosslevel " + lv },
