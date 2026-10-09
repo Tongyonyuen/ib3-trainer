@@ -171,7 +171,7 @@ class WhatsNewForm : Form {
         if (t.StartsWith("## [", StringComparison.Ordinal)) break;
         if (t.StartsWith(">", StringComparison.Ordinal)) {
           string p = t.TrimStart('>').Trim().Replace("**", "");
-          if (p.Length > 0) sum.Append(p);
+          if (p.Length > 0) sum.Append(p).Append("\n");   // 同上：按行保留（新增/修改/删除 各一行）
           continue;
         }
         if (t.Length == 0) continue;
@@ -181,7 +181,8 @@ class WhatsNewForm : Form {
       // 老版本段没有摘要 ⇒ **跳过**（不占位：列表里一行行"没写摘要"比不显示更糟）。
       // 往前补齐摘要只是写文档的活，随时可以在 CHANGELOG.md 里补。
       if (body.Length == 0) continue;
-      sb.AppendLine(label + (rest.Length > 0 ? "  " + rest : "") + "：" + body);
+      // 摘要按行写（新增/修改/删除 各一行）⇒ 后续行缩进对齐，列表里才看得清层次
+      sb.AppendLine(label + (rest.Length > 0 ? "  " + rest : "") + "：" + body.Replace("\n", "\n    "));
       n++;
     }
     string r = sb.ToString().Trim();
@@ -211,7 +212,9 @@ class WhatsNewForm : Form {
       if (s.StartsWith("## [", StringComparison.Ordinal)) break;         // 到下一版了
       if (s.StartsWith(">", StringComparison.Ordinal)) {
         string part = s.TrimStart('>').Trim().Replace("**", "");
-        if (part.Length > 0) sb.Append(part);
+        // ★ 用换行连接：摘要按"新增/修改/删除 各自一行"写（作者 2026-10-09 定：挤成一段不好看），
+        //   这里必须原样按行呈现（说明框是多行框，62px 高 ≈ 3 行，正好放下；超了也不会截断）。
+        if (part.Length > 0) sb.Append(part).Append("\n");
         continue;
       }
       if (s.Length == 0) continue;      // 引用块内部的空行/行尾空行：跳过
