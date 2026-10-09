@@ -117,6 +117,10 @@ static class EngineCall {
     get { int n = 0; foreach (List<long> g in classHosts) n += g.Count; return n; }
   }
   public static long PageAddr { get { return page; } }
+  // 游戏映像基址（本游戏无 ASLR、恒为 IMG_PREF=0x140000000；附着时仍按实际值取，见 ReadImageBase）。
+  // 用途：读**映像内全局变量**里的指针 —— 当前场景的「怪物等级」数据对象就是挂在两个全局上的
+  //   （0xCE3588 / 0xD20388，2026-10-09 差分定位实证，见 Tabs.Combat.cs 的 EnemyLevel）。
+  public static long ImgBase { get { return imgBase; } }
   public static long LastHost { get { lock (gate) { return lastWinner; } } }
   public static long ReadPtr(IntPtr h, long a) { lock (gate) { return ReadQ(h, a); } }
   // 真身玩家对象（金币锚定→评分；用于结构自动绑定 金币/筹码 等字段）

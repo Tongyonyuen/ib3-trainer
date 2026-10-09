@@ -12,13 +12,27 @@ partial class MainForm {
   NumericUpDown numCollectorWeapon;   // 收藏家「起始武器索引」= setupcollector 的参数（留空/0 = 默认）
   CheckBox chkSyncLevel;              // 勾选后：触发时一并把「当前怪物等级」发给当前 Boss
 
-  // 当前「怪物等级」（地址簿 misc.enemylv，I32）。定位法见 docs/使用说明.md：
-  // 「发现模式」按游戏里显示的怪物等级首扫 → 装备/卸下 UberBossBoostGem 造成数万级跳变 → 差分收敛。
-  // 取不到就返回 0，由调用方明确提示 —— **绝不拿玩家等级或猜的值顶替**（那会把难度改错方向）。
+  // 当前「怪物等级」= [[映像基址 + 0xCE3588] + 0x7B0]（Int32）—— 一条**固定指针链**，
+  // 不需要扫描、也不需要用户填参数。
+  //
+  // 2026-10-09 差分定位实证（作者配合拆/装 UberBossBoostGem）：
+  //   · 显示等级 = **原始掷点等级 + 宝石加成**：194378 − 64750 = 129628，而实测下一只 129602
+  //     —— 差的 26 就是作者说的"掷点波动"
+  //   · 加成**不是**玩家对象里实时变化的字段：拆掉宝石后**已加载的怪等级不变**
+  //     ⇒ 等级在**加载时固化**（所以"某只怪的显示等级"不能当定位目标，那是 pawn 侧一次性结果）
+  //   · 可读的是**当前场景的等级数据对象**：它随场景换堆块，但**指向它的两个全局在游戏映像内**
+  //     （0xCE3588 / 0xD20388），而本游戏无 ASLR ⇒ 链本身是固定的
+  //   · 该对象里前两个槽位（+0x7B0 / +0xDC0）实测同值；取第一个
+  //
+  // 读不到就返回 0，由调用方明确提示 —— **绝不拿玩家等级或猜的值顶替**（那会把难度改错方向）。
+  const long RVA_ENEMY_LV_OBJ = 0xCE3588;   // 映像内全局 → 当前场景的等级数据对象
+  const long OFF_ENEMY_LV     = 0x7B0;      // 该对象内第一个槽位（Int32）
+
   int EnemyLevel() {
     if (!RequireH()) return 0;
-    long a = GetStatAddr("misc.enemylv");
-    if (a == 0) return 0;
+    long obj = EngineCall.ReadPtr(H, EngineCall.ImgBase + RVA_ENEMY_LV_OBJ);
+    if (obj == 0) return 0;
+    long a = obj + OFF_ENEMY_LV;
     string cur; string err;
     if (!MemIO.ReadValue(H, a, ScanType.I32, out cur, out err)) {
       Log("怪物等级读取失败: " + err + " @0x" + a.ToString("X"));
@@ -26,6 +40,7 @@ partial class MainForm {
     }
     int v;
     if (!int.TryParse(cur, out v)) return 0;
+    if (v <= 0 || v > 10000000) return 0;   // 范围守卫：读飞了就当没读到（宁可不发等级）
     return v;
   }
 
@@ -149,7 +164,7 @@ partial class MainForm {
         // 由 InjectCmd 按真实结果报一条就够，不叠第二条提示（本文件 96-100 行的教训）；
         // 也绝不拿玩家等级或猜的值顶替（那会把难度改错方向）。
         InjectCmd("setupcollector " + ci,
-                  I18n.T("触发收藏家战斗") + " · #" + ci + " " + I18n.T("（怪物等级未定位，未发等级）"));
+                  I18n.T("触发收藏家战斗") + " · #" + ci + " " + I18n.T("（没读到怪物等级，未发等级）"));
         return;
       }
       InjectCmds(new string[] { "setupcollector " + ci, "setbosslevel " + lv },
@@ -175,7 +190,7 @@ partial class MainForm {
     b3.Controls.Add(chkSyncLevel);
 
     b3.Controls.Add(Theme.MkHint("索引留空/0＝默认（走游戏自身进度）；☑同步等级＝触发时把收藏家等级设成当前怪物等级。", 14, 74, 790));
-    b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步前需定位怪物等级（见使用说明）。", 14, 106, 790));
+    b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步读当前场景怪物等级（掷点+宝石加成）。", 14, 106, 790));
     p.Controls.Add(b3);
     return p;
   }

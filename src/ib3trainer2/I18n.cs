@@ -337,12 +337,12 @@ static class I18n {
     // 与中文共用同一套几何，见本文件头部③）
     d["起始武器索引"] = "Weapon idx";
     d["同步等级"] = "Sync lvl";
-    d["（怪物等级未定位，未发等级）"] =
-      "(monster level not located - level not sent; scan it as misc.enemylv)";
+    d["（没读到怪物等级，未发等级）"] =
+      "(monster level unreadable - level not sent)";
     d["索引留空/0＝默认（走游戏自身进度）；☑同步等级＝触发时把收藏家等级设成当前怪物等级。"] =
       "Empty/0 = default progression; Sync lvl = set the collector to the current monster level.";
-    d["等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步前需定位怪物等级（见使用说明）。"] =
-      "Level = stock config (50..15000); setbosslevel = in-battle only, one fight; locate monster level first (see manual).";
+    d["等级＝原版 config 表（50…15000）；setbosslevel 须战斗中、仅当前这场；同步读当前场景怪物等级（掷点+宝石加成）。"] =
+      "Level = stock config (50..15000); setbosslevel = in-battle only, one fight; sync reads the area monster level.";
     // 每版首次运行的「开发者信息 + 本版更新说明」窗（WhatsNewForm）
     d["开发者信息"] = "Developer info";
     d["本版更新说明"] = "Release notes";
