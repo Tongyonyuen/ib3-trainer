@@ -219,7 +219,7 @@ partial class MainForm {
     }));
 
     b3.Controls.Add(Theme.MkHint("「起始武器索引」＝每次触发都从这里开始（0＝列表第一件，1/2/3…依次往后）；「设置当前敌人等级」「清零收藏家进度」见说明。", 172, 74, 632));
-    b3.Controls.Add(Theme.MkHint("等级＝原版 config 表（50…15000）；该按钮＝setbosslevel，须战斗中（收藏家出场后）点、仅当前这场。", 14, 106, 790));
+    b3.Controls.Add(Theme.MkHint("触发后是**下次进图**时生效：全图刷怪点里随机挑一个强制成他（其余点照常刷，所以出现位置随机）；等级＝原版表（50…15000）。", 14, 106, 790));
     p.Controls.Add(b3);
     return p;
   }

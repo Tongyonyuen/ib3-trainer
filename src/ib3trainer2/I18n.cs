@@ -352,8 +352,8 @@ static class I18n {
       "Monster level unreadable (title/loading screen?) - nothing sent";
     d["「起始武器索引」＝每次触发都从这里开始（0＝列表第一件，1/2/3…依次往后）；「设置当前敌人等级」「清零收藏家进度」见说明。"] =
       "Weapon idx = start of the reward ladder (0 = first entry); see the manual for the other two buttons.";
-    d["等级＝原版 config 表（50…15000）；该按钮＝setbosslevel，须战斗中（收藏家出场后）点、仅当前这场。"] =
-      "Level = stock config (50..15000); the button = setbosslevel: in-battle only, one fight.";
+    d["触发后是**下次进图**时生效：全图刷怪点里随机挑一个强制成他（其余点照常刷，所以出现位置随机）；等级＝原版表（50…15000）。"] =
+      "Armed for the NEXT map load: one random spawn point in the map is forced to him (other points spawn normally).";
     // 每版首次运行的「开发者信息 + 本版更新说明」窗（WhatsNewForm）
     d["开发者信息"] = "Developer info";
     d["本版更新说明"] = "Release notes";
