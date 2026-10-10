@@ -34,6 +34,7 @@
 | **Combat · Store** | God mode toggle, fill super/magic meters, kill current boss (in combat), **make the Parry-All gem work on a normal parry** (rewrites a config file, restart required), direct gold/chip write, refresh the store with a round of rare gems, trigger dragon fight / collector |
 | **Item Grant** | Browse every item by category; grants through the correct channel per type — equipment/treasure maps straight to inventory, gems into the portable store, materials/potions/keys/grab-bags as stack counts |
 | **Gems · Inventory** | Lists every gem in the inventory and portable store (template / tier / fused flag / random bonus / displayed value / address); retarget to a displayed value or a tier |
+| **Potions** | Grant potions by name (90 grantable templates, grouped + searchable, by tier, **straight to the bag**); "My Potions" lists the in-memory potion inventory (template / tier / random bonus / value) and lets you retune tier or random bonus. **Requires the bundled upk (exec bit)** |
 | **Growth** | Read / write / lock stamina, shield, attack, magic, level, skill points, HP, max HP; mastery upgrade |
 | **Discovery Mode** | General-purpose memory-scan workbench (first scan / filter / snapshot / diff / test write) for advanced troubleshooting |
 | **Save Switch** | Detects a save swap and rebinds automatically |

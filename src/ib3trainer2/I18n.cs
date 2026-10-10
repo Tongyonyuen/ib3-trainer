@@ -35,7 +35,7 @@ namespace Ib3Trainer2 {
 
 static class BuildInfo {
   // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
-  public const string Version = "v1.1.9 · 2026-10-10";
+  public const string Version = "v1.1.10 · 2026-10-10";
 
   // ② 机器可比的版本三元组：**发版时必须与 git tag 严格一致**（三处一起改）。
   //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
@@ -46,12 +46,15 @@ static class BuildInfo {
   //    选「跳过此版本」才能停。
   //    v1.1.1 就漏改过一次（那份 exe 自称 1.1.0，而 tag 是 v1.1.1）。发版前请核对三处：
   //      git tag  ==  Version 串里的版本号  ==  Major.Minor.Patch
-  public const int Major = 1, Minor = 1, Patch = 9;
+  public const int Major = 1, Minor = 1, Patch = 10;
 
   // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
   //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；
   //    更新器看到远端 DATA_REV 更大就**不自动替换**，改为打开下载页。
-  public const int DataRev = 1;
+  //    v1.1.10：随包数据变了 —— ① SwordGame.upk 换成带 `getfixedpotion` exec 位的版本
+  //   （魔法剂发放靠它，旧 upk 下该命令不存在）；② **新增 ib3_potions.csv**（魔法剂模板表，90 条）。
+  //   所以 DataRev 1 → 2，发布说明里要写 `DATA_REV: 2`。
+  public const int DataRev = 2;
 
   public static string SemVer { get { return Major + "." + Minor + "." + Patch; } }
 }
