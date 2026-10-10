@@ -937,7 +937,7 @@ DualGem_7,宝石,双武器专属宝石,突刺回血宝石,,Stab Heal Gem
 DualGem_8,宝石,双武器专属宝石,突刺反伤宝石,,Stab Reflect Gem
 DualGemMagic,宝石,双武器专属宝石,闪避魔法蓄力宝石,,Dodge Magic Charge Gem
 UberDodgeChargeGem,宝石,双武器专属宝石,闪避攻击蓄力宝石,,Dodge Attack Charge Gem
-TYPE_22,消耗品,药水,水攻击魔法药水,消耗品类型22,Water Attack Magic Potion
+TYPE_22,收集品,抽奖箱,抽奖箱（小）,消耗品类型22,Small Lottery Box
 TYPE_30,消耗品,药水,(80个·待认领),消耗品类型30,Unknown (type 30)
 TYPE_11,收集品,钥匙,小钥匙,消耗品类型11,Small Key
 TYPE_12,收集品,钥匙,中钥匙,消耗品类型12,Medium Key
