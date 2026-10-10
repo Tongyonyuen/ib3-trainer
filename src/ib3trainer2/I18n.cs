@@ -432,32 +432,59 @@ static class I18n {
     d["读不到配置"] = "cannot read config";
 
     // ---- 魔法剂页 ----
-    // ★ 这一页的文案**常量定义在 Tabs.Potions.cs**（`MainForm.T_*` / `HintA/B` / `NotesText`），
+    // ★ 这一页的文案**常量定义在 Tabs.Potions.cs**（`MainForm.T_*`），
     //   这里直接拿常量当字典键 —— 免得中文原文要在两个文件里各抄一遍、抄错就对不上（T() 会静默回退中文）。
     d[MainForm.T_Tab] = "Potions";
+    d[MainForm.T_TplMode] = "Templates";
+    d[MainForm.T_MineMode] = "My Potions";
+    d[MainForm.T_AllGroups] = "All groups";
+    d[MainForm.T_SearchCue] = "Search name / CN name / effect";
+    d[MainForm.T_Summary] = "Effect";
+    d[MainForm.T_TierTable] = "Tier Table";
+    d[MainForm.T_RandPct] = "Random Bonus";
+    d[MainForm.T_EmptySlot] = "(used/empty)";
     d[MainForm.T_GrantTitle] = "Grant potion (by name, straight to the bag)";
+    d[MainForm.T_EditTitle] = "Edit my potions (switch a scene in-game to save)";
     d[MainForm.T_Template] = "Template";
     d[MainForm.T_Tier] = "Tier";
     d[MainForm.T_Grant] = "Grant";
-    d[MainForm.T_Pick] = "Pick a template first";
+    d[MainForm.T_Pick] = "Pick a template in the list first";
     d[MainForm.T_GrantDesc] = "Grant potion ";
-    d[MainForm.T_AboutTitle] = "About potions (measured facts)";
-    d[MainForm.HintA] =
-      "Only templates that CAN be granted as potions are listed (the 90 with PotionType). Others are silently ignored by the game.";
-    d[MainForm.HintB] =
-      "Tier 0 = template base value; 1+ uses the tier table. Switch a scene in-game to save; see the potion list in your bag.";
-    d[MainForm.NotesText] =
-      "① Elemental attack potions = an elemental gem forced into potion form. FireGem shows up as \"FIRE ATTACK POTION\";\n" +
-      "     value = tier-table value x(1+random bonus) x10. Tier 1 -> 5x1x10 = 50; tier 5 -> 200x1x10 = 2000.\n" +
-      "② Only 3 templates have the per-second repeat (a potion-only mechanic): Health Regen 1.0s / Shield Regen 2.5s /\n" +
-      "     Unlimited Dodge 0.5s. Gems have no such mechanic - they only fire on events (parry / block / dodge).\n" +
-      "③ Every other potion is just a gem effect in potion form, trigger included. e.g. ParryGem_1 (heal 25 on parry)\n" +
-      "     drunk as a potion = heal 25 on every parry for that battle.\n" +
-      "④ The icon comes from the template's PotionType (4 vial looks); it affects neither the effect nor the value.\n" +
-      "⑤ The potion list has a capacity (MaxPotionCount, default 10, raised by perks; measured 30 here).\n" +
-      "     When it is full, granting fails silently too - use a few potions in battle first.\n" +
-      "⑥ Uber elemental gems (UberFireGem / UberAttackGem ...) have NO PotionType and cannot be granted,\n" +
-      "     which is why they are not in the dropdown.";
+    d[MainForm.T_TplHint] = "Pick a template (narrow with group + search), set the tier, then click Grant";
+    d[MainForm.T_ReadList] = "Reading potion list";
+    d[MainForm.T_HintTpl1] =
+      "Lists only templates that CAN be granted as potions (the 90 with PotionType) - others are silently " +
+      "ignored by the game. Tier 0 = base value; 1+ uses the tier table.";
+    d[MainForm.T_HintTpl2] =
+      "The potion list has a capacity (default 10, raised by perks; 30 here) - when full, granting fails " +
+      "silently too. Grant = silent injection of getfixedpotion <name> <tier>; switch a scene in-game to save.";
+    d[MainForm.T_HintMine1] =
+      "\"My Potions\" = the InActivePotionList entries (same record layout as gems). It is located by probing " +
+      "fixed offsets from the real player body and claimed by matching the save entry by entry; if that fails " +
+      "we refuse instead of writing blindly.";
+    d[MainForm.T_HintMine2] =
+      "Value = tier-table value x(1+random bonus) x10. The UI updates instantly; switch a scene in-game to save, " +
+      "and do not open the bag meanwhile (it reloads the array and drops the change).";
+    // 分组名（下拉自绘时过 T() 翻；PotionDb.GroupName 返回的就是这些中文原文）
+    d["药剂专属（按秒）"] = "Potion-only (per second)";
+    d["专用药剂"] = "Special potions";
+    d["元素与基础族"] = "Elemental & basic";
+    d["其它特效宝石"] = "Other effect gems";
+    // 本页运行时提示
+    d["先在列表里选中一条药剂"] = "Select a potion in the list first";
+    d["请先填目标值"] = "Enter a target value first";
+    d["档位必须是整数"] = "Tier must be an integer";
+    d["档位必须在 0 ~ 255（GemTier 是单字节字段）"] = "Tier must be 0-255 (GemTier is one byte)";
+    d["随机加成请输入数字（0~1 的小数，或 25%）"] = "Random bonus must be a number (0-1, or 25%)";
+    d["随机加成请给 0 ~ 1 之间（0.25 = +25%）；过大会被游戏钳制 / 显示异常"] =
+      "Random bonus must be 0-1 (0.25 = +25%); larger values get clamped / misdisplayed";
+    d["正在读取药剂清单，请等它结束再点「应用」"] = "Reading the potion list - wait for it to finish before Apply";
+    d["选中的那条在活数组里找不到了——请重新读取药剂清单"] =
+      "The selected entry is gone from the live array - re-read the potion list";
+    d["这一条是已饮用的空记录（GemName=None），没有可改的药剂"] =
+      "This entry is a consumed slot (GemName=None) - nothing to edit";
+    d["写入失败："] = "Write failed: ";
+    d["　★ 界面会立刻变；存进存档请切一次场景"] = "  * UI updates instantly; switch a scene in-game to save";
     d["浏览器立即可用；发放按钮 = 无感注入（点即入包）。路由：宝石→刷商店；材料/药水→消耗品；藏宝图→钥匙；装备→未拥有才发。"] =
       "Browser is instant; grant buttons inject silently. Routing: gems→shop; materials/potions→consumables; maps→keys; gear→only if not owned.";
     d["附着游戏后金币/筹码会按真身结构自动绑定（跨存档自愈）；也可手动输入当前值扫描定位。"] =
