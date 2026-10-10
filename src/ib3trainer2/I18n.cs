@@ -35,7 +35,7 @@ namespace Ib3Trainer2 {
 
 static class BuildInfo {
   // ① 显示串：只给人看（「关于」弹窗 AboutForm.cs:42）。**不参与版本比较**，可以是任意形式。
-  public const string Version = "v1.1.8 · 2026-10-09";
+  public const string Version = "v1.1.9 · 2026-10-10";
 
   // ② 机器可比的版本三元组：**发版时必须与 git tag 严格一致**（三处一起改）。
   //    自动更新靠它比对远端 tag —— 见 Updater.TryParseTag / Updater.IsNewer。
@@ -46,7 +46,7 @@ static class BuildInfo {
   //    选「跳过此版本」才能停。
   //    v1.1.1 就漏改过一次（那份 exe 自称 1.1.0，而 tag 是 v1.1.1）。发版前请核对三处：
   //      git tag  ==  Version 串里的版本号  ==  Major.Minor.Patch
-  public const int Major = 1, Minor = 1, Patch = 8;
+  public const int Major = 1, Minor = 1, Patch = 9;
 
   // ③ 随包数据文件的修订号（items.csv / ib3_gems.ini / SwordGame.upk / image\）。
   //    自动更新只换 exe ⇒ 数据文件变了就把这里 +1，并在 Release 说明里写一行 `DATA_REV: <n>`；
@@ -235,7 +235,7 @@ static class I18n {
     d["金币 / 筹码（唯一命中才自动采用）"] = "Gold / Chips (auto-bind on unique match)";
     d["属性四维（临时值：重启/读档会被游戏重算）"] = "Stats (temp: recomputed on reload)";
     d["等级 / 技能点 / 生命"] = "Level / Skill Points / HP";
-    d["战斗（无感注入：点按钮直接执行，零窗口变化）"] = "Combat (silent injection, no window change)";
+    d["战斗（无感注入 / 配置文件改写）"] = "Combat (silent injection / config rewrite)";
     d["商店 / 战斗触发（无感注入）"] = "Shop / Battle Triggers (silent injection)";
     d["发放（无感注入：点击即生效，零窗口变化）"] = "Grant (silent injection, instant effect)";
     d["掌握升阶（无感注入 · 实测可用）"] = "Mastery Upgrade (verified)";
@@ -401,12 +401,35 @@ static class I18n {
       "Enter current value → Locate; change it in-game, enter new → Locate.";
     d["流程: 快照 → 游戏内做动作/打探针 → 变化 → 1.5s稳定化。"] =
       "Flow: snapshot → act in-game → Changed → stabilize 1.5s.";
-    d["无敌=enablecheats+god（管理器自动定位）；击杀Boss仅战斗中有效。"] =
-      "God = enablecheats+god (auto-located); Kill Boss works in battle only.";
+    d["无敌=enablecheats+god（管理器自动定位）；击杀Boss仅战斗中有效。全招架宝石＝改写配置文件（用户侧+游戏侧两份），改完须重启游戏。"] =
+      "God = enablecheats+god (auto-located); Kill Boss works in battle only. Parry-All Gem rewrites two config files — restart the game after.";
     d["命令经无感注入执行；条件不满足时游戏会静默忽略（日志显示成功/失败）。"] =
       "Runs via silent injection; silently ignored if conditions fail (see log).";
     d["龙战/收藏家为置位式触发：在下一场符合条件的战斗中生效，受地形与原敌人类型影响。"] =
       "Triggers arm the next eligible battle; terrain and enemy type still apply.";
+
+    // ---- 战斗页：全招架宝石（改写配置文件）----
+    // ⚠ 按钮只有 150px、状态标签 252px（中英共用几何，见本文件头）⇒ 英文务必短。
+    d["全招架宝石 开/关"] = "Parry-All Gem on/off";
+    d["当前：已开启（重启游戏后生效）"] = "Now: ON (restart needed)";
+    d["当前：已开启（游戏默认配置未同步）"] = "Now: ON (default ini not synced)";
+    d["当前：已关闭"] = "Now: OFF";
+    d["当前：读不到 —— "] = "Now: unreadable — ";
+    d["全招架宝石已改为 IB2 完全招架效果 —— 重启游戏后生效"] =
+      "Parry-All Gem -> IB2 perfect-parry — restart the game";
+    d["全招架宝石已还原为原版效果 —— 重启游戏后生效"] =
+      "Parry-All Gem -> reverted to vanilla — restart the game";
+    d["全招架宝石改写失败："] = "Parry-All Gem rewrite failed: ";
+    d["游戏正在运行 —— 请先完全关闭 IB3.exe 再改配置（改完要重启游戏才生效）"] =
+      "Game is running — close IB3.exe first (a restart is needed anyway)";
+    d["尚未设置游戏目录 —— 请先点「游戏目录…」选择启动器所在文件夹"] =
+      "Game folder not set — click \"Game Folder…\" first";
+    // 状态串里拼接的"读不到"原因（ParryGem.StateText 的返回值，逐条进字典）
+    d["效果被改成其它值"] = "effect set to another value";
+    d["配置文件不存在"] = "config file missing";
+    d["配置里没有该宝石段"] = "gem section not in config";
+    d["配置里没有该键"] = "key not in config";
+    d["读不到配置"] = "cannot read config";
     d["浏览器立即可用；发放按钮 = 无感注入（点即入包）。路由：宝石→刷商店；材料/药水→消耗品；藏宝图→钥匙；装备→未拥有才发。"] =
       "Browser is instant; grant buttons inject silently. Routing: gems→shop; materials/potions→consumables; maps→keys; gear→only if not owned.";
     d["附着游戏后金币/筹码会按真身结构自动绑定（跨存档自愈）；也可手动输入当前值扫描定位。"] =

@@ -76,6 +76,88 @@ partial class MainForm {
     return v;
   }
 
+  // ==========================================================================
+  // 全招架宝石：改写配置文件（本页唯一**不碰内存、不发控制台命令**的功能）
+  //
+  // 它改的是两颗宝石模板的 ini 段落里的一个键（[GreatParryAllGem] 的 BattleEffect）：
+  //   原版 BE_VarAdd_GreatParryAll  ⇒ 只在高水平招架以上才判定成功
+  //   改为 BE_Time_ParryAllAttacks  ⇒ IB2「完全招架宝石」的效果，普通招架即可
+  // 落地的读写逻辑全在 GameConfig.cs（段落级、字节级定点替换，绝不全局替换）。
+  //
+  // ★ 必须写**两份**：用户侧 SwordGems.ini 与游戏侧 DefaultGems.ini，且两份的路径
+  //   都要显示出来 —— 本机有两份安装，"改了哪一份"曾经搞错过一次。
+  // ★ 生效判据是**用户侧优先**（见 ParryGem.EffectiveState）：实测只改用户侧就已生效，
+  //   游戏侧那份至今还是原版值。
+  // ==========================================================================
+  Label lblParryState;
+
+  void ToggleParryGem() {
+    // 硬闸：配置在游戏启动时只读一次，运行中改写不会生效 —— 直接拒绝，不给"强制"通道。
+    // （照 Tabs.Save.cs 的 ApplyImport 范式）
+    if (Launcher.FindGame() != null) {
+      ToastMgr.Warn(I18n.T("游戏正在运行 —— 请先完全关闭 IB3.exe 再改配置（改完要重启游戏才生效）"));
+      Log("全招架宝石改写被拒绝：检测到 IB3 进程仍在运行。配置在游戏启动时读取一次，运行中改写不会生效。");
+      return;
+    }
+    if (Launcher.GameRoot == null) {
+      ToastMgr.Warn(I18n.T("尚未设置游戏目录 —— 请先点「游戏目录…」选择启动器所在文件夹"));
+      return;
+    }
+    string userPath = GameConfig.UserGemsPath();
+    string defPath = GameConfig.DefaultGemsPath(Launcher.GameRoot);
+
+    // 一个按钮双向开关：按"当前生效态"取反
+    string uv, ue, dv, de; int us, ds;
+    int st = ParryGem.EffectiveState(userPath, defPath,
+                                     out uv, out us, out ue, out dv, out ds, out de);
+    bool want = (st != ParryGem.ST_ON);
+
+    // 两个 55KB 文件的读写是毫秒级 ⇒ 同步执行（也免去跨线程刷 UI）
+    string detail;
+    string err = ParryGem.Apply(want, userPath, defPath, out detail);
+    if (err != null) {
+      ToastMgr.Warn(I18n.T("全招架宝石改写失败：") + err);
+      Log("全招架宝石改写失败：" + err + " ｜ " + detail);
+    } else {
+      ToastMgr.Show(want
+        ? I18n.T("全招架宝石已改为 IB2 完全招架效果 —— 重启游戏后生效")
+        : I18n.T("全招架宝石已还原为原版效果 —— 重启游戏后生效"));
+      Log("全招架宝石 → " + (want ? "开启" : "关闭") + "：" + detail);
+    }
+    RefreshParryGemStatus();
+  }
+
+  void RefreshParryGemStatus() {
+    // 状态串是拼出来的（含状态与说明），整串进不了字典 ⇒ 登记重画函数，
+    // 切换语言时由它自己按新语言重拼。★ 直接改 .Text 的标签会被 Retranslate 的
+    // "别人改过就不碰"护栏跳过（I18n.cs:109）—— 那正是这里必须用 OnLang 的原因。
+    I18n.OnLang("combat.parrygem", delegate { RenderParryGemStatus(); });
+    RenderParryGemStatus();
+  }
+
+  void RenderParryGemStatus() {
+    if (lblParryState == null) return;
+    string defPath = GameConfig.DefaultGemsPath(Launcher.GameRoot);
+    string uv, ue, dv, de; int us, ds;
+    int st = ParryGem.EffectiveState(GameConfig.UserGemsPath(), defPath,
+                                     out uv, out us, out ue, out dv, out ds, out de);
+    string text; System.Drawing.Color fore = Theme.TextDim;
+    if (st == ParryGem.ST_ON) {
+      // 用户侧开、游戏侧没同步 —— 功能上已生效（用户侧优先），但要把"两份不一致"说出来
+      text = (us == ParryGem.ST_ON && ds != ParryGem.ST_ON)
+             ? I18n.T("当前：已开启（游戏默认配置未同步）")
+             : I18n.T("当前：已开启（重启游戏后生效）");
+      fore = Theme.Ok;
+    } else if (st == ParryGem.ST_OFF) {
+      text = I18n.T("当前：已关闭");
+    } else {
+      text = I18n.T("当前：读不到 —— ") + I18n.T(ParryGem.StateText(st));
+      fore = Theme.Warn;
+    }
+    lblParryState.Text = text;
+    lblParryState.ForeColor = fore;
+  }
+
   TabPage BuildTabCombat() {
     TabPage p = new TabPage("战斗·商店");
     p.BackColor = Theme.BG;
@@ -83,7 +165,7 @@ partial class MainForm {
 
     // ---- 战斗（横向排布）----
     FlatGroupBox b1 = new FlatGroupBox();
-    b1.Title = "战斗（无感注入：点按钮直接执行，零窗口变化）";
+    b1.Title = "战斗（无感注入 / 配置文件改写）";
     b1.SetBounds(8, 8, 810, 122);
     b1.Fill = Theme.CardGold;   // 首页主区块：暗金色（与其他区块不重复）
     b1.Controls.Add(Theme.MkButton("无敌 开/关", 16, 34, 104, 30, delegate {
@@ -123,7 +205,13 @@ partial class MainForm {
     b1.Controls.Add(Theme.MkButton("击杀当前 Boss", 258, 34, 116, 30, delegate {
       InjectCmd("killboss", I18n.T("击杀当前 Boss"));
     }));
-    b1.Controls.Add(Theme.MkHint("无敌=enablecheats+god（管理器自动定位）；击杀Boss仅战斗中有效。", 16, 74, 780));
+    // 全招架宝石：本页唯一改**配置文件**（不是内存）的功能。塞在第 1 行的空白右半 ——
+    // 战斗页纵向只剩 ~8px，放不下第 4 张卡（见 docs/使用说明.md）。
+    b1.Controls.Add(Theme.MkButton("全招架宝石 开/关", 390, 34, 150, 30, delegate { ToggleParryGem(); }));
+    lblParryState = Theme.MkLabel("", 548, 40, 252);
+    lblParryState.AutoSize = false;      // 状态串会变长，不关会撑出卡片
+    b1.Controls.Add(lblParryState);
+    b1.Controls.Add(Theme.MkHint("无敌=enablecheats+god（管理器自动定位）；击杀Boss仅战斗中有效。全招架宝石＝改写配置文件（用户侧+游戏侧两份），改完须重启游戏。", 16, 74, 780));
     p.Controls.Add(b1);
 
     // ---- 金币 / 筹码 ----
@@ -266,6 +354,8 @@ partial class MainForm {
     b3.Controls.Add(Theme.MkHint("「起始武器索引」＝每次触发都从这里开始（0＝列表第一件，1/2/3…依次往后）；「设置当前敌人等级」「清零收藏家进度」见说明。", 172, 74, 632));
     b3.Controls.Add(Theme.MkHint("触发后是**下次进图**时生效：全图刷怪点里随机挑一个强制成他（其余点照常刷，所以出现位置随机）；等级＝原版表（50…15000）。", 14, 106, 790));
     p.Controls.Add(b3);
+
+    RefreshParryGemStatus();   // 进入页签即按两份文件的真实现状刷出状态（本功能无持久化状态）
     return p;
   }
 }

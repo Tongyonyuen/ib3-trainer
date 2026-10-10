@@ -671,11 +671,8 @@ partial class MainForm {
 
   // ================= 路径 =================
   // 真档目录：<文档>\My Games\Infinity Blade III\SwordGame\Cloud
-  string CloudDir() {
-    string doc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-    return Path.Combine(Path.Combine(Path.Combine(Path.Combine(doc, "My Games"),
-                            "Infinity Blade III"), "SwordGame"), "Cloud");
-  }
+  // 2026-10-10 起委托给 GameConfig（那套路径拼法现在两个功能共用，别再各写一份）。
+  string CloudDir() { return GameConfig.CloudDir(); }
 
   static string DefaultBackupRoot() {
     try { if (Directory.Exists(@"E:\ib3_re\_tmp")) return @"E:\ib3_re\_tmp\"; } catch { }

@@ -4,11 +4,12 @@
 #       sh build.sh test       — 仅编译并运行引擎自检 enginetest2.exe
 #       sh build.sh gemtest    — 宝石定位自检（跑的是 Tabs.Gems.cs 里的真代码，只读）
 #       sh build.sh updatetest — 更新器离线夹具自测（不联网、不发 release）
+#       sh build.sh cfgtest    — 配置文件改写离线自测（夹具写在临时目录，不碰真实游戏目录）
 #       sh build.sh probe      — 只读地址探针 addrprobe.exe
 set -e
 cd "$(dirname "$0")"
 CSC="C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe"
-SRC="Ib3Core.cs MemIO.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs GemDb.cs Launcher.cs Recipes.cs EngineCall.cs Ib3Trainer2.cs Tabs.Scan.cs Tabs.Combat.cs Tabs.Items.cs Tabs.Growth.cs Tabs.Gems.cs Tabs.Misc.cs Tabs.Save.cs BusyOverlay.cs AboutForm.cs WhatsNewForm.cs Update.cs UpdateForm.cs"
+SRC="Ib3Core.cs MemIO.cs GameConfig.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs GemDb.cs Launcher.cs Recipes.cs EngineCall.cs Ib3Trainer2.cs Tabs.Scan.cs Tabs.Combat.cs Tabs.Items.cs Tabs.Growth.cs Tabs.Gems.cs Tabs.Misc.cs Tabs.Save.cs BusyOverlay.cs AboutForm.cs WhatsNewForm.cs Update.cs UpdateForm.cs"
 
 # ★ 新增 .cs 必须手工加进上面的 SRC（这里是写死的 csc 调用，没有 MSBuild 的 glob）。
 #   UpdateSelfTest.cs **故意不在 SRC 里** —— 它自带 Main，只在 updatetest 目标里编。
@@ -36,6 +37,12 @@ elif [ "$1" = "updatetest" ]; then
   # MainForm / Theme，正是因为 Update.cs 被写成了纯逻辑（见其文件头注释）。
   "$CSC" -target:exe -main:Ib3Trainer2.UpdateSelfTest -codepage:65001 -r:System.Windows.Forms.dll -out:updatetest.exe I18n.cs Update.cs UpdateSelfTest.cs
   ./updatetest.exe
+elif [ "$1" = "cfgtest" ]; then
+  # 配置文件改写离线自测：夹具全内联（写在系统临时目录），**不碰真实游戏目录**。
+  # 只编 GameConfig.cs（要纯净：不含 WinForms/I18n/Launcher 依赖）+ 自测本体 ——
+  # 这条链路能单独编出来，本身就是"底座可复用"的回归证明。
+  "$CSC" -target:exe -main:Ib3Trainer2.ConfigSelfTest -codepage:65001 -out:cfgtest.exe GameConfig.cs ConfigSelfTest.cs
+  ./cfgtest.exe
 elif [ "$1" = "probe" ]; then
   # 只读地址探针：验证「四项属性 = 真身 + 固定偏移」。不写目标进程内存。
   "$CSC" -target:exe -main:Ib3Trainer2.AddrProbe -codepage:65001 -out:addrprobe.exe Ib3Core.cs MemIO.cs AddrProbe.cs
