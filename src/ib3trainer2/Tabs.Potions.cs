@@ -107,7 +107,9 @@ partial class MainForm {
     g2.Controls.Add(notes);
     p.Controls.Add(g2);
 
-    RefreshPotionCombo();
+    // ⚠ 这里**不能**填下拉：页签是在数据加载之前建的（Ib3Trainer2.cs 的 TabPages.Add 顺序）。
+    //   实际填充在 `Potions.Load(ExeDir)` 之后由 `RefreshPotionCombo()` 完成 —— 首次实测就是
+    //   在这里填的，结果下拉全空。
     return p;
   }
 
@@ -115,7 +117,12 @@ partial class MainForm {
     if (cboPotion == null) return;
     cboPotion.Items.Clear();
     for (int i = 0; i < Potions.Rows.Count; i++) cboPotion.Items.Add(Potions.Rows[i].Label());
-    if (cboPotion.Items.Count > 0) cboPotion.SelectedIndex = 0;
+    if (cboPotion.Items.Count > 0) { cboPotion.SelectedIndex = 0; }
+    else if (lblPotionInfo != null) {
+      // 空表要说明白原因，不要留个静默的空下拉
+      lblPotionInfo.Text = "⚠ 没读到 ib3_potions.csv —— 该文件必须与 IB3训练器2.exe 放在同一目录。";
+      lblPotionInfo.ForeColor = Theme.Warn;
+    }
   }
 
   PotionRow SelectedPotion() {

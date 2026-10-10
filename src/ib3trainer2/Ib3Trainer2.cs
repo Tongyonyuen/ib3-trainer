@@ -140,6 +140,9 @@ partial class MainForm : Form {
     cboCat.Items.Clear();
     cboCat.Items.AddRange(Items.Categories().ToArray());
     if (cboCat.Items.Count > 0) cboCat.SelectedIndex = 0;
+    // ★ 魔法剂下拉也必须在这里填：页签是在数据加载**之前**建的（见上面 TabPages.Add 的顺序），
+    //   在 BuildTabPotions() 里填会拿到空表 —— 首次实测就踩到了（下拉空）。
+    RefreshPotionCombo();
     RebuildSubs();
     ApplyItemFilter();
     SyncDockFromBook();
