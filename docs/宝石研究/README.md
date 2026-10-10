@@ -466,6 +466,7 @@ FName 索引贴成两个不同名字。已把两道闸写进 `LocateBySaveSequen
 | `01_数值公式与融合机制.md` | 公式推导全过程、实测数据、跨端判定、存档直改的哈希破译记录 |
 | `03_存档迁移.md` | **2026-10-07 新增**：`Cloud\` 读档路径实测证实、`LocalFileHeaderCache` 完整格式、`_CurrentSlot`/`CloudDocIndex` 语义、迁移配方 |
 | `02_宝石发放链路（商店路线）.md` | 按名刷店命令、控制台注入方法、宝石发放矩阵、手术墙结论 |
+| `04_药水（魔法剂）体系与发放.md` | **2026-10-10 新增**：两族「药水」的区分（A 族=宝石类的 `Potion_*` 魔法剂 / B 族=`SwordInventoryItemPotion`）、`PlayerGemData` 六字段布局、坩埚硬编码配方、`eTouchRewardActor` 全表、发放途径对比 |
 | `参考资料/官方宝石模板_DefaultGems.ini.orig` | **官方原始宝石模板表**（改 ini 前的基线；只读它判断"哪些模板是官方有的"） |
 | `参考资料/刷店函数字节码_SetPlayerCreateNewListOfStoreGems.txt` | 刷店函数反汇编（`bCheatHighEndGems` 只影响 tier 的证据在此） |
 | `参考资料/刷店函数符号表.txt` | 同上函数的符号/字段表 |
