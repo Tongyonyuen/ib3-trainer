@@ -31,7 +31,7 @@
 
 | Tab | What it does |
 |---|---|
-| **Combat · Store** | God mode toggle, fill super/magic meters, kill current boss (in combat), direct gold/chip write, refresh the store with a round of rare gems, trigger dragon fight / collector |
+| **Combat · Store** | God mode toggle, fill super/magic meters, kill current boss (in combat), **make the Parry-All gem work on a normal parry** (rewrites a config file, restart required), direct gold/chip write, refresh the store with a round of rare gems, trigger dragon fight / collector |
 | **Item Grant** | Browse every item by category; grants through the correct channel per type — equipment/treasure maps straight to inventory, gems into the portable store, materials/potions/keys/grab-bags as stack counts |
 | **Gems · Inventory** | Lists every gem in the inventory and portable store (template / tier / fused flag / random bonus / displayed value / address); retarget to a displayed value or a tier |
 | **Growth** | Read / write / lock stamina, shield, attack, magic, level, skill points, HP, max HP; mastery upgrade |
