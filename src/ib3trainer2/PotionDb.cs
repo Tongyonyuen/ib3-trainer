@@ -82,6 +82,19 @@ class PotionDb {
 
   public int MaxTier(PotionRow r) { return r.TierVals == null ? 0 : r.TierVals.Length; }
 
+  // 各档的**显示数值**（pct=0），用于表格展示。
+  // ★ 必须换算：原始档位表要 ×10 才是游戏里看到的值 —— 直接显示原始表会被读成"档位 5 = 200"
+  //   （实测作者就这么误读过一次，游戏里实际是 2000）。
+  public string TierValueText(PotionRow r) {
+    if (r.TierVals == null || r.TierVals.Length == 0) return "—";
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < r.TierVals.Length; i++) {
+      if (i > 0) sb.Append(" / ");
+      sb.Append((r.TierVals[i] * 10L).ToString("N0"));
+    }
+    return sb.ToString();
+  }
+
   // 按档位换算显示数值（pct = RandomAddPct；getfixedpotion 发出来的是 0）
   public long ValueAt(PotionRow r, int tier, double pct) {
     if (r.TierVals == null || r.TierVals.Length == 0) return 0;

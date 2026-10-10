@@ -440,7 +440,9 @@ static class I18n {
     d[MainForm.T_AllGroups] = "All groups";
     d[MainForm.T_SearchCue] = "Search name / CN name / effect";
     d[MainForm.T_Summary] = "Effect";
-    d[MainForm.T_TierTable] = "Tier Table";
+    // 这一列放的是**换算后的显示数值**（原始档位表 ×10 才是游戏里看到的值）⇒ 英文也别叫 Tier Table
+    d[MainForm.T_TierTable] = "Values by tier";
+    d[MainForm.T_ColValue] = "Display Value";
     d[MainForm.T_RandPct] = "Random Bonus";
     d[MainForm.T_EmptySlot] = "(used/empty)";
     d[MainForm.T_GrantTitle] = "Grant potion (by name, straight to the bag)";

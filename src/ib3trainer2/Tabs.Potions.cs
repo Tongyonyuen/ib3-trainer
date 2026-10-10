@@ -73,7 +73,10 @@ partial class MainForm {
   public const string T_AllGroups = "全部分组";
   public const string T_SearchCue = "搜索模板 / 中文名 / 效果";
   public const string T_Summary = "效果摘要";
-  public const string T_TierTable = "档位表";
+  // 这一列放的是**换算后的显示数值**（原始档位表要 ×10 才是游戏里看到的值），
+  // 标题写「各档显示值」而不是「档位表」，免得被当成原始档位读（实测被误读过一次）。
+  public const string T_TierTable = "各档显示值";
+  public const string T_ColValue = "当前显示值";
   public const string T_RandPct = "随机加成";
   public const string T_EmptySlot = "（已饮用/空）";
   public const string T_GrantTitle = "发放魔法剂（按名直接入袋，不需要买）";
@@ -220,17 +223,22 @@ partial class MainForm {
     //   运行期改列宽不加进 _design，就会在下次布局时被覆盖回去。所以两套列共用同一组宽度。
     if (lvPotion != null) {
       lvPotion.BeginUpdate();
-      lvPotion.Columns.Clear();
-      if (templateMode) {
+      // ★★ 列**只建一次**，切模式只改列文字、**绝不 Clear()+Add()**。
+      //   DarkListView 的 `HDF_OWNERDRAW` 只在 OnHandleCreated 时按"当时的列数"打一遍标记
+      //   （Theme.cs:324-335）。运行期重建出来的新列拿不到标记，系统就用**默认白底**画它的标题行
+      //   —— 实测就是这个现象（表格最右列标题行发白）。改文字不影响标记。
+      if (lvPotion.Columns.Count == 0) {
         lvPotion.Columns.Add("模板名", 200);
         lvPotion.Columns.Add("中文名", 150);
         lvPotion.Columns.Add(T_Summary, 240);
         lvPotion.Columns.Add(T_TierTable, 198);
-      } else {
-        lvPotion.Columns.Add("模板名", 200);
-        lvPotion.Columns.Add(T_Tier, 150);
-        lvPotion.Columns.Add(T_RandPct, 240);
-        lvPotion.Columns.Add("当前显示值", 198);
+      }
+      // 列宽两模式共用同一组（见下面 Layout 的说明），这里只换文字
+      string[] heads = templateMode
+        ? new string[] { "模板名", "中文名", T_Summary, T_TierTable }
+        : new string[] { "模板名", T_Tier, T_RandPct, T_ColValue };
+      for (int i = 0; i < heads.Length && i < lvPotion.Columns.Count; i++) {
+        lvPotion.Columns[i].Text = heads[i];      // 标题绘制时会过 I18n.T，这里存中文原文
       }
       lvPotion.Items.Clear();
       lvPotion.EndUpdate();
@@ -315,7 +323,7 @@ partial class MainForm {
       ListViewItem it = new ListViewItem(r.Tpl);           // 数据列：不翻（与「物品发放」页一致）
       it.SubItems.Add(r.Cn);
       it.SubItems.Add(r.Summary);
-      it.SubItems.Add(r.Tiers.Length > 0 ? r.Tiers : "—");
+      it.SubItems.Add(Potions.TierValueText(r));    // 换算后的各档显示值（不是原始档位表）
       lvPotion.Items.Add(it);
     }
     lvPotion.EndUpdate();
@@ -329,6 +337,23 @@ partial class MainForm {
 
     long rb; string rbNote;
     if (!RealBodyOk(h, out rb, out rbNote)) { note = "真身没定位到：" + rbNote; return false; }
+
+    // ⓪ ★ 先试**上次命中的那个偏移**。
+    //   为什么需要这条快路：探测的判据是"与存档逐条吻合"，而我们**改过 pct/档位之后内存已经
+    //   和未落盘的存档不一致**了 —— 只走探测的话，用户每次改完想重新读都得先切场景落盘，
+    //   实测就是这么被卡的。TArray 的**头**在真身上的偏移是固定的（游戏重分配只改头里的
+    //   Data 指针），所以按记住的 k 重读头即可；再用内存快照 `SameGroup` 确认还是那一份。
+    if (potionOffsetK >= POT_K_FIRST && potionOffsetK <= POT_K_LAST
+        && potionRecs != null && potionRecs.Count > 0) {
+      int off0 = BODY_GEM_BAG_OFF + POT_ARR_STRIDE * potionOffsetK;
+      List<GemRec> g0; int c0; string e0;
+      if (ReadGemArray(h, rb + off0, out g0, out c0, out e0) && c0 > 0 && SameGroup(g0, potionRecs)) {
+        if (potionFp != null) NameByZip(g0, potionFp);      // 命中即按位对齐贴模板名
+        kHit = potionOffsetK; recs = g0; fp = potionFp; slotHit = -1;
+        Log("药水数组用上次命中的偏移 +0x" + off0.ToString("X") + " 重读（与内存快照一致，" + c0 + " 条）");
+        return true;
+      }
+    }
 
     // ① 存档侧取指纹：0/1/2 号槽里 InActivePotionList 非空的那些
     var sbSave = new StringBuilder();
