@@ -374,33 +374,78 @@ partial class MainForm {
       return false;
     }
 
-    // ② 逐个候选偏移探：rb + 0x1FEC + 16*k
+    // ② 先把所有候选偏移读一遍（每个只读一次），再统一匹配
     var sb = new StringBuilder();
+    var cands = new List<List<GemRec>>();
+    var candKs = new List<int>();
     for (int k = POT_K_FIRST; k <= POT_K_LAST; k++) {
       int off = BODY_GEM_BAG_OFF + POT_ARR_STRIDE * k;
-      long hdr = rb + off;
       List<GemRec> g; int c; string e;
-      if (!ReadGemArray(h, hdr, out g, out c, out e)) {
+      if (!ReadGemArray(h, rb + off, out g, out c, out e)) {
         sb.Append("[+0x").Append(off.ToString("X")).Append(" 读失败:").Append(e).Append("] ");
         continue;
       }
       if (c == 0) continue;                                  // 空数组，跳过（不当作命中）
-      for (int si = 0; si < slots.Count; si++) {
-        int s = slots[si];
-        string why;
-        if (ZipEquals(g, fps[s], out why)) {
-          NameByZip(g, fps[s]);                              // 命中即按位对齐贴模板名
-          recs = g; fp = fps[s]; kHit = k; slotHit = s;
-          Log("药水数组偏移 = +0x" + off.ToString("X") + "（真身+0x" + off.ToString("X") + "，k=" + k + "）" +
-              "｜与 " + s + " 号槽的 InActivePotionList 逐条吻合（" + g.Count + " 条）");
-          return true;
+      cands.Add(g); candKs.Add(k);
+    }
+
+    // ③ 两轮匹配：**先精确**（存档与内存一致），全不中再**宽松**
+    //    （存档落后于内存 —— 我们改过 pct/档位、而玩家还没切场景落盘，实测就卡在这）。
+    //    宽松只放宽 (Tier,Cook,Pct)，条数与空槽位置仍要严格一致，且不同条目数有上限。
+    for (int pass = 0; pass < 2; pass++) {
+      for (int ci = 0; ci < cands.Count; ci++) {
+        List<GemRec> g = cands[ci]; int k = candKs[ci];
+        for (int si = 0; si < slots.Count; si++) {
+          int s = slots[si];
+          string why;
+          bool hit = (pass == 0) ? ZipEquals(g, fps[s], out why) : PotZipLoose(g, fps[s], out why);
+          if (hit) {
+            NameByZip(g, fps[s]);                            // 命中即按位对齐贴模板名
+            recs = g; fp = fps[s]; kHit = k; slotHit = s;
+            int off = BODY_GEM_BAG_OFF + POT_ARR_STRIDE * k;
+            Log("药水数组偏移 = +0x" + off.ToString("X") + "（真身+0x" + off.ToString("X") + "，k=" + k + "）" +
+                "｜与 " + s + " 号槽的 InActivePotionList " + (pass == 0 ? "逐条吻合" : "宽松吻合") +
+                "（" + g.Count + " 条）" + (pass == 0 ? "" : "｜" + why));
+            return true;
+          }
+          if (pass == 0) sb.Append("[+0x").Append(offOf(k).ToString("X")).Append(" vs 槽").Append(s).Append(':').Append(why).Append("] ");
         }
-        sb.Append("[+0x").Append(off.ToString("X")).Append(" vs 槽").Append(s).Append(':').Append(why).Append("] ");
       }
     }
     note = "没找到 InActivePotionList 数组（试了 +0x200C…+0x20BC 共 " + (POT_K_LAST - POT_K_FIRST + 1) +
-           " 个候选偏移）—— 请先在游戏里切一次场景落盘再读（内存里那份要能被存档认领）。探测留痕：" + sb.ToString();
+           " 个候选偏移，精确与宽松都不中）—— 请先在游戏里切一次场景落盘再读。探测留痕：" + sb.ToString();
     return false;
+  }
+
+  int offOf(int k) { return BODY_GEM_BAG_OFF + POT_ARR_STRIDE * k; }
+
+  // 宽松匹配：存档**落后于内存**时用。只放宽 (Tier,Cook,Pct) 三项（我们只能改档位与随机加成），
+  // 条数与空槽位置仍严格一致，且"不同条目数"上限为 POT_LOOSE_MAX_DIFF —— 免得在 12 个候选里
+  // 挑错数组。命中原因写进 why，日志里会标明"宽松吻合"，提示用户这是弱证据。
+  const int POT_LOOSE_MAX_DIFF = 4;
+  static bool PotZipLoose(List<GemRec> g, List<SaveGem> sv, out string why) {
+    why = null;
+    int n = (g == null) ? 0 : g.Count, m = (sv == null) ? 0 : sv.Count;
+    if (n == 0) { why = "内存组为空"; return false; }
+    if (n != m) { why = "条数不符（内存 " + n + " vs 存档 " + m + "）"; return false; }
+    int diff = 0;
+    for (int i = 0; i < n; i++) {
+      bool memEmpty = g[i].NameIdx <= 0;
+      bool svEmpty = (sv[i].Name == null || sv[i].Name.Length == 0 || sv[i].Name == "None");
+      if (memEmpty != svEmpty) { why = "第" + i + "条空槽不对应"; return false; }
+      if (memEmpty) continue;
+      if (sv[i].Tier < 0 || sv[i].Cook < 0) { why = "存档第" + i + "条字段缺失"; return false; }
+      float d = g[i].Pct - sv[i].Pct;
+      if (d < 0) d = -d;
+      bool same = (g[i].Tier == sv[i].Tier) && (g[i].Cook == sv[i].Cook) && d < 0.002f;
+      if (!same) diff++;
+    }
+    if (diff > POT_LOOSE_MAX_DIFF) {
+      why = "与存档有 " + diff + " 条不同（超过容忍 " + POT_LOOSE_MAX_DIFF + " 条）";
+      return false;
+    }
+    why = "宽松命中：与存档有 " + diff + " 条不同（存档落后于内存，属正常——改动还没切场景落盘）";
+    return true;
   }
 
   void StartRefreshPotions() {
