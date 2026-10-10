@@ -1,0 +1,128 @@
+# 可发放为「魔法剂」的模板清单（带 PotionType）
+
+> 2026-10-10 实测确定。`getfixedpotion <模板名> [档位]` 能把模板造成**药剂形态**并直接入袋；
+> **能否成功 = 该模板是否定义了 `PotionType`**（`SwordInventoryItemGem.PotionType`）。
+> 依据：9 个无 PotionType 的模板（UberFireGem / UberAttackGem / UberMagicGem / UberElementalGemMax /
+> RainbowElementalAttackGem / UberIceGem / UberLightGem / UberGoldGem / UberXPGem）**全部失败**；
+> 5 个有 PotionType 的（FireGem / AttackGem / UberElementalAttackGem / UberBossGem_3 / UberSwitchClass）**全部成功**。
+
+数据源：`E:\Infinity Blade\Ⅲ\SwordGame\Config\DefaultGems.ini`（164 个模板中 90 个带 PotionType）
+
+## PotionType 1
+
+模板名                            BattleEffect                         BattleTrigger
+BlockChargeGem                 BE_PlayerGetDamageCharge=10          BT_OnBlock
+BlockGem_1                     BE_BossTakeDamage=10                 BT_OnBlock
+BlockGem_2                     BE_PlayerGetHealth=10                BT_OnBlock
+DarkGem                        —                                    —
+FinalHitGem_1                  BE_BossTakeDamage=50                 BT_OnSuperFinishHit
+FinalHitGem_2                  BE_PlayerGetHealth=100               BT_OnSuperFinishHit
+FinalHitGem_3                  BE_PlayerGetGold=75                  BT_OnSuperFinishHit
+FinalHitGem_4                  BE_PlayerGetXP=50                    BT_OnSuperFinishHit
+FinalHitGem_5                  BE_PlayerGetMagicCharge=0.02         BT_OnSuperFinishHit
+Gem3_2                         BE_PlayerElementalDefense            —
+Gem3_6                         BE_PlayerElementalDefense            —
+Gem3_7                         BE_PlayerElementalDefense            —
+HealthGem                      —                                    —
+IceGem                         —                                    —
+PerfectBlockGem_1              BE_BossTakeDamage=50                 BT_OnPerfectBlock
+PerfectBlockGem_2              BE_PlayerGetHealth=25                BT_OnPerfectBlock
+Potion_ElementalDefense        BE_PlayerElementalDefense=100        —
+Potion_HealthRegen             BE_PlayerGetHealth=10                —
+Potion_SecondChance            BE_VarAdd_SecondChanceCount=1        —
+UberBlockChargeGem             BE_PlayerGetDamageCharge=75          BT_OnBlock
+UberTakeHitGem_1               BE_PlayerSwitchWeaponClass           BT_OnHitByTitanAttack
+UberTakeHitGem_2               BE_PlayerGetMagicCharge=0.02         BT_OnHitByTitanAttack
+UberTakeHitGem_3               BE_PlayerGetSuperCharge=0.02         BT_OnHitByTitanAttack
+WaterGem                       —                                    —
+
+## PotionType 2
+
+模板名                            BattleEffect                         BattleTrigger
+DodgeChargeGem                 BE_PlayerGetDamageCharge=10          BT_OnDodge
+DragonFightGem_1               BE_VarAdd_DragonFightLengthBonus=5   BT_Passive
+DualGem_1                      BE_PlayerGetXP=10                    BT_OnParry
+DualGem_3                      BE_Time_BossHitWindow=1              BT_OnMagic
+DualGem_4                      BE_PlayerGetXP=100                   BT_OnMagic
+Gem3_4                         BE_PlayerElementalDefense            —
+GloryModeHitGem_1              BE_PlayerGetGold=100                 BT_OnGloryModeHit
+GloryModeHitGem_2              BE_PlayerGetXP=25                    BT_OnGloryModeHit
+GloryModeHitGem_3              BE_PlayerGetHealth=25                BT_OnGloryModeHit
+MagicGem                       —                                    —
+ParryChargeGem                 BE_PlayerGetDamageCharge=10          BT_OnParry
+ParryGem_1                     BE_PlayerGetHealth=25                BT_OnParry
+ParryGem_2                     BE_BossTakeDamage=25                 BT_OnParry
+PerfectParryGem_1              BE_PlayerGetHealth=100               BT_OnPerfectParry
+PerfectParryGem_2              BE_BossTakeDamage=100                BT_OnPerfectParry
+PoisonGem                      —                                    —
+Potion_UnlimitedDodge          BE_PlayerGetDodge=5                  —
+UberBossGem_3                  BE_BossStun=3.0                      BT_OnPerfectParry
+UberDodgeChargeGem             BE_PlayerGetDamageCharge=40          BT_OnDodge
+UberElementalAttackGem         —                                    —
+UberMagic_1                    BE_PlayerGetShield=10                BT_OnMagic
+UberMagic_2                    BE_PlayerGetHealth=100               BT_OnMagic
+UberParryChargeGem             BE_PlayerGetDamageCharge=10          BT_OnParry
+UberSwitchClass                BE_PlayerSwitchWeaponClass           BT_OnSuperMove
+
+## PotionType 3
+
+模板名                            BattleEffect                         BattleTrigger
+BonusComboGem_1                BE_PlayerGetShield=2                 BT_OnBonusCombo
+BonusComboGem_2                BE_PlayerGetHealth=20                BT_OnBonusCombo
+BonusComboGem_3                BE_PlayerGetGold=50                  BT_OnBonusCombo
+BonusComboGem_4                BE_PlayerGetXP=25                    BT_OnBonusCombo
+BonusComboGem_5                BE_PlayerGetSuperCharge=0.02         BT_OnBonusCombo
+BonusComboGem_6                BE_PlayerGetMagicCharge=0.02         BT_OnBonusCombo
+BreakBossForHealthGem_1        BE_PlayerGetHealth=10                BT_OnBossBreak
+BreakBossGetMagic_1            BE_PlayerGetMagicCharge=0.02         BT_OnBossBreak
+BreakBossGetSuper_1            BE_PlayerGetSuperCharge=0.02         BT_OnBossBreak
+BreakBossHitWindow_1           BE_BossHitWindow1Off=1               BT_OnBossBreak
+ComboGem_1                     BE_PlayerGetShield=2                 BT_OnCombo
+ComboGem_2                     BE_PlayerGetHealth=10                BT_OnCombo
+DualGem_2                      BE_PlayerGetGold=25                  BT_OnStab
+ElecGem                        —                                    —
+Gem3_3                         BE_PlayerElementalDefense            —
+Gem3_5                         BE_PlayerElementalDefense            —
+Gem3_8                         BE_PlayerElementalDefense            —
+LightGem                       —                                    —
+LightGem_1                     BE_PlayerGetHealth=100               BT_OnCombo5
+LightGem_2                     BE_PlayerGetGold=25                  BT_OnCombo4
+Potion_ShieldRegen             BE_PlayerGetShield=1                 —
+ShieldGem                      —                                    —
+Spawn_LargeGoldTouch           BE_World_TouchTreasureSpawn=10       BT_ImmediateUse
+Spawn_RandomIngredientTouch    BE_World_TouchTreasureSpawn=6        BT_ImmediateUse
+Spawn_RandomTouch              BE_World_TouchTreasureSpawn=0        BT_ImmediateUse
+Spawn_SmallGoldTouch           BE_World_TouchTreasureSpawn=8        BT_ImmediateUse
+WindGem                        —                                    —
+
+## PotionType 4
+
+模板名                            BattleEffect                         BattleTrigger
+AttackGem                      —                                    —
+FireGem                        —                                    —
+Gem3_1                         BE_PlayerElementalDefense            —
+HitGem_1                       BE_PlayerGetHealth=10                BT_OnHit
+LightGem_5                     BE_Time_BossAttackSpeedMod=0.90      BT_Passive
+LightGem_6                     BE_Time_BossAttackSpeedMod=0.80      BT_Passive
+Potion_BlockAll                BE_Time_AllBlocksValid=1             —
+Potion_DoubleXP                BE_World_XPPct=2.0                   —
+Potion_ParryAll                BE_Time_ParryAllAttacks=1            —
+ScratchGem_1                   BE_PlayerGetGold=10                  BT_OnScratch
+ScratchGem_2                   BE_PlayerGetHealth=10                BT_OnScratch
+SlashAttackGem                 BE_BossTakeDamage=10                 BT_On2HSlash
+StabAttackGem                  BE_BossTakeDamage=10                 BT_OnStab
+UberBossGem_1                  BE_Time_BossHitWindow=1              BT_Passive
+UberBossGem_2                  BE_Time_BossHitWindow=2              BT_Passive
+
+## 说明
+
+- **专用药剂模板**（`Potion_*`，8 个）就在上表内：HealthRegen(1) / ElementalDefense(1) / SecondChance(1) /
+  UnlimitedDodge(2) / ShieldRegen(3) / BlockAll(4) / DoubleXP(4) / ParryAll(4)。
+- 其余是**把宝石模板强制成药水形态**：显示名由本地化的生成模板拼出
+  （`StatPotionName=%type% 属性魔法` / `ElementalDamagePotionName=%type% 攻击魔法` /
+  `ElementalDefensePotionName=%type% 防御魔法` / `GenericPotion=%type% 魔法剂` / `PotionName=%type% %effect% 魔法`）。
+  例：`FireGem` 强制成药水后在游戏里显示为 **FIRE ATTACK POTION**（实测）。
+- **元素族可用的**：FireGem / IceGem / ElecGem / PoisonGem / LightGem / DarkGem / WaterGem / WindGem /
+  HealthGem / ShieldGem / MagicGem / AttackGem（基础族）与 UberElementalAttackGem（多元素）。
+  ⚠ Uber 级元素宝石（UberFireGem 等）**没有 PotionType，发不出来**。
+- 档位：`getfixedpotion <名> <n>` 里的 n 会写进 `GemTier`（实测 0 / 2 生效，显示数值随之变化）。
