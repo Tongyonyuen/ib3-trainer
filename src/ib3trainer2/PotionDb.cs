@@ -99,7 +99,17 @@ class PotionDb {
   public long ValueAt(PotionRow r, int tier, double pct) {
     if (r.TierVals == null || r.TierVals.Length == 0) return 0;
     if (tier < 1 || tier > r.TierVals.Length) return 0;
-    return (long)Math.Round((double)r.TierVals[tier - 1] * (1.0 + pct) * 10.0);
+    return Snap10((double)r.TierVals[tier - 1] * (1.0 + pct) * 10.0);
+  }
+
+  // ★ 游戏**显示**的数值收成 10 的整数倍（2026-10-10 实测推断）。
+  //   依据：作者的 DARK ATTACK POTION（DarkGem 档位2、pct 0.6052259206771851）——
+  //   精确算 25 × 1.6052 × 10 = **401.31**，而游戏里显示 **400**。
+  //   ⚠ 目前只有这一个非整数样本，"四舍五入到 10"与"截断到 10"都能解释它；
+  //     两者只在"个位 ≥5"的值上不同（如 405.0 会显示 410 还是 400）—— 待补样本后定死。
+  //   其它样本都是整数倍、不受影响：FireGem 档位0 = 10、档位5 = 2000、HealthRegen 档位5 = 12500。
+  static long Snap10(double v) {
+    return (long)(Math.Round(v / 10.0) * 10.0);
   }
 }
 
