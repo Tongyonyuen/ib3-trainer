@@ -27,6 +27,7 @@ partial class MainForm : Form {
 
   // ---- 数据库 ----
   public ItemDb Items = new ItemDb();
+  public PotionDb Potions = new PotionDb();   // 魔法剂模板（ib3_potions.csv: 只收带 PotionType 的）
 
   // ---- 冻结引擎 ----
   public class LockEntry {
@@ -123,13 +124,16 @@ partial class MainForm : Form {
     tabs.TabPages.Add(BuildTabGrowth());
     tabs.TabPages.Add(BuildTabScan());
     tabs.TabPages.Add(BuildTabGems());     // 宝石·背包（读背包 → 改 Tier/数值）
+    tabs.TabPages.Add(BuildTabPotions());  // 魔法剂（发放 + 说明；需带 exec 位的新版 upk）
     tabs.TabPages.Add(BuildTabSave());     // 存档导出/导入（.ib3save + 自动完整性校验）
     tabs.SelectedIndex = 0;
     SetBanner(0);
 
     Items.Load(ExeDir);
+    int pl = Potions.Load(ExeDir);
     int gl = GemDb.Load(Path.Combine(ExeDir, "ib3_gems.ini"));
-    Log("物品数据库 " + Items.Rows.Count + " 条 / 宝石公式 " + gl + " 条 / 地址簿 " + ac + " 条");
+    Log("物品数据库 " + Items.Rows.Count + " 条 / 魔法剂模板 " + pl + " 条 / 宝石公式 " + gl + " 条 / 地址簿 " + ac + " 条");
+    if (pl == 0) Log("⚠ 未找到 ib3_potions.csv（魔法剂页下拉会是空的）");
     if (Items.Rows.Count == 0) Log("⚠ 未找到 items.csv（应位于程序目录）");
     if (gl == 0) Log("⚠ 未找到 ib3_gems.ini");
     // 物品页分类填充（需在数据加载后）

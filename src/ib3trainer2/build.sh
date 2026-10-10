@@ -9,7 +9,7 @@
 set -e
 cd "$(dirname "$0")"
 CSC="C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe"
-SRC="Ib3Core.cs MemIO.cs GameConfig.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs GemDb.cs Launcher.cs Recipes.cs EngineCall.cs Ib3Trainer2.cs Tabs.Scan.cs Tabs.Combat.cs Tabs.Items.cs Tabs.Growth.cs Tabs.Gems.cs Tabs.Misc.cs Tabs.Save.cs BusyOverlay.cs AboutForm.cs WhatsNewForm.cs Update.cs UpdateForm.cs"
+SRC="Ib3Core.cs MemIO.cs GameConfig.cs I18n.cs Theme.cs Layout.cs Toast.cs ItemDb.cs PotionDb.cs GemDb.cs Launcher.cs Recipes.cs EngineCall.cs Ib3Trainer2.cs Tabs.Scan.cs Tabs.Combat.cs Tabs.Items.cs Tabs.Growth.cs Tabs.Gems.cs Tabs.Potions.cs Tabs.Misc.cs Tabs.Save.cs BusyOverlay.cs AboutForm.cs WhatsNewForm.cs Update.cs UpdateForm.cs"
 
 # ★ 新增 .cs 必须手工加进上面的 SRC（这里是写死的 csc 调用，没有 MSBuild 的 glob）。
 #   UpdateSelfTest.cs **故意不在 SRC 里** —— 它自带 Main，只在 updatetest 目标里编。

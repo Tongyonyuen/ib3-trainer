@@ -1,0 +1,91 @@
+模板名,分组,中文名,效果摘要,档位表
+Potion_HealthRegen,1,体力回复药剂,每 1.0s ｜ 体力+10,50/100/250/500/1000
+Potion_ShieldRegen,1,盾牌回复药剂,每 2.5s ｜ 护盾+1,3/6/10
+Potion_UnlimitedDodge,1,无限闪避药剂,每 0.5s ｜ 闪避+5,
+Potion_BlockAll,2,格挡全部药剂,常驻 ｜ 完全格挡+1,
+Potion_DoubleXP,2,双倍经验药剂,常驻 ｜ XP++2.0,
+Potion_ElementalDefense,2,元素防御药剂,常驻 ｜ 元素防御+100,
+Potion_ParryAll,2,完全招架药剂,常驻 ｜ 完全招架+1,
+Potion_SecondChance,2,复活术药剂,常驻 ｜ 复活术+1,
+AttackGem,3,,元素/基础属性（按档位提升）,5/10/25/50/100
+DarkGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+ElecGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+FireGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+HealthGem,3,,元素/基础属性（按档位提升）,5/10/15/25/40
+IceGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+LightGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+MagicGem,3,,元素/基础属性（按档位提升）,5/10/25/50/100
+PoisonGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+ShieldGem,3,,元素/基础属性（按档位提升）,3/6/10/20/40
+WaterGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+WindGem,3,,元素/基础属性（按档位提升）,5/25/50/100/200
+BlockChargeGem,4,,格挡 ｜ 攻击蓄力=10,20/50/80/150
+BlockGem_1,4,,格挡 ｜ 损伤=10,40/80/150/300/500
+BlockGem_2,4,,格挡 ｜ 体力=10,25/50/100/200/300
+BonusComboGem_1,4,,加成连击 ｜ 护盾=2,4/6/8/10/20
+BonusComboGem_2,4,,加成连击 ｜ 体力=20,40/80/200/350/500
+BonusComboGem_3,4,,加成连击 ｜ 金币=50,150/400
+BonusComboGem_4,4,,加成连击 ｜ 经验值=25,100/250
+BonusComboGem_5,4,,加成连击 ｜ 必杀蓄力=0.02,0.05
+BonusComboGem_6,4,,加成连击 ｜ 魔法蓄力=0.02,0.05
+BreakBossForHealthGem_1,4,,破击 ｜ 体力=10,25/50/100/250
+BreakBossGetMagic_1,4,,破击 ｜ 魔法蓄力=0.02,0.05
+BreakBossGetSuper_1,4,,破击 ｜ 必杀蓄力=0.02,0.05
+BreakBossHitWindow_1,4,,破击 ｜ 泰坦破击=1,2/3
+ComboGem_1,4,,连击 ｜ 护盾=2,4/6/8/10/20
+ComboGem_2,4,,连击 ｜ 体力=10,25/50/100/150/200
+DodgeChargeGem,4,,闪避 ｜ 攻击蓄力=10,20/50/80/150
+DragonFightGem_1,4,,被动技能 ｜ 巨龙=5,
+DualGem_1,4,,招架 ｜ 经验值=10,50/100/200
+DualGem_2,4,,突刺 ｜ 金币=25,50/100
+DualGem_3,4,,魔法 ｜ 泰坦破击=1,
+DualGem_4,4,,魔法 ｜ 经验值=100,250/500/1000
+FinalHitGem_1,4,,大强击 ｜ 损伤=50,200/500/1250
+FinalHitGem_2,4,,大强击 ｜ 体力=100,200/300/500/1000
+FinalHitGem_3,4,,大强击 ｜ 金币=75,150/300
+FinalHitGem_4,4,,大强击 ｜ 经验值=50,200/400
+FinalHitGem_5,4,,大强击 ｜ 魔法蓄力=0.02,0.05
+Gem3_1,4,,元素防御,
+Gem3_2,4,,元素防御,
+Gem3_3,4,,元素防御,
+Gem3_4,4,,元素防御,
+Gem3_5,4,,元素防御,
+Gem3_6,4,,元素防御,
+Gem3_7,4,,元素防御,
+Gem3_8,4,,元素防御,
+GloryModeHitGem_1,4,,终极一击 ｜ 金币=100,250/750
+GloryModeHitGem_2,4,,终极一击 ｜ 经验值=25,100/250
+GloryModeHitGem_3,4,,终极一击 ｜ 体力=25,50/100/200/400
+HitGem_1,4,,攻击 ｜ 体力=10,25/50/100/200
+LightGem_1,4,,5-连击 ｜ 体力=100,250/500/1000/2000/3000
+LightGem_2,4,,4-连击 ｜ 金币=25,50/100
+LightGem_5,4,,被动技能 ｜ 泰坦速度=0.90,
+LightGem_6,4,,被动技能 ｜ 泰坦速度=0.80,
+ParryChargeGem,4,,招架 ｜ 攻击蓄力=10,20/50/80/150
+ParryGem_1,4,,招架 ｜ 体力=25,50/100/200/300
+ParryGem_2,4,,招架 ｜ 损伤=25,50/100/200/400/800
+PerfectBlockGem_1,4,,完美格挡 ｜ 损伤=50,100/200/300/500/800
+PerfectBlockGem_2,4,,完美格挡 ｜ 体力=25,50/100/200/300/400
+PerfectParryGem_1,4,,完美招架 ｜ 体力=100,250/500/1000/2500
+PerfectParryGem_2,4,,完美招架 ｜ 损伤=100,250/500/1000/2500/5000
+ScratchGem_1,4,,刮擦 ｜ 金币=10,25/100
+ScratchGem_2,4,,刮擦 ｜ 体力=10,25/50/100/200/300
+SlashAttackGem,4,,砍劈 ｜ 损伤=10,25/50/100/200/400
+Spawn_LargeGoldTouch,4,,使用 ｜ 宝藏=10,
+Spawn_RandomIngredientTouch,4,,使用 ｜ 宝藏=6,
+Spawn_RandomTouch,4,,使用 ｜ 宝藏=0,
+Spawn_SmallGoldTouch,4,,使用 ｜ 宝藏=8,
+StabAttackGem,4,,突刺 ｜ 损伤=10,25/50/100/200/400
+UberBlockChargeGem,4,,格挡 ｜ 攻击蓄力=75,150/250/500/750
+UberBossGem_1,4,,被动技能 ｜ 泰坦破击=1,
+UberBossGem_2,4,,被动技能 ｜ 泰坦破击=2,
+UberBossGem_3,4,,完美招架 ｜ 击晕泰坦=3.0,
+UberDodgeChargeGem,4,,闪避 ｜ 攻击蓄力=40,100/200/400/1000
+UberElementalAttackGem,4,,,
+UberMagic_1,4,,魔法 ｜ 护盾=10,25/50/100
+UberMagic_2,4,,魔法 ｜ 体力=100,250/500/1000/2000
+UberParryChargeGem,4,,招架 ｜ 攻击蓄力=10,25/50/125/250
+UberSwitchClass,4,,必杀斩 ｜ 转换武器类型,
+UberTakeHitGem_1,4,,被击中 ｜ 转换武器类型,
+UberTakeHitGem_2,4,,被击中 ｜ 魔法蓄力=0.02,0.05
+UberTakeHitGem_3,4,,被击中 ｜ 必杀蓄力=0.02,0.05

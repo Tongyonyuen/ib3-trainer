@@ -430,6 +430,34 @@ static class I18n {
     d["配置里没有该宝石段"] = "gem section not in config";
     d["配置里没有该键"] = "key not in config";
     d["读不到配置"] = "cannot read config";
+
+    // ---- 魔法剂页 ----
+    // ★ 这一页的文案**常量定义在 Tabs.Potions.cs**（`MainForm.T_*` / `HintA/B` / `NotesText`），
+    //   这里直接拿常量当字典键 —— 免得中文原文要在两个文件里各抄一遍、抄错就对不上（T() 会静默回退中文）。
+    d[MainForm.T_Tab] = "Potions";
+    d[MainForm.T_GrantTitle] = "Grant potion (by name, straight to the bag)";
+    d[MainForm.T_Template] = "Template";
+    d[MainForm.T_Tier] = "Tier";
+    d[MainForm.T_Grant] = "Grant";
+    d[MainForm.T_Pick] = "Pick a template first";
+    d[MainForm.T_GrantDesc] = "Grant potion ";
+    d[MainForm.T_AboutTitle] = "About potions (measured facts)";
+    d[MainForm.HintA] =
+      "Only templates that CAN be granted as potions are listed (the 90 with PotionType). Others are silently ignored by the game.";
+    d[MainForm.HintB] =
+      "Tier 0 = template base value; 1+ uses the tier table. Switch a scene in-game to save; see the potion list in your bag.";
+    d[MainForm.NotesText] =
+      "① Elemental attack potions = an elemental gem forced into potion form. FireGem shows up as \"FIRE ATTACK POTION\";\n" +
+      "     value = tier-table value x(1+random bonus) x10. Tier 1 -> 5x1x10 = 50; tier 5 -> 200x1x10 = 2000.\n" +
+      "② Only 3 templates have the per-second repeat (a potion-only mechanic): Health Regen 1.0s / Shield Regen 2.5s /\n" +
+      "     Unlimited Dodge 0.5s. Gems have no such mechanic - they only fire on events (parry / block / dodge).\n" +
+      "③ Every other potion is just a gem effect in potion form, trigger included. e.g. ParryGem_1 (heal 25 on parry)\n" +
+      "     drunk as a potion = heal 25 on every parry for that battle.\n" +
+      "④ The icon comes from the template's PotionType (4 vial looks); it affects neither the effect nor the value.\n" +
+      "⑤ The potion list has a capacity (MaxPotionCount, default 10, raised by perks; measured 30 here).\n" +
+      "     When it is full, granting fails silently too - use a few potions in battle first.\n" +
+      "⑥ Uber elemental gems (UberFireGem / UberAttackGem ...) have NO PotionType and cannot be granted,\n" +
+      "     which is why they are not in the dropdown.";
     d["浏览器立即可用；发放按钮 = 无感注入（点即入包）。路由：宝石→刷商店；材料/药水→消耗品；藏宝图→钥匙；装备→未拥有才发。"] =
       "Browser is instant; grant buttons inject silently. Routing: gems→shop; materials/potions→consumables; maps→keys; gear→only if not owned.";
     d["附着游戏后金币/筹码会按真身结构自动绑定（跨存档自愈）；也可手动输入当前值扫描定位。"] =
